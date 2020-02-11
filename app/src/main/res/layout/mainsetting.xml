@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="#ffffff">
+
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="95dp"
+        app:elevation="0dp"
+        android:background="#1eb1fc" >
+
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:id="@+id/cancel"
+            android:src="@drawable/cancel"
+            android:layout_gravity="center_vertical"/>
+
+
+        <TextView
+            android:id="@+id/toolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:lineSpacingExtra="5sp"
+            android:text="설정"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+
+            />
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="62dp"
+        android:paddingStart="27dp"
+        android:textSize="20sp"
+        android:textColor="#2d3e51"
+        android:lineSpacingExtra="17sp"
+        android:id="@+id/mail"
+        android:gravity="center_vertical"
+        />
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:id="@+id/account"
+        android:background="#cccccc" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="58dp"
+            android:layout_marginStart="27dp"
+            android:gravity="center_vertical"
+            android:lineSpacingExtra="5sp"
+            android:text="계정 관리"
+            android:textSize="18sp"
+            />
+
+    </RelativeLayout>
+
+    <view
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="cccccc"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:id="@+id/profile" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="58dp"
+        android:layout_marginStart="27dp"
+        android:gravity="center_vertical"
+        android:lineSpacingExtra="5sp"
+        android:text="프로필 편집"
+        android:textSize="18sp"
+        />
+
+    </RelativeLayout>
+
+    <view
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="cccccc"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:id="@+id/logout" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="58dp"
+        android:lineSpacingExtra="5sp"
+        android:layout_marginStart="27dp"
+        android:text="로그아웃"
+        android:textSize="18sp"
+        android:gravity="center_vertical"
+        />
+
+
+    </RelativeLayout>
+
+    <view
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="cccccc"
+        />
+    
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="63dp"
+        android:paddingStart="27dp"
+        android:textSize="20dp"
+        android:textColor="#2d3e51"
+        android:lineSpacingExtra="5sp"
+        android:text="일반"
+        android:id="@+id/normal"
+        android:background="#eaf8ff"
+        android:gravity="center_vertical"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:lineSpacingExtra="5sp"
+        android:paddingStart="27dp"
+        android:text="기본 화면"
+        android:textSize="18sp"
+        android:background="#ffffff"
+        android:gravity="center_vertical"
+        android:id="@+id/screen"
+        />
+
+    <view
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="cccccc"
+        />
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/rl_timetale"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="58dp"
+        android:lineSpacingExtra="5sp"
+        android:paddingStart="27dp"
+        android:text="시간표 (주간)"
+        android:textSize="18sp"
+        android:background="#ffffff"
+        android:gravity="center_vertical"
+        />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="58dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="56dp"
+        android:id="@+id/cb_timetable"
+        android:background="#ffffff"
+        android:textColor="#2d3e51"
+        android:gravity="center_vertical"
+        android:checked="true"
+        />
+</RelativeLayout>
+
+    <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/rl_canlendar"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="58dp"
+        android:lineSpacingExtra="5sp"
+        android:paddingStart="27dp"
+        android:text="달력 (월간)"
+        android:textSize="18sp"
+        android:background="#ffffff"
+        android:gravity="center_vertical"
+        />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="58dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="56dp"
+        android:id="@+id/cb_calendar"
+        android:background="#ffffff"
+        android:textColor="#2d3e51"
+        android:gravity="center_vertical"
+        android:checked="false"
+        />
+</RelativeLayout>
+    <view
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="cccccc"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/push" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="58dp"
+        android:lineSpacingExtra="5sp"
+        android:layout_marginStart="27dp"
+        android:text="푸쉬 알람"
+        android:textSize="18sp"
+        android:gravity="center_vertical"
+        />
+
+    </RelativeLayout>
+
+    <view
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="cccccc"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/widget"
+        >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="58dp"
+        android:lineSpacingExtra="5sp"
+        android:layout_marginStart="27dp"
+        android:text="위젯 설정"
+        android:textSize="18sp"
+        android:gravity="center_vertical"
+        />
+
+    </RelativeLayout>
+
+    <view
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="cccccc"
+        />
+
+
+
+
+
+
+
+
+</LinearLayout>
