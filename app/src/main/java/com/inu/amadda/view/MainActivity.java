@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
         TimetableView timetable = findViewById(R.id.timetable);
         timetable.setHeaderHighlight(1);
 
+
         ArrayList<Schedule> schedules = new ArrayList<Schedule>();
 
         Schedule schedule = new Schedule();
@@ -49,6 +50,11 @@ public class MainActivity extends AppCompatActivity {
         schedule4.setDay(0);
         schedules.add(schedule4);
 
+        timetable.add(schedules);
+
+
+        ArrayList<Schedule> schedules1 = new ArrayList<Schedule>();
+
         Schedule schedule1 = new Schedule();
         schedule1.setClassTitle("Computer"); // sets subject
         schedule1.setClassPlace("IT-60221"); // sets place
@@ -56,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         schedule1.setStartTime(new Time(12,0)); // sets the beginning of class time (hour,minute)
         schedule1.setEndTime(new Time(13,45)); // sets the end of class time (hour,minute)
         schedule1.setDay(1);
-        schedules.add(schedule1);
+        schedules1.add(schedule1);
 
         Schedule schedule2 = new Schedule();
         schedule2.setClassTitle("Computer"); // sets subject
@@ -65,10 +71,32 @@ public class MainActivity extends AppCompatActivity {
         schedule2.setStartTime(new Time(12,0)); // sets the beginning of class time (hour,minute)
         schedule2.setEndTime(new Time(13,45)); // sets the end of class time (hour,minute)
         schedule2.setDay(2);
-        schedules.add(schedule2);
+        schedules1.add(schedule2);
+
+        timetable.add(schedules1);
 
 
-        timetable.add(schedules);
+        ArrayList<Schedule> schedules2 = new ArrayList<Schedule>();
+
+        Schedule schedule5 = new Schedule();
+        schedule5.setClassTitle("Computer"); // sets subject
+        schedule5.setClassPlace("IT-60221"); // sets place
+        schedule5.setProfessorName("Won Ki22m"); // sets professor
+        schedule5.setStartTime(new Time(14,30)); // sets the beginning of class time (hour,minute)
+        schedule5.setEndTime(new Time(16,50)); // sets the end of class time (hour,minute)
+        schedule5.setDay(2);
+        schedules2.add(schedule5);
+
+        Schedule schedule6 = new Schedule();
+        schedule6.setClassTitle("Computer"); // sets subject
+        schedule6.setClassPlace("IT-60221"); // sets place
+        schedule6.setProfessorName("Won Ki22m"); // sets professor
+        schedule6.setStartTime(new Time(12,0)); // sets the beginning of class time (hour,minute)
+        schedule6.setEndTime(new Time(13,45)); // sets the end of class time (hour,minute)
+        schedule6.setDay(3);
+        schedules2.add(schedule6);
+
+        timetable.add(schedules2);
 
     }
 }

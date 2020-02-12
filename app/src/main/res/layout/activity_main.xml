@@ -9,10 +9,6 @@
     <com.inu.amadda.view.TimetableView
         android:id="@+id/timetable"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#ffffff"
-        app:column_count="6"
-        app:row_count="15"
-        app:start_time="9" />
+        android:layout_height="match_parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

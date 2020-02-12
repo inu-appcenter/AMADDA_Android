@@ -33,15 +33,15 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 public class TimetableView extends LinearLayout {
-    private static final int DEFAULT_ROW_COUNT = 12;
+    private static final int DEFAULT_ROW_COUNT = 15;
     private static final int DEFAULT_COLUMN_COUNT = 6;
     private static final int DEFAULT_CELL_HEIGHT_DP = 50;
     private static final int DEFAULT_SIDE_CELL_WIDTH_DP = 30;
     private static final int DEFAULT_START_TIME = 9;
 
-    private static final int DEFAULT_SIDE_HEADER_FONT_SIZE_DP = 13;
-    private static final int DEFAULT_HEADER_FONT_SIZE_DP = 15;
-    private static final int DEFAULT_HEADER_HIGHLIGHT_FONT_SIZE_DP = 15;
+    private static final int DEFAULT_SIDE_HEADER_FONT_SIZE_DP = 12;
+    private static final int DEFAULT_HEADER_FONT_SIZE_DP = 12;
+    private static final int DEFAULT_HEADER_HIGHLIGHT_FONT_SIZE_DP = 12;
     private static final int DEFAULT_STICKER_FONT_SIZE_DP = 13;
 
 
@@ -231,9 +231,9 @@ public class TimetableView extends LinearLayout {
         View element = row.getChildAt(idx);
         if(highlightMode == HighlightMode.COLOR) {
             TextView tx = (TextView)element;
-            tx.setTextColor(Color.parseColor("#FFFFFF"));
+            tx.setTextColor(Color.parseColor("#6a6a6a"));
             tx.setBackgroundColor(headerHighlightColor);
-            tx.setTypeface(null, Typeface.BOLD);
+//            tx.setTypeface(null, Typeface.BOLD);
             tx.setTextSize(TypedValue.COMPLEX_UNIT_DIP, DEFAULT_HEADER_HIGHLIGHT_FONT_SIZE_DP);
         }
         else if(highlightMode == HighlightMode.IMAGE){
@@ -283,19 +283,22 @@ public class TimetableView extends LinearLayout {
 
             for (int k = 0; k < columnCount; k++) {
                 TextView tv = new TextView(context);
-                tv.setLayoutParams(createTableRowParam(cellHeight));
                 if (k == 0) {
-                    tv.setText(getHeaderTime(i));
-                    tv.setTextColor(getResources().getColor(R.color.colorHeaderText));
-                    tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, DEFAULT_SIDE_HEADER_FONT_SIZE_DP);
-                    tv.setBackgroundColor(getResources().getColor(R.color.colorHeader));
-                    tv.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL);
                     tv.setLayoutParams(createTableRowParam(sideCellWidth, cellHeight));
                 } else {
-                    tv.setText("");
-                    tv.setBackground(getResources().getDrawable(R.drawable.item_border));
-                    tv.setGravity(Gravity.RIGHT);
+                    tv.setLayoutParams(createTableRowParam(cellHeight));
                 }
+                tv.setTextColor(getResources().getColor(R.color.colorHeaderText));
+                tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, DEFAULT_SIDE_HEADER_FONT_SIZE_DP);
+                tv.setBackground(getResources().getDrawable(R.drawable.item_border));
+                if (k == 0){
+                    tv.setText(getHeaderTime(i));
+                } else {
+                    tv.setText("");
+                }
+                tv.setPadding(0, dp2Px(4),dp2Px(3), 0);
+                tv.setGravity(Gravity.END);
+
                 tableRow.addView(tv);
             }
             tableBox.addView(tableRow);
@@ -315,6 +318,7 @@ public class TimetableView extends LinearLayout {
             }
             tv.setTextColor(getResources().getColor(R.color.colorHeaderText));
             tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, DEFAULT_HEADER_FONT_SIZE_DP);
+            tv.setBackground(getResources().getDrawable(R.drawable.item_border));
             tv.setText(headerTitle[i]);
             tv.setGravity(Gravity.CENTER);
 
