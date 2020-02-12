@@ -1,20 +1,20 @@
 package com.inu.amadda.model;
 
-import android.widget.TextView;
+import android.widget.RelativeLayout;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Sticker implements Serializable {
-    private ArrayList<TextView> view;
+    private ArrayList<RelativeLayout> view;
     private ArrayList<Schedule> schedules;
 
     public Sticker() {
-        this.view = new ArrayList<TextView>();
+        this.view = new ArrayList<RelativeLayout>();
         this.schedules = new ArrayList<Schedule>();
     }
 
-    public void addTextView(TextView v){
+    public void addTextView(RelativeLayout v){
         view.add(v);
     }
 
@@ -22,7 +22,7 @@ public class Sticker implements Serializable {
         schedules.add(schedule);
     }
 
-    public ArrayList<TextView> getView() {
+    public ArrayList<RelativeLayout> getView() {
         return view;
     }
 

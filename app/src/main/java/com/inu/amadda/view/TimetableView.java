@@ -13,6 +13,7 @@ import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
@@ -41,7 +42,8 @@ public class TimetableView extends LinearLayout {
     private static final int DEFAULT_SIDE_HEADER_FONT_SIZE_DP = 12;
     private static final int DEFAULT_HEADER_FONT_SIZE_DP = 12;
     private static final int DEFAULT_HEADER_HIGHLIGHT_FONT_SIZE_DP = 12;
-    private static final int DEFAULT_STICKER_FONT_SIZE_DP = 13;
+    private static final int DEFAULT_STICKER_TITLE_FONT_SIZE_SP = 13;
+    private static final int DEFAULT_STICKER_PLACE_FONT_SIZE_SP = 11;
 
 
     private int rowCount;
@@ -150,17 +152,36 @@ public class TimetableView extends LinearLayout {
         final int count = specIdx < 0 ? ++stickerCount : specIdx;
         Sticker sticker = new Sticker();
         for (Schedule schedule : schedules) {
-            TextView tv = new TextView(context);
-
+            RelativeLayout rl = new RelativeLayout(context);
             RelativeLayout.LayoutParams param = createStickerParam(schedule);
-            tv.setLayoutParams(param);
-            tv.setPadding(10, 0, 10, 0);
-            tv.setText(schedule.getClassTitle() + "\n" + schedule.getClassPlace());
-            tv.setTextColor(Color.parseColor("#FFFFFF"));
-            tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, DEFAULT_STICKER_FONT_SIZE_DP);
-            tv.setTypeface(null, Typeface.BOLD);
+            rl.setLayoutParams(param);
 
-            tv.setOnClickListener(new OnClickListener() {
+            TextView tv_title = new TextView(context);
+            tv_title.setId(View.generateViewId());
+            RelativeLayout.LayoutParams titleParams = new RelativeLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT );
+            tv_title.setLayoutParams(titleParams);
+            titleParams.setMargins(dp2Px(4), dp2Px(5), dp2Px(4), 0);
+            tv_title.setText(schedule.getClassTitle());
+            tv_title.setTextColor(Color.parseColor("#FFFFFF"));
+            tv_title.setTextSize(TypedValue.COMPLEX_UNIT_SP, DEFAULT_STICKER_TITLE_FONT_SIZE_SP);
+            tv_title.setTypeface(null, Typeface.BOLD);
+
+            TextView tv_place = new TextView(context);
+            tv_place.setId(View.generateViewId());
+            RelativeLayout.LayoutParams placeParams = new RelativeLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT );
+            tv_place.setLayoutParams(placeParams);
+            placeParams.addRule(RelativeLayout.BELOW, tv_title.getId());
+            placeParams.setMargins(dp2Px(4), dp2Px(2), dp2Px(4), 0);
+            tv_place.setText(schedule.getClassPlace());
+            tv_place.setTextColor(Color.parseColor("#FFFFFF"));
+            tv_place.setTextSize(TypedValue.COMPLEX_UNIT_SP, DEFAULT_STICKER_PLACE_FONT_SIZE_SP);
+
+            rl.addView(tv_title);
+            rl.addView(tv_place);
+
+            rl.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if(stickerSelectedListener != null)
@@ -168,10 +189,10 @@ public class TimetableView extends LinearLayout {
                 }
             });
 
-            sticker.addTextView(tv);
+            sticker.addTextView(rl);
             sticker.addSchedule(schedule);
             stickers.put(count, sticker);
-            stickerBox.addView(tv);
+            stickerBox.addView(rl);
         }
         setStickerColor();
     }
@@ -196,8 +217,8 @@ public class TimetableView extends LinearLayout {
     public void removeAll() {
         for (int key : stickers.keySet()) {
             Sticker sticker = stickers.get(key);
-            for (TextView tv : sticker.getView()) {
-                stickerBox.removeView(tv);
+            for (RelativeLayout rl : sticker.getView()) {
+                stickerBox.removeView(rl);
             }
         }
         stickers.clear();
@@ -210,8 +231,8 @@ public class TimetableView extends LinearLayout {
 
     public void remove(int idx) {
         Sticker sticker = stickers.get(idx);
-        for (TextView tv : sticker.getView()) {
-            stickerBox.removeView(tv);
+        for (RelativeLayout rl : sticker.getView()) {
+            stickerBox.removeView(rl);
         }
         stickers.remove(idx);
         setStickerColor();
@@ -252,8 +273,8 @@ public class TimetableView extends LinearLayout {
         int colorSize = stickerColors.length;
 
         for (i = 0; i < size; i++) {
-            for (TextView v : stickers.get(orders[i]).getView()) {
-                v.setBackgroundColor(Color.parseColor(stickerColors[i % (colorSize)]));
+            for (RelativeLayout rl : stickers.get(orders[i]).getView()) {
+                rl.setBackgroundColor(Color.parseColor(stickerColors[i % (colorSize)]));
             }
         }
 
