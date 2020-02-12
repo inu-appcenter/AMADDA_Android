@@ -5,6 +5,7 @@
         <attr name="column_count" format="integer"/>
         <attr name="cell_height" format="dimension"/>
         <attr name="side_cell_width" format="dimension"/>
+        <attr name="header_cell_height" format="dimension"/>
         <attr name="header_title" format="reference"/>
         <attr name="sticker_colors" format="reference"/>
         <attr name="start_time" format="integer"/>

@@ -37,6 +37,7 @@ public class TimetableView extends LinearLayout {
     private static final int DEFAULT_COLUMN_COUNT = 6;
     private static final int DEFAULT_CELL_HEIGHT_DP = 50;
     private static final int DEFAULT_SIDE_CELL_WIDTH_DP = 30;
+    private static final int DEFAULT_HEADER_CELL_HEIGHT_DP = 34;
     private static final int DEFAULT_START_TIME = 9;
 
     private static final int DEFAULT_SIDE_HEADER_FONT_SIZE_DP = 12;
@@ -49,6 +50,7 @@ public class TimetableView extends LinearLayout {
     private int columnCount;
     private int cellHeight;
     private int sideCellWidth;
+    private int headerCellHeight;
     private String[] headerTitle;
     private String[] stickerColors;
     private int startTime;
@@ -91,6 +93,7 @@ public class TimetableView extends LinearLayout {
         columnCount = a.getInt(R.styleable.TimetableView_column_count, DEFAULT_COLUMN_COUNT);
         cellHeight = a.getDimensionPixelSize(R.styleable.TimetableView_cell_height, dp2Px(DEFAULT_CELL_HEIGHT_DP));
         sideCellWidth = a.getDimensionPixelSize(R.styleable.TimetableView_side_cell_width, dp2Px(DEFAULT_SIDE_CELL_WIDTH_DP));
+        headerCellHeight = a.getDimensionPixelSize(R.styleable.TimetableView_header_cell_height, dp2Px(DEFAULT_HEADER_CELL_HEIGHT_DP));
         int titlesId = a.getResourceId(R.styleable.TimetableView_header_title, R.array.default_header_title);
         headerTitle = a.getResources().getStringArray(titlesId);
         int colorsId = a.getResourceId(R.styleable.TimetableView_sticker_colors, R.array.default_sticker_color);
@@ -312,9 +315,9 @@ public class TimetableView extends LinearLayout {
         for (int i = 0; i < columnCount; i++) {
             TextView tv = new TextView(context);
             if (i == 0) {
-                tv.setLayoutParams(createTableRowParam(sideCellWidth, cellHeight));
+                tv.setLayoutParams(createTableRowParam(sideCellWidth, headerCellHeight));
             } else {
-                tv.setLayoutParams(createTableRowParam(cellHeight));
+                tv.setLayoutParams(createTableRowParam(headerCellHeight));
             }
             tv.setTextColor(getResources().getColor(R.color.colorHeaderText));
             tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, DEFAULT_HEADER_FONT_SIZE_DP);
@@ -386,6 +389,7 @@ public class TimetableView extends LinearLayout {
         this.columnCount = builder.columnCount;
         this.cellHeight = builder.cellHeight;
         this.sideCellWidth = builder.sideCellWidth;
+        this.headerCellHeight = builder.headerCellHeight;
         this.headerTitle = builder.headerTitle;
         this.stickerColors = builder.stickerColors;
         this.startTime = builder.startTime;
@@ -405,6 +409,7 @@ public class TimetableView extends LinearLayout {
         private int columnCount;
         private int cellHeight;
         private int sideCellWidth;
+        private int headerCellHeight;
         private String[] headerTitle;
         private String[] stickerColors;
         private int startTime;
@@ -416,6 +421,7 @@ public class TimetableView extends LinearLayout {
             columnCount = DEFAULT_COLUMN_COUNT;
             cellHeight = dp2Px(DEFAULT_CELL_HEIGHT_DP);
             sideCellWidth = dp2Px(DEFAULT_SIDE_CELL_WIDTH_DP);
+            headerCellHeight = dp2Px(DEFAULT_HEADER_CELL_HEIGHT_DP);
             headerTitle = context.getResources().getStringArray(R.array.default_header_title);
             stickerColors = context.getResources().getStringArray(R.array.default_sticker_color);
             startTime = DEFAULT_START_TIME;
@@ -439,6 +445,11 @@ public class TimetableView extends LinearLayout {
 
         public Builder setSideCellWidth(int dp) {
             this.sideCellWidth = dp2Px(dp);
+            return this;
+        }
+
+        public Builder setHeaderCellHeight(int dp) {
+            this.headerCellHeight = dp2Px(dp);
             return this;
         }
 
