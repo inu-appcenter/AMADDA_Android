@@ -15,6 +15,7 @@
         android:background="#1eb1fc" >
 
 
+
         <androidx.appcompat.widget.AppCompatImageButton
             android:layout_width="20dp"
             android:layout_height="20dp"
@@ -36,6 +37,7 @@
             />
 
 
+
     </com.google.android.material.appbar.AppBarLayout>
 
 
@@ -49,11 +51,12 @@
         android:lineSpacingExtra="17sp"
         android:id="@+id/mail"
         android:gravity="center_vertical"
+        android:lineHeight="29sp"
         />
     
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="58dp"
+        android:layout_height="wrap_content"
         android:id="@+id/account"
         android:background="#cccccc" >
 
@@ -62,9 +65,21 @@
             android:layout_height="58dp"
             android:layout_marginStart="27dp"
             android:gravity="center_vertical"
+            android:textColor="#2d3e51"
             android:lineSpacingExtra="5sp"
             android:text="계정 관리"
             android:textSize="18sp"
+            android:lineHeight="27sp"
+            />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="27dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/button"
+            android:layout_alignParentEnd="true"
+
             />
 
     </RelativeLayout>
@@ -79,7 +94,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="58dp"
+        android:layout_height="wrap_content"
         android:id="@+id/profile" >
 
     <TextView
@@ -90,7 +105,19 @@
         android:lineSpacingExtra="5sp"
         android:text="프로필 편집"
         android:textSize="18sp"
+        android:textColor="#2d3e51"
+        android:lineHeight="27sp"
         />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="27dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/button"
+            android:layout_alignParentEnd="true"
+
+            />
 
     </RelativeLayout>
 
@@ -104,7 +131,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="58dp"
+        android:layout_height="wrap_content"
         android:id="@+id/logout" >
 
     <TextView
@@ -115,7 +142,19 @@
         android:text="로그아웃"
         android:textSize="18sp"
         android:gravity="center_vertical"
+        android:textColor="#2d3e51"
+        android:lineHeight="27sp"
         />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="27dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/button"
+            android:layout_alignParentEnd="true"
+
+            />
 
 
     </RelativeLayout>
@@ -139,6 +178,7 @@
         android:id="@+id/normal"
         android:background="#eaf8ff"
         android:gravity="center_vertical"
+        android:lineHeight="29sp"
         />
 
     <TextView
@@ -151,6 +191,7 @@
         android:background="#ffffff"
         android:gravity="center_vertical"
         android:id="@+id/screen"
+        android:textColor="#2d3e51"
         />
 
     <view
@@ -169,18 +210,20 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="58dp"
+        android:layout_height="52dp"
         android:lineSpacingExtra="5sp"
         android:paddingStart="27dp"
         android:text="시간표 (주간)"
         android:textSize="18sp"
         android:background="#ffffff"
         android:gravity="center_vertical"
+        android:textColor="#707070"
+        android:lineHeight="26sp"
         />
 
     <CheckBox
         android:layout_width="wrap_content"
-        android:layout_height="58dp"
+        android:layout_height="52dp"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="56dp"
         android:id="@+id/cb_timetable"
@@ -199,18 +242,20 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="58dp"
+        android:layout_height="52dp"
         android:lineSpacingExtra="5sp"
         android:paddingStart="27dp"
         android:text="달력 (월간)"
         android:textSize="18sp"
         android:background="#ffffff"
         android:gravity="center_vertical"
+        android:textColor="#707070"
+        android:lineHeight="26sp"
         />
 
     <CheckBox
         android:layout_width="wrap_content"
-        android:layout_height="58dp"
+        android:layout_height="52dp"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="56dp"
         android:id="@+id/cb_calendar"
@@ -241,7 +286,19 @@
         android:text="푸쉬 알람"
         android:textSize="18sp"
         android:gravity="center_vertical"
+        android:textColor="#2d3e51"
+        android:lineHeight="27sp"
         />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="27dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/button"
+            android:layout_alignParentEnd="true"
+
+            />
 
     </RelativeLayout>
 
@@ -266,7 +323,19 @@
         android:text="위젯 설정"
         android:textSize="18sp"
         android:gravity="center_vertical"
+        android:textColor="#2d3e51"
+        android:lineHeight="27sp"
         />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="27dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/button"
+            android:layout_alignParentEnd="true"
+
+            />
 
     </RelativeLayout>
 
