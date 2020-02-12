@@ -18,7 +18,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         TimetableView timetable = findViewById(R.id.timetable);
-        timetable.setHeaderHighlight(1);
 
 
         ArrayList<Schedule> schedules = new ArrayList<Schedule>();
