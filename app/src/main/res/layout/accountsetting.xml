@@ -3,38 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#ffffff">
+    android:background="@color/color_ffffff">
 
-
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar"
-        android:layout_width="match_parent"
-        android:layout_height="95dp"
-        android:background="#1eb1fc" >
-
-
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:id="@+id/cancel"
-            android:src="@drawable/cancel"
-            android:layout_gravity="center_vertical"/>
-
-
-        <TextView
-            android:id="@+id/toolbar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:lineSpacingExtra="5sp"
-            android:text="설정"
-            android:textColor="#ffffff"
-            android:textSize="18sp"
-
-            />
-
-
-    </com.google.android.material.appbar.AppBarLayout>
+    <include
+        layout="@layout/toolbar"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -49,7 +21,7 @@
             android:lineSpacingExtra="5sp"
             android:text="이메일 변경"
             android:textSize="18sp"
-            android:textColor="#2d3e51"
+            android:textColor="@color/color_2d3e51"
             android:lineHeight="27sp"
             />
 
@@ -59,7 +31,7 @@
             android:layout_marginStart="40dp"
             android:layout_centerInParent="true"
             android:textSize="14dp"
-            android:textColor="#adadad"
+            android:textColor="@color/color_adadad"
             android:lineSpacingExtra="23sp"
             android:gravity="center"
             android:lineHeight="23sp"
@@ -77,12 +49,12 @@
 
     </RelativeLayout>
 
-    <view
+    <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:background="cccccc"
+        android:background="@color/color_cccccc"
         />
 
     <RelativeLayout
@@ -98,7 +70,7 @@
             android:lineSpacingExtra="5sp"
             android:text="비밀번호 변경"
             android:textSize="18sp"
-            android:textColor="#2d3e51"
+            android:textColor="@color/color_2d3e51"
             android:lineHeight="27sp"
             />
 
@@ -115,12 +87,12 @@
     </RelativeLayout>
 
 
-    <view
+    <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:background="cccccc"
+        android:background="@color/color_cccccc"
         />
 
 

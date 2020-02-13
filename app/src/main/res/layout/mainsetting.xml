@@ -4,50 +4,17 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="#ffffff">
+    android:background="@color/color_ffffff">
 
-
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar"
-        android:layout_width="match_parent"
-        android:layout_height="95dp"
-        app:elevation="0dp"
-        android:background="#1eb1fc" >
-
-
-
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:id="@+id/cancel"
-            android:src="@drawable/cancel"
-            android:layout_gravity="center_vertical"/>
-
-
-        <TextView
-            android:id="@+id/toolbar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:lineSpacingExtra="5sp"
-            android:text="설정"
-            android:textColor="#ffffff"
-            android:textSize="18sp"
-
-            />
-
-
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-
+    <include
+        layout="@layout/toolbar"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="62dp"
         android:paddingStart="27dp"
         android:textSize="20sp"
-        android:textColor="#2d3e51"
+        android:textColor="@color/color_2d3e51"
         android:lineSpacingExtra="17sp"
         android:id="@+id/mail"
         android:gravity="center_vertical"
@@ -58,14 +25,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/account"
-        android:background="#cccccc" >
+        android:background="@color/color_cccccc" >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="58dp"
             android:layout_marginStart="27dp"
             android:gravity="center_vertical"
-            android:textColor="#2d3e51"
+            android:textColor="@color/color_2d3e51"
             android:lineSpacingExtra="5sp"
             android:text="계정 관리"
             android:textSize="18sp"
@@ -84,12 +51,12 @@
 
     </RelativeLayout>
 
-    <view
+    <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:background="cccccc"
+        android:background="@color/color_cccccc"
         />
 
     <RelativeLayout
@@ -105,7 +72,7 @@
         android:lineSpacingExtra="5sp"
         android:text="프로필 편집"
         android:textSize="18sp"
-        android:textColor="#2d3e51"
+        android:textColor="@color/color_2d3e51"
         android:lineHeight="27sp"
         />
 
@@ -121,12 +88,12 @@
 
     </RelativeLayout>
 
-    <view
+    <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:background="cccccc"
+        android:background="@color/color_cccccc"
         />
 
     <RelativeLayout
@@ -142,7 +109,7 @@
         android:text="로그아웃"
         android:textSize="18sp"
         android:gravity="center_vertical"
-        android:textColor="#2d3e51"
+        android:textColor="@color/color_2d3e51"
         android:lineHeight="27sp"
         />
 
@@ -159,12 +126,12 @@
 
     </RelativeLayout>
 
-    <view
+    <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:background="cccccc"
+        android:background="@color/color_cccccc"
         />
     
     <TextView
@@ -172,11 +139,11 @@
         android:layout_height="63dp"
         android:paddingStart="27dp"
         android:textSize="20dp"
-        android:textColor="#2d3e51"
+        android:textColor="@color/color_2d3e51"
         android:lineSpacingExtra="5sp"
         android:text="일반"
         android:id="@+id/normal"
-        android:background="#eaf8ff"
+        android:background="@color/color_eaf8ff"
         android:gravity="center_vertical"
         android:lineHeight="29sp"
         />
@@ -188,18 +155,18 @@
         android:paddingStart="27dp"
         android:text="기본 화면"
         android:textSize="18sp"
-        android:background="#ffffff"
+        android:background="@color/color_ffffff"
         android:gravity="center_vertical"
         android:id="@+id/screen"
-        android:textColor="#2d3e51"
+        android:textColor="@color/color_2d3e51"
         />
 
-    <view
+    <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:background="cccccc"
+        android:background="@color/color_cccccc"
         />
 
 <RelativeLayout
@@ -215,9 +182,9 @@
         android:paddingStart="27dp"
         android:text="시간표 (주간)"
         android:textSize="18sp"
-        android:background="#ffffff"
+        android:background="@color/color_ffffff"
         android:gravity="center_vertical"
-        android:textColor="#707070"
+        android:textColor="@color/color_707070"
         android:lineHeight="26sp"
         />
 
@@ -227,8 +194,8 @@
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="56dp"
         android:id="@+id/cb_timetable"
-        android:background="#ffffff"
-        android:textColor="#2d3e51"
+        android:background="@color/color_ffffff"
+        android:textColor="@color/color_2d3e51"
         android:gravity="center_vertical"
         android:checked="true"
         />
@@ -237,7 +204,7 @@
     <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/rl_canlendar"
+    android:id="@+id/rl_calendar"
     >
 
     <TextView
@@ -247,9 +214,9 @@
         android:paddingStart="27dp"
         android:text="달력 (월간)"
         android:textSize="18sp"
-        android:background="#ffffff"
+        android:background="@color/color_ffffff"
         android:gravity="center_vertical"
-        android:textColor="#707070"
+        android:textColor="@color/color_707070"
         android:lineHeight="26sp"
         />
 
@@ -259,18 +226,18 @@
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="56dp"
         android:id="@+id/cb_calendar"
-        android:background="#ffffff"
-        android:textColor="#2d3e51"
+        android:background="@color/color_ffffff"
+        android:textColor="@color/color_2d3e51"
         android:gravity="center_vertical"
         android:checked="false"
         />
 </RelativeLayout>
-    <view
+    <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:background="cccccc"
+        android:background="@color/color_cccccc"
         />
 
     <RelativeLayout
@@ -286,7 +253,7 @@
         android:text="푸쉬 알람"
         android:textSize="18sp"
         android:gravity="center_vertical"
-        android:textColor="#2d3e51"
+        android:textColor="@color/color_2d3e51"
         android:lineHeight="27sp"
         />
 
@@ -302,12 +269,12 @@
 
     </RelativeLayout>
 
-    <view
+    <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:background="cccccc"
+        android:background="@color/color_cccccc"
         />
 
     <RelativeLayout
@@ -323,7 +290,7 @@
         android:text="위젯 설정"
         android:textSize="18sp"
         android:gravity="center_vertical"
-        android:textColor="#2d3e51"
+        android:textColor="@color/color_2d3e51"
         android:lineHeight="27sp"
         />
 
@@ -339,19 +306,12 @@
 
     </RelativeLayout>
 
-    <view
+    <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:background="cccccc"
+        android:background="@color/color_cccccc"
         />
-
-
-
-
-
-
-
 
 </LinearLayout>
