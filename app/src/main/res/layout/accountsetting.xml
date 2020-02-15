@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="27dp"
             android:layout_centerVertical="true"
-            android:src="@drawable/button"
+            android:src="@drawable/next"
             android:layout_alignParentEnd="true"
             android:id="@+id/button"
             />
@@ -76,7 +76,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="27dp"
             android:layout_centerVertical="true"
-            android:src="@drawable/button"
+            android:src="@drawable/next"
             android:layout_alignParentEnd="true"
 
             />
