@@ -11,4 +11,20 @@
     <color name="color_eaf8ff">#eaf8ff</color>
     <color name="color_707070">#707070</color>
     <color name="color_804a484a">#804a484a</color>
+
+    <color name="colorHeader">#fcfcfc</color>
+    <color name="colorHeaderText">#6a6a6a</color>
+    <color name="colorTableItem">#efefef</color>
+
+    <string-array name="default_sticker_color">
+        <item>#89adbf</item>
+        <item>#466d81</item>
+        <item>#6691a7</item>
+    </string-array>
+
+    <color name="default_side_header_font_color">#6a6a6a</color>
+    <color name="default_header_font_color">#6a6a6a</color>
+    <color name="default_header_highlight_color">#1a1eb1fc</color>
+    <color name="default_sticker_font_color">#ffffff</color>
+
 </resources>
