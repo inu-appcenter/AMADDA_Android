@@ -11,40 +11,38 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/mail_setting" >
+        android:id="@+id/mail_setting"
+        android:background="?android:selectableItemBackground">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="58dp"
             android:layout_marginStart="27dp"
             android:gravity="center_vertical"
-            android:lineSpacingExtra="5sp"
             android:text="이메일 변경"
             android:textSize="18sp"
             android:textColor="@color/color_2d3e51"
-            android:lineHeight="27sp"
             />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="58dp"
-            android:layout_marginStart="40dp"
-            android:layout_centerInParent="true"
-            android:textSize="14dp"
+            android:layout_marginEnd="16dp"
+            android:layout_toStartOf="@id/button"
+            android:textSize="14sp"
             android:textColor="@color/color_adadad"
-            android:lineSpacingExtra="23sp"
             android:gravity="center"
-            android:lineHeight="23sp"
+            android:text="nalla5013@gmail.com"
             />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="27dp"
-            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
             android:src="@drawable/button"
             android:layout_alignParentEnd="true"
-
+            android:id="@+id/button"
             />
 
     </RelativeLayout>
@@ -60,25 +58,24 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/pwd_setting" >
+        android:id="@+id/pwd_setting"
+        android:background="?android:selectableItemBackground" >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="58dp"
             android:layout_marginStart="27dp"
             android:gravity="center_vertical"
-            android:lineSpacingExtra="5sp"
             android:text="비밀번호 변경"
             android:textSize="18sp"
             android:textColor="@color/color_2d3e51"
-            android:lineHeight="27sp"
             />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="27dp"
-            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
             android:src="@drawable/button"
             android:layout_alignParentEnd="true"
 

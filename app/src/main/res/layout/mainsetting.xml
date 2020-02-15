@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/color_ffffff">
 
@@ -15,17 +14,18 @@
         android:paddingStart="27dp"
         android:textSize="20sp"
         android:textColor="@color/color_2d3e51"
-        android:lineSpacingExtra="17sp"
         android:id="@+id/mail"
         android:gravity="center_vertical"
-        android:lineHeight="29sp"
+        android:background="@color/color_eaf8ff"
+        android:textStyle="bold"
+        android:text="nalla5013@gmail.com"
         />
     
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/account"
-        android:background="@color/color_cccccc" >
+        android:background="?android:selectableItemBackground">
 
         <TextView
             android:layout_width="wrap_content"
@@ -33,17 +33,15 @@
             android:layout_marginStart="27dp"
             android:gravity="center_vertical"
             android:textColor="@color/color_2d3e51"
-            android:lineSpacingExtra="5sp"
             android:text="계정 관리"
             android:textSize="18sp"
-            android:lineHeight="27sp"
             />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="27dp"
-            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
             android:src="@drawable/button"
             android:layout_alignParentEnd="true"
 
@@ -62,25 +60,24 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/profile" >
+        android:id="@+id/profile"
+        android:background="?android:selectableItemBackground">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="58dp"
         android:layout_marginStart="27dp"
         android:gravity="center_vertical"
-        android:lineSpacingExtra="5sp"
         android:text="프로필 편집"
         android:textSize="18sp"
         android:textColor="@color/color_2d3e51"
-        android:lineHeight="27sp"
         />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="27dp"
-            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
             android:src="@drawable/button"
             android:layout_alignParentEnd="true"
 
@@ -99,25 +96,24 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/logout" >
+        android:id="@+id/logout"
+        android:background="?android:selectableItemBackground">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="58dp"
-        android:lineSpacingExtra="5sp"
         android:layout_marginStart="27dp"
         android:text="로그아웃"
         android:textSize="18sp"
         android:gravity="center_vertical"
         android:textColor="@color/color_2d3e51"
-        android:lineHeight="27sp"
         />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="27dp"
-            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
             android:src="@drawable/button"
             android:layout_alignParentEnd="true"
 
@@ -138,24 +134,21 @@
         android:layout_width="match_parent"
         android:layout_height="63dp"
         android:paddingStart="27dp"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textColor="@color/color_2d3e51"
-        android:lineSpacingExtra="5sp"
         android:text="일반"
         android:id="@+id/normal"
         android:background="@color/color_eaf8ff"
         android:gravity="center_vertical"
-        android:lineHeight="29sp"
+        android:textStyle="bold"
         />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="58dp"
-        android:lineSpacingExtra="5sp"
         android:paddingStart="27dp"
         android:text="기본 화면"
         android:textSize="18sp"
-        android:background="@color/color_ffffff"
         android:gravity="center_vertical"
         android:id="@+id/screen"
         android:textColor="@color/color_2d3e51"
@@ -178,14 +171,11 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="52dp"
-        android:lineSpacingExtra="5sp"
-        android:paddingStart="27dp"
+        android:layout_marginStart="27dp"
         android:text="시간표 (주간)"
         android:textSize="18sp"
-        android:background="@color/color_ffffff"
         android:gravity="center_vertical"
         android:textColor="@color/color_707070"
-        android:lineHeight="26sp"
         />
 
     <CheckBox
@@ -194,8 +184,6 @@
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="56dp"
         android:id="@+id/cb_timetable"
-        android:background="@color/color_ffffff"
-        android:textColor="@color/color_2d3e51"
         android:gravity="center_vertical"
         android:checked="true"
         />
@@ -210,14 +198,11 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="52dp"
-        android:lineSpacingExtra="5sp"
-        android:paddingStart="27dp"
+        android:layout_marginStart="27dp"
         android:text="달력 (월간)"
         android:textSize="18sp"
-        android:background="@color/color_ffffff"
         android:gravity="center_vertical"
         android:textColor="@color/color_707070"
-        android:lineHeight="26sp"
         />
 
     <CheckBox
@@ -226,8 +211,6 @@
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="56dp"
         android:id="@+id/cb_calendar"
-        android:background="@color/color_ffffff"
-        android:textColor="@color/color_2d3e51"
         android:gravity="center_vertical"
         android:checked="false"
         />
@@ -243,25 +226,24 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/push" >
+        android:id="@+id/push"
+        android:background="?android:selectableItemBackground">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="58dp"
-        android:lineSpacingExtra="5sp"
         android:layout_marginStart="27dp"
         android:text="푸쉬 알람"
         android:textSize="18sp"
         android:gravity="center_vertical"
         android:textColor="@color/color_2d3e51"
-        android:lineHeight="27sp"
         />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="27dp"
-            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
             android:src="@drawable/button"
             android:layout_alignParentEnd="true"
 
@@ -281,24 +263,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/widget"
-        >
+        android:background="?android:selectableItemBackground">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="58dp"
-        android:lineSpacingExtra="5sp"
         android:layout_marginStart="27dp"
         android:text="위젯 설정"
         android:textSize="18sp"
         android:gravity="center_vertical"
         android:textColor="@color/color_2d3e51"
-        android:lineHeight="27sp"
         />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="27dp"
-            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
             android:src="@drawable/button"
             android:layout_alignParentEnd="true"
 

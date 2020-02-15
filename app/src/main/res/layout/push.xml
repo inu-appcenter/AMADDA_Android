@@ -17,11 +17,9 @@
             android:layout_height="58dp"
             android:layout_marginStart="27dp"
             android:gravity="center_vertical"
-            android:lineSpacingExtra="5sp"
             android:text="일정"
             android:textSize="18sp"
             android:textColor="@color/color_2d3e51"
-            android:lineHeight="27sp"
             />
 
 
@@ -32,7 +30,7 @@
             android:thumbTint="@color/color_804a484a"
             android:layout_marginEnd="31dp"
             android:layout_alignParentEnd="true"
-            android:layout_centerInParent="true"/>
+            android:layout_centerVertical="true"/>
 
     </RelativeLayout>
 
@@ -55,11 +53,9 @@
             android:layout_height="58dp"
             android:layout_marginStart="27dp"
             android:gravity="center_vertical"
-            android:lineSpacingExtra="5sp"
             android:text="초대 받기"
             android:textSize="18sp"
             android:textColor="@color/color_2d3e51"
-            android:lineHeight="27sp"
             />
 
 
@@ -70,7 +66,7 @@
             android:thumbTint="@color/color_804a484a"
             android:layout_marginEnd="31dp"
             android:layout_alignParentEnd="true"
-            android:layout_centerInParent="true"/>
+            android:layout_centerVertical="true"/>
 
     </RelativeLayout>
 

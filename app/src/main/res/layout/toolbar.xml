@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
-    android:layout_height="?actionBarSize"
+    android:layout_height="60dp"
     android:background="@color/color_1eb1fc"
     app:contentInsetStart="0dp"
     app:contentInsetEnd="0dp">
@@ -25,7 +25,8 @@
         android:lineSpacingExtra="5sp"
         android:text="설정"
         android:textColor="@color/color_ffffff"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:textStyle="bold"/>
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/toolbar_right_btn"
