@@ -12,7 +12,6 @@
         android:id="@+id/toolbar_left_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/cancel"
         android:background="@android:color/transparent"
         android:padding="6dp"
         android:layout_marginStart="18dp"/>
@@ -22,20 +21,32 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:lineSpacingExtra="5sp"
-        android:text="설정"
         android:textColor="@color/color_ffffff"
         android:textSize="18sp"
         android:textStyle="bold"/>
 
-    <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/toolbar_right_btn"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/cancel"
-        android:background="@android:color/transparent"
+        android:orientation="horizontal"
         android:layout_gravity="end"
         android:padding="6dp"
-        android:layout_marginEnd="18dp"/>
+        android:layout_marginEnd="18dp">
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/toolbar_right_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"/>
+
+        <TextView
+            android:id="@+id/toolbar_right_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_ffffff"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
 
 </androidx.appcompat.widget.Toolbar>
