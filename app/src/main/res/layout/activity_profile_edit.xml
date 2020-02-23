@@ -9,26 +9,24 @@
         layout="@layout/toolbar" />
 
     <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/edit_profile"
         android:layout_gravity="center"
         android:layout_marginTop="67dp"
-        android:layout_marginBottom="44dp"
-        />
+        android:layout_marginBottom="44dp"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:background="@color/color_cccccc"
-        />
+        android:background="@color/color_cccccc"/>
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="?android:selectableItemBackground" >
+        android:layout_height="wrap_content">
 
         <TextView
             android:layout_width="wrap_content"
@@ -51,21 +49,17 @@
             android:hint="홍길동"
             android:id="@+id/name"
             android:backgroundTint="@color/color_ffffff"
+            android:inputType="text"/>
 
+            <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="27dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/erase"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/erase_name"
             />
-
-        <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="27dp"
-        android:layout_centerVertical="true"
-        android:src="@drawable/erase"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/erase_name"
-        />
-
-
-
 
     </RelativeLayout>
 
@@ -79,8 +73,7 @@
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="?android:selectableItemBackground" >
+        android:layout_height="wrap_content">
 
         <TextView
             android:layout_width="wrap_content"
@@ -103,8 +96,7 @@
             android:hint="디자인학부"
             android:id="@+id/major"
             android:backgroundTint="@color/color_ffffff"
-
-            />
+            android:inputType="text"/>
 
         <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="wrap_content"
@@ -113,13 +105,11 @@
         android:layout_centerVertical="true"
         android:src="@drawable/erase"
         android:layout_alignParentEnd="true"
-        android:id="@+id/erase_ㅡmajor"
+        android:id="@+id/erase_major"
         />
 
-
-
-
     </RelativeLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -127,4 +117,5 @@
         android:layout_marginEnd="20dp"
         android:background="@color/color_cccccc"
         />
+
 </LinearLayout>
