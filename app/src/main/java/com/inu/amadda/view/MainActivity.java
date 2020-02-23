@@ -1,12 +1,16 @@
 package com.inu.amadda.view;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.inu.amadda.R;
 import com.inu.amadda.model.Schedule;
 import com.inu.amadda.model.Time;
+import com.inu.amadda.util.TodayDate;
 
 import java.util.ArrayList;
 
@@ -16,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        setToolbar();
 
         TimetableView timetable = findViewById(R.id.timetable);
 
@@ -79,5 +85,19 @@ public class MainActivity extends AppCompatActivity {
 
         timetable.add(schedules2);
 
+    }
+
+    private void setToolbar() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        AppCompatImageButton left_btn = toolbar.findViewById(R.id.toolbar_left_btn);
+        left_btn.setImageResource(R.drawable.side_menu);
+        AppCompatImageButton right_btn = toolbar.findViewById(R.id.toolbar_right_image);
+        right_btn.setImageResource(R.drawable.calendar);
+
+        TextView title = toolbar.findViewById(R.id.toolbar_title);
+        title.setText(TodayDate.getToday());
     }
 }

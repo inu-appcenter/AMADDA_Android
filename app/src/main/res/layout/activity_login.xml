@@ -2,24 +2,122 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/color_ffffff">
 
     <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/icon_login"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/text1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-
-            />
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintVertical_bias="0.2"/>
 
     <TextView
+        android:id="@+id/text1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        />
+        android:text="반갑습니다!"
+        android:textStyle="bold"
+        android:textSize="32sp"
+        android:textColor="@color/colorAccent"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/text2"/>
 
+    <TextView
+        android:id="@+id/text2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="지금 바로 로그인하시고\n아마따 캘린더를 이용해보세요!"
+        android:textSize="16sp"
+        android:lineSpacingExtra="6sp"
+        android:textColor="@color/default_side_header_font_color"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/text1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <EditText
+        android:id="@+id/et_id"
+        android:layout_width="256dp"
+        android:layout_height="48dp"
+        android:background="@drawable/background_login_box"
+        android:drawableStart="@drawable/email"
+        android:paddingStart="16dp"
+        android:drawablePadding="19dp"
+        android:hint="E-mail"
+        android:textColor="@color/color_47545e"
+        android:textSize="16sp"
+        android:inputType="textEmailAddress"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/et_password"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintVertical_bias="0.56"/>
+
+    <EditText
+        android:id="@+id/et_password"
+        android:layout_width="256dp"
+        android:layout_height="48dp"
+        android:background="@drawable/background_login_box"
+        android:drawableStart="@drawable/password"
+        android:paddingStart="17dp"
+        android:drawablePadding="20dp"
+        android:hint="Password"
+        android:textColor="@color/color_47545e"
+        android:textSize="16sp"
+        android:layout_marginTop="10dp"
+        android:inputType="textPassword"
+        app:layout_constraintTop_toBottomOf="@+id/et_id"
+        app:layout_constraintBottom_toTopOf="@id/text3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/text3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="* 앱센터 통합 회원 계정을 입력해주세요"
+        android:textColor="@color/color_1eb1fc"
+        android:textSize="11sp"
+        android:layout_marginTop="6dp"
+        app:layout_constraintTop_toBottomOf="@id/et_password"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/et_password" />
+
+    <ImageButton
+        android:id="@+id/btn_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/login_button"
+        android:background="@android:color/transparent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btn_join"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintVertical_bias="0.85"/>
+
+    <ImageButton
+        android:id="@+id/btn_join"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/join_button"
+        android:background="@android:color/transparent"
+        android:layout_marginTop="14dp"
+        app:layout_constraintTop_toBottomOf="@+id/btn_login"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
