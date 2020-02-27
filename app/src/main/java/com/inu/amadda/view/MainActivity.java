@@ -5,8 +5,13 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.inu.amadda.R;
 import com.inu.amadda.model.Schedule;
 import com.inu.amadda.model.Time;
@@ -16,12 +21,17 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    private FloatingActionButton fab;
+    private Animation rotate_forward, rotate_backward;
+    private PopupMenu popup;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         setToolbar();
+        setFloatingActionButton();
 
         TimetableView timetable = findViewById(R.id.timetable);
 
@@ -100,4 +110,51 @@ public class MainActivity extends AppCompatActivity {
         TextView title = toolbar.findViewById(R.id.toolbar_title);
         title.setText(TodayDate.getToday());
     }
+
+    private void setFloatingActionButton() {
+        fab = findViewById(R.id.fab_add_schedule);
+        rotate_forward = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate_forward);
+        rotate_backward = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate_backward);
+        fab.setOnClickListener(onClickListener);
+    }
+
+    private void setPopupMenu(View view) {
+        popup = new PopupMenu(this, view);
+        popup.inflate(R.menu.menu_add_schedule);
+        popup.setOnMenuItemClickListener(onMenuItemClickListener);
+        popup.setOnDismissListener(onDismissListener);
+    }
+
+    View.OnClickListener onClickListener = view -> {
+        switch (view.getId()){
+            case R.id.fab_add_schedule:{
+                if (popup == null)
+                    setPopupMenu(view);
+                fab.startAnimation(rotate_forward);
+                popup.show();
+                break;
+            }
+        }
+    };
+
+    PopupMenu.OnMenuItemClickListener onMenuItemClickListener = menuItem -> {
+        switch (menuItem.getItemId()) {
+            case R.id.add_class:
+
+                return true;
+            case R.id.personal_schedule:
+
+                return true;
+            case R.id.shared_schedule:
+
+                return true;
+            default:
+                return false;
+        }
+    };
+
+    PopupMenu.OnDismissListener onDismissListener = popupMenu -> {
+        fab.startAnimation(rotate_backward);
+    };
+
 }
