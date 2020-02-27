@@ -14,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.inu.amadda.R;
 import com.inu.amadda.model.LoginResponse;
 import com.inu.amadda.network.RetrofitInstance;
+import com.inu.amadda.etc.Constant;
+import com.inu.amadda.util.PreferenceManager;
 
 import java.util.HashMap;
 
@@ -61,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     };
 
-    public void requestLogin(String id, String pw){
+    private void requestLogin(String id, String pw){
         HashMap<String, String> map = new HashMap<>();
         map.put("id", id);
         map.put("passwd", pw);
@@ -74,7 +76,6 @@ public class LoginActivity extends AppCompatActivity {
                     LoginResponse loginResponse = response.body();
                     if (loginResponse != null) {
                         if (loginResponse.success.equals("true")) {
-                            Log.d("LoginActivity", loginResponse.token);
                             saveUserInfo(id, pw, loginResponse.token);
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
@@ -107,6 +108,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void saveUserInfo(String id, String pw, String token){
-
+        PreferenceManager.getInstance().putSharedPreference(getApplicationContext(), Constant.Preference.ID, id);
+        PreferenceManager.getInstance().putSharedPreference(getApplicationContext(), Constant.Preference.PASSWORD, pw);
+        PreferenceManager.getInstance().putSharedPreference(getApplicationContext(), Constant.Preference.TOKEN, token);
+        Log.d("LoginActivity", token);
     }
 }
