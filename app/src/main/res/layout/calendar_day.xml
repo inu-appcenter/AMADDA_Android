@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_calendar_day"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textSize="15sp"
+        android:textColor="@color/colorAccent"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_cccccc"/>
+
+    <View
+        android:id="@+id/view_index"
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/tv_today"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:textSize="15sp"
+        android:textColor="@color/color_ffffff"
+        android:background="@drawable/background_today_circle"
+        android:visibility="gone"/>
+
+</RelativeLayout>

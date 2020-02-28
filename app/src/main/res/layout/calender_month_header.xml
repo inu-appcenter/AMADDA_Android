@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/calendarMonthText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginBottom="36dp"
+        android:textSize="28sp"
+        android:textColor="@color/colorAccent"
+        android:textStyle="bold"/>
+
+    <LinearLayout
+        android:id="@+id/legendLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_marginBottom="22dp">
+
+        <TextView
+            android:id="@+id/legendText1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="일"
+            android:textStyle="bold"
+            android:textColor="@color/color_ff0000"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/legendText2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="월"
+            android:textStyle="bold"
+            android:textColor="@color/color_000000"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/legendText3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="화"
+            android:textStyle="bold"
+            android:textColor="@color/color_000000"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/legendText4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="수"
+            android:textStyle="bold"
+            android:textColor="@color/color_000000"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/legendText5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="목"
+            android:textStyle="bold"
+            android:textColor="@color/color_000000"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/legendText6"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="금"
+            android:textStyle="bold"
+            android:textColor="@color/color_000000"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/legendText7"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="토"
+            android:textStyle="bold"
+            android:textColor="@color/color_000000"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+</LinearLayout>
