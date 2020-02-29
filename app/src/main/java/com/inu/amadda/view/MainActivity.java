@@ -26,13 +26,13 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton fab;
     private Animation rotate_forward, rotate_backward;
     private PopupMenu popup;
-    DrawerLayout drawerLayout;
-
+    private DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         drawerLayout = findViewById(R.id.drawer_layout);
 
         setToolbar();
@@ -122,8 +122,6 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-
-
     PopupMenu.OnMenuItemClickListener onMenuItemClickListener = menuItem -> {
         switch (menuItem.getItemId()) {
             case R.id.add_class:
@@ -140,8 +138,14 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    PopupMenu.OnDismissListener onDismissListener = popupMenu -> {
-        fab.startAnimation(rotate_backward);
-    };
+    PopupMenu.OnDismissListener onDismissListener = popupMenu -> fab.startAnimation(rotate_backward);
 
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
 }

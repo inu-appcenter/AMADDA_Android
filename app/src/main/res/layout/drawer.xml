@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="300dp"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/color_ffffff">
@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/drawer_major"
                 android:text="디자인학부"
-                android:textColor="#6a6a6a"
+                android:textColor="@color/color_6a6a6a"
                 android:textSize="12sp"
                 />
 
@@ -55,13 +55,14 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#6c6c6c"
+        android:background="@color/color_cccccc"
         />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:id="@+id/personal_schedule" >
+        android:id="@+id/personal_schedule"
+        android:background="?android:selectableItemBackground">
 
         <ImageView
             android:layout_width="20dp"
@@ -89,7 +90,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#6c6c6c"
+        android:background="@color/color_cccccc"
         />
 
     <RelativeLayout
@@ -97,40 +98,46 @@
         android:layout_height="match_parent"
         >
 
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="21dp"
-            android:src="@drawable/shared_schedule"
-            android:layout_marginTop="15.5dp"
-            android:layout_marginStart="20dp"
-            android:id="@+id/naaaa" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:id="@+id/layout">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="공유그룹"
-            android:textSize="18sp"
-            android:textColor="@color/color_2d3e51"
-            android:layout_toEndOf="@+id/naaaa"
-            android:layout_marginStart="21dp"
-            android:layout_marginTop="15.5dp"
-            />
-        
-        <ImageButton
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/add_new_schedule_ic"
-            android:layout_marginTop="15.5dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="24dp"
-            android:background="?android:selectableItemBackgroundBorderless"
-            />
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="21dp"
+                android:src="@drawable/shared_schedule"
+                android:layout_marginTop="15.5dp"
+                android:layout_marginStart="20dp"
+                android:id="@+id/naaaa" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="공유그룹"
+                android:textSize="18sp"
+                android:textColor="@color/color_2d3e51"
+                android:layout_toEndOf="@+id/naaaa"
+                android:layout_marginStart="21dp"
+                android:layout_marginTop="15.5dp"
+                />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/add_new_schedule_ic"
+                android:layout_marginTop="15.5dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="24dp"
+                android:background="?android:selectableItemBackgroundBorderless"
+                />
+
+        </RelativeLayout>
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
-            />
+            android:id="@+id/rv_shared_group"
+            android:layout_below="@+id/layout"/>
 
         <ImageButton
             android:layout_width="wrap_content"
