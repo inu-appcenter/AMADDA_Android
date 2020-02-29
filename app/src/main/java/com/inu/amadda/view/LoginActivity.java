@@ -101,7 +101,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "인터넷 연결 상태를 확인해주세요.", Toast.LENGTH_SHORT).show();
                 Log.d("LoginActivity", t.getMessage());
             }
         });
@@ -111,6 +111,6 @@ public class LoginActivity extends AppCompatActivity {
         PreferenceManager.getInstance().putSharedPreference(getApplicationContext(), Constant.Preference.ID, id);
         PreferenceManager.getInstance().putSharedPreference(getApplicationContext(), Constant.Preference.PASSWORD, pw);
         PreferenceManager.getInstance().putSharedPreference(getApplicationContext(), Constant.Preference.TOKEN, token);
-        Log.d("LoginActivity", token);
+        Log.d("LoginActivity", "ID: " + id + ", PASSWORD: " + pw + ", TOKEN: " + token);
     }
 }
