@@ -58,7 +58,10 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
             case R.id.btn_join: {
-
+                //TODO 일시 처리
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
             }
         }
     };
