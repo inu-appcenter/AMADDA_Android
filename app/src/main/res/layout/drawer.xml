@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/color_ffffff">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        >
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/side_profile"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="25dp"
+            android:id="@+id/drawer_image"
+
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_toEndOf="@id/drawer_image"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="12dp">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/drawer_major"
+                android:text="디자인학부"
+                android:textColor="#6a6a6a"
+                android:textSize="12sp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/drawer_name"
+                android:text="홍길동"
+                android:textColor="@color/color_2d3e51"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#6c6c6c"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/personal_schedule" >
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="21dp"
+            android:src="@drawable/personal_schedule"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:id="@+id/naaa"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="개인일정"
+            android:textSize="18sp"
+            android:textColor="@color/color_2d3e51"
+            android:layout_toEndOf="@+id/naaa"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="21dp"
+
+            />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#6c6c6c"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="21dp"
+            android:src="@drawable/shared_schedule"
+            android:layout_marginTop="15.5dp"
+            android:layout_marginStart="20dp"
+            android:id="@+id/naaaa" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="공유그룹"
+            android:textSize="18sp"
+            android:textColor="@color/color_2d3e51"
+            android:layout_toEndOf="@+id/naaaa"
+            android:layout_marginStart="21dp"
+            android:layout_marginTop="15.5dp"
+            />
+        
+        <ImageButton
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/add_new_schedule_ic"
+            android:layout_marginTop="15.5dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="24dp"
+            android:background="?android:selectableItemBackgroundBorderless"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/setting"
+            android:id="@+id/drawer_setting"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="24dp"
+            android:background="?android:selectableItemBackgroundBorderless" />
+
+    </RelativeLayout>
+
+</LinearLayout>

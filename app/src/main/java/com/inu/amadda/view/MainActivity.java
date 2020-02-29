@@ -3,6 +3,8 @@ package com.inu.amadda.view;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -24,11 +26,14 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton fab;
     private Animation rotate_forward, rotate_backward;
     private PopupMenu popup;
+    DrawerLayout drawerLayout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        drawerLayout = findViewById(R.id.drawer_layout);
 
         setToolbar();
         setFloatingActionButton();
@@ -111,10 +116,13 @@ public class MainActivity extends AppCompatActivity {
                 break;
             }
             case R.id.toolbar_left_btn:{
+                drawerLayout.openDrawer(GravityCompat.START);
                 break;
             }
         }
     };
+
+
 
     PopupMenu.OnMenuItemClickListener onMenuItemClickListener = menuItem -> {
         switch (menuItem.getItemId()) {
