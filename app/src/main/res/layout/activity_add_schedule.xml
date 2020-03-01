@@ -56,8 +56,7 @@
                 android:layout_toStartOf="@+id/tv_start_ampm"
                 android:layout_marginEnd="31dp"
                 android:textSize="16sp"
-                android:textColor="@color/colorAccent"
-                android:text="2020.4.14"/>
+                android:textColor="@color/colorAccent"/>
 
             <TextView
                 android:id="@+id/tv_start_ampm"
@@ -67,8 +66,7 @@
                 android:layout_toStartOf="@+id/tv_start_time"
                 android:layout_marginEnd="11dp"
                 android:textSize="16sp"
-                android:textColor="@color/colorAccent"
-                android:text="오전"/>
+                android:textColor="@color/colorAccent"/>
 
             <TextView
                 android:id="@+id/tv_start_time"
@@ -78,8 +76,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="23dp"
                 android:textSize="16sp"
-                android:textColor="@color/colorAccent"
-                android:text="10:00"/>
+                android:textColor="@color/colorAccent"/>
 
         </RelativeLayout>
 
@@ -114,8 +111,7 @@
                 android:layout_toStartOf="@+id/tv_end_ampm"
                 android:layout_marginEnd="31dp"
                 android:textSize="16sp"
-                android:textColor="@color/colorAccent"
-                android:text="2020.4.14"/>
+                android:textColor="@color/colorAccent"/>
 
             <TextView
                 android:id="@+id/tv_end_ampm"
@@ -125,8 +121,7 @@
                 android:layout_toStartOf="@+id/tv_end_time"
                 android:layout_marginEnd="11dp"
                 android:textSize="16sp"
-                android:textColor="@color/colorAccent"
-                android:text="오전"/>
+                android:textColor="@color/colorAccent"/>
 
             <TextView
                 android:id="@+id/tv_end_time"
@@ -136,8 +131,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="23dp"
                 android:textSize="16sp"
-                android:textColor="@color/colorAccent"
-                android:text="10:00"/>
+                android:textColor="@color/colorAccent"/>
 
         </RelativeLayout>
 
@@ -228,18 +222,18 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
                     android:orientation="vertical">
 
-                    <Button
+                    <com.contrarywind.view.WheelView
+                        android:id="@+id/wheel_alarm"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="BUTTON"/>
+                        android:layout_height="wrap_content"/>
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginEnd="20dp"
                         android:background="@color/color_cccccc"/>
 
                 </LinearLayout>

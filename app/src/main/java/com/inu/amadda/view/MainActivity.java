@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.inu.amadda.R;
-import com.inu.amadda.util.TodayDate;
+import com.inu.amadda.util.DateUtils;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         right_btn_text.setVisibility(View.GONE);
 
         TextView title = toolbar.findViewById(R.id.toolbar_title);
-        title.setText(TodayDate.getToday());
+        title.setText(DateUtils.getToday());
     }
 
     private void setFloatingActionButton() {

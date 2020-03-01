@@ -36,4 +36,5 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.7.2'
     implementation 'com.github.kizitonwose:CalendarView:0.3.2'
     implementation 'net.cachapa.expandablelayout:expandablelayout:2.9.2'
+    implementation 'com.contrarywind:Android-PickerView:4.1.9'
 }
