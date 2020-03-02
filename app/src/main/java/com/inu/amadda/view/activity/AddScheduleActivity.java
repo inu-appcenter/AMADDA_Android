@@ -7,6 +7,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
 import com.bigkoo.pickerview.adapter.ArrayWheelAdapter;
@@ -39,6 +41,7 @@ public class AddScheduleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_schedule);
 
+        setToolbar();
         initialize();
         setDefaultDateTime();
         setDateTimePicker();
@@ -46,9 +49,23 @@ public class AddScheduleActivity extends AppCompatActivity {
 
     }
 
-    private void setDefaultDateTime() {
-        setDateTimeData(DateUtils.now, tv_start_date, tv_start_ampm, tv_start_time, true);
-        setDateTimeData(DateUtils.now, tv_end_date, tv_end_ampm, tv_end_time, false);
+    private void setToolbar() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        AppCompatImageButton left_btn = toolbar.findViewById(R.id.toolbar_left_btn);
+        left_btn.setImageResource(R.drawable.cancel);
+        left_btn.setOnClickListener(onClickListener);
+
+        AppCompatImageButton right_btn_image = toolbar.findViewById(R.id.toolbar_right_image);
+        right_btn_image.setVisibility(View.GONE);
+
+        TextView right_btn_text = toolbar.findViewById(R.id.toolbar_right_text);
+        right_btn_text.setVisibility(View.GONE);
+
+        TextView title = toolbar.findViewById(R.id.toolbar_title);
+        title.setText("개인 일정 추가");
     }
 
     private void initialize() {
@@ -77,6 +94,11 @@ public class AddScheduleActivity extends AppCompatActivity {
 
         TextView btn_add = findViewById(R.id.btn_add);
         btn_add.setOnClickListener(onClickListener);
+    }
+
+    private void setDefaultDateTime() {
+        setDateTimeData(DateUtils.now, tv_start_date, tv_start_ampm, tv_start_time, true);
+        setDateTimeData(DateUtils.now, tv_end_date, tv_end_ampm, tv_end_time, false);
     }
 
     private void setDateTimePicker() {
@@ -222,6 +244,10 @@ public class AddScheduleActivity extends AppCompatActivity {
 
     View.OnClickListener onClickListener = view -> {
         switch (view.getId()){
+            case R.id.toolbar_left_btn:{
+                onBackPressed();
+                break;
+            }
             case R.id.rl_start: {
                 timePickerStart.show();
                 break;

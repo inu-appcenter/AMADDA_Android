@@ -353,7 +353,7 @@
         android:layout_marginEnd="68dp"
         android:layout_marginBottom="44dp"
         android:text="추가하기"
-        android:background="@color/color_1eb1fc"
+        android:background="@drawable/makefinish"
         android:textSize="16sp"
         android:textColor="@color/color_ffffff"
         android:textStyle="bold"
