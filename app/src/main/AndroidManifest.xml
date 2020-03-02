@@ -15,17 +15,17 @@
         android:name=".MyApplication"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".view.MainActivity">
+        <activity android:name=".view.activity.MainActivity">
         </activity>
-        <activity android:name=".view.LoginActivity"/>
-        <activity android:name=".view.SplashActivity">
+        <activity android:name=".view.activity.LoginActivity"/>
+        <activity android:name=".view.activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.AddScheduleActivity" />
+        <activity android:name=".view.activity.AddScheduleActivity" />
     </application>
 
 </manifest>

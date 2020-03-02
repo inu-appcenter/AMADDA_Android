@@ -48,6 +48,6 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         tools:layout="@layout/drawer"
-        class="com.inu.amadda.view.DrawerFragment"/>
+        class="com.inu.amadda.view.fragment.DrawerFragment"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>

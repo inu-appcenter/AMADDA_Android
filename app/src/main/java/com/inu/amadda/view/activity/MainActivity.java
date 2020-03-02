@@ -1,4 +1,4 @@
-package com.inu.amadda.view;
+package com.inu.amadda.view.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
@@ -19,6 +19,8 @@ import android.widget.TextView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.inu.amadda.R;
 import com.inu.amadda.util.DateUtils;
+import com.inu.amadda.view.fragment.CalendarFragment;
+import com.inu.amadda.view.fragment.TimetableFragment;
 
 public class MainActivity extends AppCompatActivity {
 

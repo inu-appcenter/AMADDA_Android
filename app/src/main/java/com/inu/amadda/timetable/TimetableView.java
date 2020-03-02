@@ -1,4 +1,4 @@
-package com.inu.amadda.view;
+package com.inu.amadda.timetable;
 
 import android.app.Activity;
 import android.content.Context;
@@ -21,10 +21,6 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.inu.amadda.R;
-import com.inu.amadda.etc.SaveManager;
-import com.inu.amadda.model.Schedule;
-import com.inu.amadda.model.Sticker;
-import com.inu.amadda.model.Time;
 import com.inu.amadda.util.DateUtils;
 
 import java.util.ArrayList;

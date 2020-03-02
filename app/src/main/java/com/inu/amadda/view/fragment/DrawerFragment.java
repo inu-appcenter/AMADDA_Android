@@ -1,4 +1,4 @@
-package com.inu.amadda.view;
+package com.inu.amadda.view.fragment;
 
 
 import android.os.Bundle;
