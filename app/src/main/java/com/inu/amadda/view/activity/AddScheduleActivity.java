@@ -1,9 +1,11 @@
 package com.inu.amadda.view.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,7 +41,7 @@ import retrofit2.Response;
 
 public class AddScheduleActivity extends AppCompatActivity {
 
-    private boolean isExpanded = false, isAlarmClicked;
+    private boolean isPersonal, isExpanded = false, isAlarmClicked;
     private String startDate = null, endDate = null;
 
     private ExpandableLayout expandable_alarm, expandable_share;
@@ -52,12 +54,26 @@ public class AddScheduleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_schedule);
 
+        checkType();
         setToolbar();
         initialize();
         setDefaultDateTime();
         setDateTimePicker();
         setAlarmWheelView();
 
+    }
+
+    private void checkType() {
+        Intent intent = getIntent();
+        isPersonal = intent.getBooleanExtra("isPersonal", true);
+
+        LinearLayout layout = findViewById(R.id.ll_share);
+        if (isPersonal){
+            layout.setVisibility(View.GONE);
+        }
+        else {
+            layout.setVisibility(View.VISIBLE);
+        }
     }
 
     private void setToolbar() {
@@ -76,7 +92,12 @@ public class AddScheduleActivity extends AppCompatActivity {
         right_btn_text.setVisibility(View.GONE);
 
         TextView title = toolbar.findViewById(R.id.toolbar_title);
-        title.setText("개인 일정 추가");
+        if (isPersonal){
+            title.setText("개인 일정 추가");
+        }
+        else {
+            title.setText("공유 일정 추가");
+        }
     }
 
     private void initialize() {

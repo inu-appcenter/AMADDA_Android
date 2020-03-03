@@ -126,16 +126,20 @@ public class MainActivity extends AppCompatActivity {
     };
 
     PopupMenu.OnMenuItemClickListener onMenuItemClickListener = menuItem -> {
+        Intent intent;
         switch (menuItem.getItemId()) {
             case R.id.add_class:
 
                 return true;
             case R.id.personal_schedule:
-                Intent intent = new Intent(this, AddScheduleActivity.class);
+                intent = new Intent(this, AddScheduleActivity.class);
+                intent.putExtra("isPersonal", true);
                 startActivity(intent);
                 return true;
             case R.id.shared_schedule:
-
+                intent = new Intent(this, AddScheduleActivity.class);
+                intent.putExtra("isPersonal", false);
+                startActivity(intent);
                 return true;
             default:
                 return false;
