@@ -1,10 +1,12 @@
 package com.inu.amadda.view.activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
@@ -16,7 +18,12 @@ import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.contrarywind.view.WheelView;
 import com.inu.amadda.R;
+import com.inu.amadda.etc.Constant;
+import com.inu.amadda.model.AddScheduleModel;
+import com.inu.amadda.model.SuccessResponse;
+import com.inu.amadda.network.RetrofitInstance;
 import com.inu.amadda.util.DateUtils;
+import com.inu.amadda.util.PreferenceManager;
 
 import net.cachapa.expandablelayout.ExpandableLayout;
 
@@ -25,6 +32,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AddScheduleActivity extends AppCompatActivity {
 
@@ -242,6 +253,53 @@ public class AddScheduleActivity extends AppCompatActivity {
         }
     }
 
+    private void sendScheduleInfo() {
+        AddScheduleModel addScheduleModel = new AddScheduleModel();
+        addScheduleModel.setToken(PreferenceManager.getInstance().getSharedPreference(getApplicationContext(), Constant.Preference.TOKEN, null));
+        addScheduleModel.setSchedule_name(et_name.getText().toString());
+        addScheduleModel.setStart(startDate);
+        addScheduleModel.setEnd(endDate);
+        addScheduleModel.setLocation(et_place.getText().toString());
+//        addScheduleModel.setAlarm(null);
+//        addScheduleModel.setShare(null);
+        addScheduleModel.setMemo(et_memo.getText().toString());
+
+        RetrofitInstance.getInstance().getService().AddSchedule(addScheduleModel).enqueue(new Callback<SuccessResponse>() {
+            @Override
+            public void onResponse(Call<SuccessResponse> call, Response<SuccessResponse> response) {
+                int status = response.code();
+                if (response.isSuccessful()) {
+                    SuccessResponse successResponse = response.body();
+                    if (successResponse != null) {
+                        if (successResponse.success.equals("true")) {
+                            finish();
+                        }
+                        else {
+                            Toast.makeText(getApplicationContext(), "잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                            Log.d("AddScheduleActivity", successResponse.message);
+                        }
+                    }
+                    else {
+                        Toast.makeText(getApplicationContext(), "잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+//                else if (status == 400){
+//                    Toast.makeText(getApplicationContext(), "아이디 및 비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show();
+//                }
+                else {
+                    Toast.makeText(getApplicationContext(), "잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                    Log.d("AddScheduleActivity", status + "");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SuccessResponse> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "인터넷 연결 상태를 확인해주세요.", Toast.LENGTH_SHORT).show();
+                Log.d("AddScheduleActivity", t.getMessage());
+            }
+        });
+    }
+
     View.OnClickListener onClickListener = view -> {
         switch (view.getId()){
             case R.id.toolbar_left_btn:{
@@ -265,6 +323,8 @@ public class AddScheduleActivity extends AppCompatActivity {
                 break;
             }
             case R.id.btn_add: {
+//                sendScheduleInfo();
+                finish();
                 break;
             }
         }

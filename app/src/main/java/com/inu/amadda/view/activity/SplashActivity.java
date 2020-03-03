@@ -43,8 +43,9 @@ public class SplashActivity extends AppCompatActivity {
     private boolean checkFirstLogin() {
         String id = PreferenceManager.getInstance().getSharedPreference(getApplicationContext(), Constant.Preference.ID, null);
         String pw = PreferenceManager.getInstance().getSharedPreference(getApplicationContext(), Constant.Preference.PASSWORD, null);
+        String token = PreferenceManager.getInstance().getSharedPreference(getApplicationContext(), Constant.Preference.TOKEN, null);
 
-        return id == null || pw == null;
+        return id == null || pw == null || token == null;
     }
 
 }
