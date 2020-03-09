@@ -60,7 +60,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/profile"
+        android:id="@+id/rl_profile"
         android:background="?android:selectableItemBackground">
 
     <TextView
@@ -96,7 +96,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/logout"
+        android:id="@+id/rl_logout"
         android:background="?android:selectableItemBackground">
 
     <TextView
@@ -165,7 +165,6 @@
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/rl_timetale"
     >
 
     <TextView
@@ -192,7 +191,6 @@
     <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/rl_calendar"
     >
 
     <TextView
@@ -226,14 +224,14 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/push"
+        android:id="@+id/rl_push"
         android:background="?android:selectableItemBackground">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="58dp"
         android:layout_marginStart="27dp"
-        android:text="푸쉬 알람"
+        android:text="푸쉬 알림"
         android:textSize="18sp"
         android:gravity="center_vertical"
         android:textColor="@color/color_2d3e51"
@@ -258,7 +256,7 @@
         android:layout_marginEnd="20dp"
         android:background="@color/color_cccccc"
         />
-
+<!--
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -293,5 +291,5 @@
         android:layout_marginEnd="20dp"
         android:background="@color/color_cccccc"
         />
-
+-->
 </LinearLayout>

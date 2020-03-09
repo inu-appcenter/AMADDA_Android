@@ -123,6 +123,7 @@
                 />
 
             <ImageButton
+                android:id="@+id/btn_share_group"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/add_new_schedule_ic"
@@ -143,7 +144,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/setting"
-            android:id="@+id/drawer_setting"
+            android:id="@+id/btn_setting"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginEnd="24dp"

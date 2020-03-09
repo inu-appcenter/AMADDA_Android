@@ -26,6 +26,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.activity.AddScheduleActivity" />
+        <activity android:name=".view.activity.AddShareGroupActivity" />
+        <activity android:name=".view.activity.SettingActivity" />
+        <activity android:name=".view.activity.EditProfileActivity" />
+        <activity android:name=".view.activity.PushSettingActivity" />
     </application>
 
 </manifest>
