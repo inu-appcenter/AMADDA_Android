@@ -1,4 +1,4 @@
-package com.inu.amadda.view;
+package com.inu.amadda.timetable;
 
 import android.app.Activity;
 import android.content.Context;
@@ -21,11 +21,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.inu.amadda.R;
-import com.inu.amadda.etc.SaveManager;
-import com.inu.amadda.model.Schedule;
-import com.inu.amadda.model.Sticker;
-import com.inu.amadda.model.Time;
-import com.inu.amadda.util.TodayDate;
+import com.inu.amadda.util.DateUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -239,7 +235,7 @@ public class TimetableView extends LinearLayout {
     }
 
     private void setHeaderHighlight() {
-        int idx = TodayDate.getDayOfWeek();
+        int idx = DateUtils.getDayOfWeek();
         if(idx < 0)return;
 
         TableRow row = (TableRow) tableHeader.getChildAt(0);

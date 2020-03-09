@@ -1,11 +1,14 @@
-package com.inu.amadda.view;
+package com.inu.amadda.view.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
@@ -15,7 +18,9 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.inu.amadda.R;
-import com.inu.amadda.util.TodayDate;
+import com.inu.amadda.util.DateUtils;
+import com.inu.amadda.view.fragment.CalendarFragment;
+import com.inu.amadda.view.fragment.TimetableFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,11 +29,14 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton fab;
     private Animation rotate_forward, rotate_backward;
     private PopupMenu popup;
+    private DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        drawerLayout = findViewById(R.id.drawer_layout);
 
         setToolbar();
         setFloatingActionButton();
@@ -53,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         right_btn_text.setVisibility(View.GONE);
 
         TextView title = toolbar.findViewById(R.id.toolbar_title);
-        title.setText(TodayDate.getToday());
+        title.setText(DateUtils.getToday());
     }
 
     private void setFloatingActionButton() {
@@ -111,29 +119,41 @@ public class MainActivity extends AppCompatActivity {
                 break;
             }
             case R.id.toolbar_left_btn:{
+                drawerLayout.openDrawer(GravityCompat.START);
                 break;
             }
         }
     };
 
     PopupMenu.OnMenuItemClickListener onMenuItemClickListener = menuItem -> {
+        Intent intent;
         switch (menuItem.getItemId()) {
             case R.id.add_class:
 
                 return true;
             case R.id.personal_schedule:
-
+                intent = new Intent(this, AddScheduleActivity.class);
+                intent.putExtra("isPersonal", true);
+                startActivity(intent);
                 return true;
             case R.id.shared_schedule:
-
+                intent = new Intent(this, AddScheduleActivity.class);
+                intent.putExtra("isPersonal", false);
+                startActivity(intent);
                 return true;
             default:
                 return false;
         }
     };
 
-    PopupMenu.OnDismissListener onDismissListener = popupMenu -> {
-        fab.startAnimation(rotate_backward);
-    };
+    PopupMenu.OnDismissListener onDismissListener = popupMenu -> fab.startAnimation(rotate_backward);
 
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
 }

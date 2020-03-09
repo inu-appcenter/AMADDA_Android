@@ -1,4 +1,4 @@
-package com.inu.amadda.view;
+package com.inu.amadda.view.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,8 +8,9 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 
 import com.inu.amadda.R;
-import com.inu.amadda.model.Schedule;
-import com.inu.amadda.model.Time;
+import com.inu.amadda.timetable.Schedule;
+import com.inu.amadda.timetable.Time;
+import com.inu.amadda.timetable.TimetableView;
 
 import java.util.ArrayList;
 

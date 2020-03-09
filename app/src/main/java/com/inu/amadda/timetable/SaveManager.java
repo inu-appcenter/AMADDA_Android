@@ -1,11 +1,11 @@
-package com.inu.amadda.etc;
+package com.inu.amadda.timetable;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.inu.amadda.model.Schedule;
-import com.inu.amadda.model.Sticker;
-import com.inu.amadda.model.Time;
+import com.inu.amadda.timetable.Schedule;
+import com.inu.amadda.timetable.Sticker;
+import com.inu.amadda.timetable.Time;
 
 import java.util.ArrayList;
 import java.util.Arrays;

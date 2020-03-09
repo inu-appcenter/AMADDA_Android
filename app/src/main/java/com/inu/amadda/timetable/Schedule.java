@@ -1,4 +1,4 @@
-package com.inu.amadda.model;
+package com.inu.amadda.timetable;
 
 import java.io.Serializable;
 
