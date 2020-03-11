@@ -16,17 +16,18 @@ import android.view.animation.AnimationUtils;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.inu.amadda.R;
 import com.inu.amadda.util.DateUtils;
 import com.inu.amadda.view.fragment.CalendarFragment;
 import com.inu.amadda.view.fragment.TimetableFragment;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class MainActivity extends AppCompatActivity {
 
     private boolean changeToCalender = true;
 
-    private FloatingActionButton fab;
+    private CircleImageView btn_add_schedule;
     private Animation rotate_forward, rotate_backward;
     private PopupMenu popup;
     private DrawerLayout drawerLayout;
@@ -65,10 +66,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setFloatingActionButton() {
-        fab = findViewById(R.id.fab_add_schedule);
+        btn_add_schedule = findViewById(R.id.btn_add_schedule);
         rotate_forward = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate_forward);
         rotate_backward = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate_backward);
-        fab.setOnClickListener(onClickListener);
+        btn_add_schedule.setOnClickListener(onClickListener);
     }
 
     private void setPopupMenu(View view) {
@@ -107,10 +108,10 @@ public class MainActivity extends AppCompatActivity {
 
     View.OnClickListener onClickListener = view -> {
         switch (view.getId()){
-            case R.id.fab_add_schedule:{
+            case R.id.btn_add_schedule:{
                 if (popup == null)
                     setPopupMenu(view);
-                fab.startAnimation(rotate_forward);
+                btn_add_schedule.startAnimation(rotate_forward);
                 popup.show();
                 break;
             }
@@ -146,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    PopupMenu.OnDismissListener onDismissListener = popupMenu -> fab.startAnimation(rotate_backward);
+    PopupMenu.OnDismissListener onDismissListener = popupMenu -> btn_add_schedule.startAnimation(rotate_backward);
 
     @Override
     public void onBackPressed() {
