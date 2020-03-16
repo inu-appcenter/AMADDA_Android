@@ -35,7 +35,7 @@ public class TimetableFragment extends Fragment {
         schedule.setDay(0);
         schedules.add(schedule);
 
-        timetable.add(schedules);
+        timetable.addClass(schedules);
 
 
         ArrayList<Schedule> schedules1 = new ArrayList<Schedule>();
@@ -58,7 +58,7 @@ public class TimetableFragment extends Fragment {
         schedule2.setDay(1);
         schedules1.add(schedule2);
 
-        timetable.add(schedules1);
+        timetable.addClass(schedules1);
 
 
         ArrayList<Schedule> schedules2 = new ArrayList<Schedule>();
@@ -81,8 +81,28 @@ public class TimetableFragment extends Fragment {
         schedule6.setDay(2);
         schedules2.add(schedule6);
 
-        timetable.add(schedules2);
+        timetable.addClass(schedules2);
 
+
+        ArrayList<Schedule> scheduless = new ArrayList<Schedule>();
+
+        Schedule schedule4 = new Schedule();
+        schedule4.setClassTitle("길동이랑 저녁식사"); // sets subject
+        schedule4.setClassPlace("부평"); // sets place
+        schedule4.setStartTime(new Time(16,0)); // sets the beginning of class time (hour,minute)
+        schedule4.setEndTime(new Time(19,0)); // sets the end of class time (hour,minute)
+        schedule4.setDay(1);
+        scheduless.add(schedule4);
+
+        Schedule schedule7 = new Schedule();
+        schedule7.setClassTitle("길동이랑 저녁식사"); // sets subject
+        schedule7.setClassPlace("부평"); // sets place
+        schedule7.setStartTime(new Time(16,0)); // sets the beginning of class time (hour,minute)
+        schedule7.setEndTime(new Time(19,0)); // sets the end of class time (hour,minute)
+        schedule7.setDay(0);
+        scheduless.add(schedule7);
+
+        timetable.addSchedule(scheduless);
 
         return view;
     }

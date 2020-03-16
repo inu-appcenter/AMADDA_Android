@@ -58,8 +58,12 @@ public class TimetableView extends LinearLayout {
 
     private Context context;
 
-    HashMap<Integer, Sticker> stickers = new HashMap<Integer, Sticker>();
+    HashMap<Integer, Sticker> classStickers = new HashMap<Integer, Sticker>();
+    HashMap<Integer, Sticker> scheduleStickers = new HashMap<Integer, Sticker>();
     private int stickerCount = -1;
+
+    private static final boolean CLASS = true;
+    private static final boolean SCHEDULE = false;
 
     private OnStickerSelectedListener stickerSelectedListener = null;
 
@@ -117,8 +121,8 @@ public class TimetableView extends LinearLayout {
      */
     public ArrayList<Schedule> getAllSchedulesInStickers() {
         ArrayList<Schedule> allSchedules = new ArrayList<Schedule>();
-        for (int key : stickers.keySet()) {
-            for (Schedule schedule : stickers.get(key).getSchedules()) {
+        for (int key : classStickers.keySet()) {
+            for (Schedule schedule : classStickers.get(key).getSchedules()) {
                 allSchedules.add(schedule);
             }
         }
@@ -131,20 +135,24 @@ public class TimetableView extends LinearLayout {
      */
     public ArrayList<Schedule> getAllSchedulesInStickersExceptIdx(int idx) {
         ArrayList<Schedule> allSchedules = new ArrayList<Schedule>();
-        for (int key : stickers.keySet()) {
+        for (int key : classStickers.keySet()) {
             if (idx == key) continue;
-            for (Schedule schedule : stickers.get(key).getSchedules()) {
+            for (Schedule schedule : classStickers.get(key).getSchedules()) {
                 allSchedules.add(schedule);
             }
         }
         return allSchedules;
     }
 
-    public void add(ArrayList<Schedule> schedules) {
-        add(schedules, -1);
+    public void addClass(ArrayList<Schedule> schedules) {
+        addClassList(schedules, -1);
     }
 
-    private void add(final ArrayList<Schedule> schedules, int specIdx) {
+    public void addSchedule(ArrayList<Schedule> schedules) {
+        addScheduleList(schedules, -1);
+    }
+
+    private void addClassList(final ArrayList<Schedule> schedules, int specIdx) {
         final int count = specIdx < 0 ? ++stickerCount : specIdx;
         Sticker sticker = new Sticker();
         for (Schedule schedule : schedules) {
@@ -187,51 +195,100 @@ public class TimetableView extends LinearLayout {
 
             sticker.addTextView(rl);
             sticker.addSchedule(schedule);
-            stickers.put(count, sticker);
+            classStickers.put(count, sticker);
             stickerBox.addView(rl);
         }
-        setStickerColor();
+        setClassStickerColor();
+    }
+
+    private void addScheduleList(final ArrayList<Schedule> schedules, int specIdx) {
+        final int count = specIdx < 0 ? ++stickerCount : specIdx;
+        Sticker sticker = new Sticker();
+        for (Schedule schedule : schedules) {
+            RelativeLayout rl = new RelativeLayout(context);
+            RelativeLayout.LayoutParams param = createStickerParam(schedule);
+            rl.setLayoutParams(param);
+
+            TextView tv_title = new TextView(context);
+            tv_title.setId(View.generateViewId());
+            RelativeLayout.LayoutParams titleParams = new RelativeLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT );
+            tv_title.setLayoutParams(titleParams);
+            titleParams.setMargins(dp2Px(4), dp2Px(5), dp2Px(4), 0);
+            tv_title.setText(schedule.getClassTitle());
+            tv_title.setTextColor(Color.parseColor("#1b2d42"));
+            tv_title.setTextSize(TypedValue.COMPLEX_UNIT_SP, DEFAULT_STICKER_TITLE_FONT_SIZE_SP);
+            tv_title.setTypeface(null, Typeface.BOLD);
+
+            TextView tv_place = new TextView(context);
+            tv_place.setId(View.generateViewId());
+            RelativeLayout.LayoutParams placeParams = new RelativeLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT );
+            tv_place.setLayoutParams(placeParams);
+            placeParams.addRule(RelativeLayout.BELOW, tv_title.getId());
+            placeParams.setMargins(dp2Px(4), dp2Px(2), dp2Px(4), 0);
+            tv_place.setText(schedule.getClassPlace());
+            tv_title.setTextColor(Color.parseColor("#1b2d42"));
+            tv_place.setTextSize(TypedValue.COMPLEX_UNIT_SP, DEFAULT_STICKER_PLACE_FONT_SIZE_SP);
+
+            rl.addView(tv_title);
+            rl.addView(tv_place);
+
+            rl.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(stickerSelectedListener != null)
+                        stickerSelectedListener.OnStickerSelected(count, schedules);
+                }
+            });
+
+            sticker.addTextView(rl);
+            sticker.addSchedule(schedule);
+            scheduleStickers.put(count, sticker);
+            stickerBox.addView(rl);
+        }
+        setScheduleStickerColor();
     }
 
     public String createSaveData() {
-        return SaveManager.saveSticker(stickers);
+        return SaveManager.saveSticker(classStickers);
     }
 
     public void load(String data) {
         removeAll();
-        stickers = SaveManager.loadSticker(data);
+        classStickers = SaveManager.loadSticker(data);
         int maxKey = 0;
-        for (int key : stickers.keySet()) {
-            ArrayList<Schedule> schedules = stickers.get(key).getSchedules();
-            add(schedules, key);
+        for (int key : classStickers.keySet()) {
+            ArrayList<Schedule> schedules = classStickers.get(key).getSchedules();
+            addClassList(schedules, key);
             if (maxKey < key) maxKey = key;
         }
         stickerCount = maxKey + 1;
-        setStickerColor();
+        setClassStickerColor();
     }
 
     public void removeAll() {
-        for (int key : stickers.keySet()) {
-            Sticker sticker = stickers.get(key);
+        for (int key : classStickers.keySet()) {
+            Sticker sticker = classStickers.get(key);
             for (RelativeLayout rl : sticker.getView()) {
                 stickerBox.removeView(rl);
             }
         }
-        stickers.clear();
+        classStickers.clear();
     }
 
     public void edit(int idx, ArrayList<Schedule> schedules) {
         remove(idx);
-        add(schedules, idx);
+        addClassList(schedules, idx);
     }
 
     public void remove(int idx) {
-        Sticker sticker = stickers.get(idx);
+        Sticker sticker = classStickers.get(idx);
         for (RelativeLayout rl : sticker.getView()) {
             stickerBox.removeView(rl);
         }
-        stickers.remove(idx);
-        setStickerColor();
+        classStickers.remove(idx);
+        setClassStickerColor();
     }
 
     private void setHeaderHighlight() {
@@ -257,11 +314,11 @@ public class TimetableView extends LinearLayout {
         }
     }
 
-    private void setStickerColor() {
-        int size = stickers.size();
+    private void setClassStickerColor() {
+        int size = classStickers.size();
         int[] orders = new int[size];
         int i = 0;
-        for (int key : stickers.keySet()) {
+        for (int key : classStickers.keySet()) {
             orders[i++] = key;
         }
         Arrays.sort(orders);
@@ -269,8 +326,25 @@ public class TimetableView extends LinearLayout {
         int colorSize = stickerColors.length;
 
         for (i = 0; i < size; i++) {
-            for (RelativeLayout rl : stickers.get(orders[i]).getView()) {
+            for (RelativeLayout rl : classStickers.get(orders[i]).getView()) {
                 rl.setBackgroundColor(Color.parseColor(stickerColors[i % (colorSize)]));
+            }
+        }
+
+    }
+
+    private void setScheduleStickerColor() {
+        int size = scheduleStickers.size();
+        int[] orders = new int[size];
+        int i = 0;
+        for (int key : scheduleStickers.keySet()) {
+            orders[i++] = key;
+        }
+        Arrays.sort(orders);
+
+        for (i = 0; i < size; i++) {
+            for (RelativeLayout rl : scheduleStickers.get(orders[i]).getView()) {
+                rl.setBackgroundColor(Color.parseColor("#66ff0000"));
             }
         }
 
