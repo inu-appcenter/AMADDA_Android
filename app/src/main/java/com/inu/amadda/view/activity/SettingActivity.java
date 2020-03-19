@@ -45,12 +45,12 @@ public class SettingActivity extends AppCompatActivity {
 
     private void initialize() {
         RelativeLayout rl_profile = findViewById(R.id.rl_profile);
-        RelativeLayout rl_logout = findViewById(R.id.rl_logout);
         RelativeLayout rl_push = findViewById(R.id.rl_push);
+        RelativeLayout rl_withdrawal = findViewById(R.id.rl_withdrawal);
 
         rl_profile.setOnClickListener(onClickListener);
-        rl_logout.setOnClickListener(onClickListener);
         rl_push.setOnClickListener(onClickListener);
+        rl_withdrawal.setOnClickListener(onClickListener);
     }
 
     private View.OnClickListener onClickListener = view -> {
@@ -64,7 +64,7 @@ public class SettingActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
             }
-            case R.id.rl_logout:{
+            case R.id.rl_withdrawal:{
 
                 break;
             }
