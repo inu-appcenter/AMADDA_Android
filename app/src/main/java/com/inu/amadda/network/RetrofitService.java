@@ -8,6 +8,7 @@ import java.util.HashMap;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 
 public interface RetrofitService {
@@ -15,6 +16,6 @@ public interface RetrofitService {
     Call<LoginResponse> Login(@Body HashMap<String, String> login);
 
     @POST("schedule/add")
-    Call<SuccessResponse> AddSchedule(@Body AddScheduleModel addScheduleModel);
+    Call<SuccessResponse> AddSchedule(@Header("token") String token, @Body AddScheduleModel addScheduleModel);
 
 }
