@@ -2,7 +2,8 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/rl_calendar_day">
 
     <TextView
         android:id="@+id/tv_calendar_day"
@@ -16,12 +17,6 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/color_cccccc"/>
-
-    <View
-        android:id="@+id/view_index"
-        android:layout_width="match_parent"
-        android:layout_height="8dp"
-        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/tv_today"

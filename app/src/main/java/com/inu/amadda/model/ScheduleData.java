@@ -1,6 +1,6 @@
 package com.inu.amadda.model;
 
-public class ScheduleDataModel {
+public class ScheduleData {
     private int number, key;
     private String id, schedule_name, start, end, location, alarm, memo;
 
