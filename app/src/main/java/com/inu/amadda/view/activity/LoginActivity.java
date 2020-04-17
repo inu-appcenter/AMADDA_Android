@@ -78,8 +78,8 @@ public class LoginActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     LoginResponse loginResponse = response.body();
                     if (loginResponse != null) {
-                        if (loginResponse.success.equals("true")) {
-                            saveUserInfo(id, pw, loginResponse.token);
+                        if (loginResponse.success) {
+                            saveUserInfo(id, pw, response.headers().get("token"));
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
                             finish();
