@@ -343,7 +343,6 @@ public class AddScheduleActivity extends AppCompatActivity {
             }
             case R.id.btn_add: {
                 sendScheduleInfo();
-                finish();
                 break;
             }
         }

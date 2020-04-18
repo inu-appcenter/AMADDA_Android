@@ -1,12 +1,14 @@
 package com.inu.amadda.view.activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,13 +18,24 @@ import androidx.core.content.ContextCompat;
 
 import com.inu.amadda.R;
 import com.inu.amadda.etc.Constant;
+import com.inu.amadda.model.AddGroupModel;
+import com.inu.amadda.model.SuccessResponse;
+import com.inu.amadda.network.RetrofitInstance;
 import com.inu.amadda.util.PreferenceManager;
 
 import net.cachapa.expandablelayout.ExpandableLayout;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class AddShareGroupActivity extends AppCompatActivity {
 
     private boolean isExpanded = false, isFirst = true;
+    private List<String> list = new ArrayList<>();
 
     private EditText et_group_name, et_invite, et_memo;
     private TextView tv_invite, tv_group_color;
@@ -99,6 +112,47 @@ public class AddShareGroupActivity extends AppCompatActivity {
         }
     }
 
+    private void sendGroupInfo() {
+        AddGroupModel addGroupModel = new AddGroupModel();
+        addGroupModel.setGroupName(et_group_name.getText().toString());
+        addGroupModel.setList(list);
+        addGroupModel.setMemo(et_memo.getText().toString());
+
+        String token = PreferenceManager.getInstance().getSharedPreference(getApplicationContext(), Constant.Preference.TOKEN, null);
+
+        RetrofitInstance.getInstance().getService().MakeGroup(token, addGroupModel).enqueue(new Callback<SuccessResponse>() {
+            @Override
+            public void onResponse(Call<SuccessResponse> call, Response<SuccessResponse> response) {
+                int status = response.code();
+                if (response.isSuccessful()) {
+                    SuccessResponse successResponse = response.body();
+                    if (successResponse != null) {
+                        if (successResponse.success) {
+                            finish();
+                        }
+                        else {
+                            Toast.makeText(getApplicationContext(), "잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                            Log.d("AddShareGroupActivity", successResponse.message);
+                        }
+                    }
+                    else {
+                        Toast.makeText(getApplicationContext(), "잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                    Log.d("AddShareGroupActivity", status + "");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SuccessResponse> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "인터넷 연결 상태를 확인해주세요.", Toast.LENGTH_SHORT).show();
+                Log.d("AddShareGroupActivity", t.getMessage());
+            }
+        });
+    }
+
     private View.OnClickListener onClickListener = view -> {
         switch (view.getId()){
             case R.id.toolbar_left_btn:{
@@ -107,6 +161,10 @@ public class AddShareGroupActivity extends AppCompatActivity {
             }
             case R.id.rl_invite:{
                 setExpandable();
+                break;
+            }
+            case R.id.btn_make:{
+                sendGroupInfo();
                 break;
             }
         }
