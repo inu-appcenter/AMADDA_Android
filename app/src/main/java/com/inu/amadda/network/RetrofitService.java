@@ -12,6 +12,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface RetrofitService {
     @POST("user/login")
@@ -22,5 +23,8 @@ public interface RetrofitService {
 
     @GET("schedule/show/all")
     Call<ScheduleResponse> GetAllSchedule(@Header("token") String token);
+
+    @GET("schedule/show/week")
+    Call<ScheduleResponse> GetWeekSchedule(@Header("token") String token, @Query("date") String date);
 
 }

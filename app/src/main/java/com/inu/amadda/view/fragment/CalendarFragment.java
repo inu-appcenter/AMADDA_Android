@@ -19,6 +19,7 @@ import com.inu.amadda.etc.Constant;
 import com.inu.amadda.model.ScheduleData;
 import com.inu.amadda.model.ScheduleResponse;
 import com.inu.amadda.network.RetrofitInstance;
+import com.inu.amadda.util.DateUtils;
 import com.inu.amadda.util.PreferenceManager;
 import com.kizitonwose.calendarview.CalendarView;
 import com.kizitonwose.calendarview.model.CalendarDay;
@@ -215,7 +216,7 @@ public class CalendarFragment extends Fragment {
     };
 
     private LocalDate StringToLocalDate(String string){
-        return LocalDate.parse(string, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.000'Z'"));
+        return LocalDate.parse(string, DateTimeFormatter.ofPattern(DateUtils.dateFormat));
     }
 
     private MonthHeaderFooterBinder monthHeaderBinder = new MonthHeaderFooterBinder<MonthHeaderViewContainer>() {

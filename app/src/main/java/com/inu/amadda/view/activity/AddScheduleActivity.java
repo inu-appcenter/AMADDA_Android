@@ -201,10 +201,10 @@ public class AddScheduleActivity extends AppCompatActivity {
         tv_time.setText(timeFormat.format(date));
 
         if(isStart) {
-            startDate = DateUtils.dateFormat.format(date);
+            startDate = new SimpleDateFormat(DateUtils.dateFormat, Locale.getDefault()).format(date);
         }
         else {
-            endDate = DateUtils.dateFormat.format(date);
+            endDate = new SimpleDateFormat(DateUtils.dateFormat, Locale.getDefault()).format(date);
         }
     }
 

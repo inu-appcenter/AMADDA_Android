@@ -74,18 +74,22 @@ public class SplashActivity extends AppCompatActivity {
                         }
                         else {
                             Toast.makeText(getApplicationContext(), "잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                            goToLogin();
                             Log.d("SplashActivity", loginResponse.message);
                         }
                     }
                     else {
                         Toast.makeText(getApplicationContext(), "잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                        goToLogin();
                     }
                 }
                 else if (status == 400){
                     Toast.makeText(getApplicationContext(), "아이디 및 비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show();
+                    goToLogin();
                 }
                 else {
                     Toast.makeText(getApplicationContext(), "잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                    goToLogin();
                     Log.d("SplashActivity", status + "");
                 }
             }
@@ -93,6 +97,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "인터넷 연결 상태를 확인해주세요.", Toast.LENGTH_SHORT).show();
+                goToLogin();
                 Log.d("SplashActivity", t.getMessage());
             }
         });
