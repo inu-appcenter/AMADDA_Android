@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.inu.amadda.R;
 import com.inu.amadda.etc.Constant;
-import com.inu.amadda.model.LoginResponse;
+import com.inu.amadda.model.SuccessResponse;
 import com.inu.amadda.network.RetrofitInstance;
 import com.inu.amadda.util.PreferenceManager;
 
@@ -59,14 +59,14 @@ public class SplashActivity extends AppCompatActivity {
         map.put("id", id);
         map.put("passwd", pw);
 
-        RetrofitInstance.getInstance().getService().Login(map).enqueue(new Callback<LoginResponse>() {
+        RetrofitInstance.getInstance().getService().Login(map).enqueue(new Callback<SuccessResponse>() {
             @Override
-            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+            public void onResponse(Call<SuccessResponse> call, Response<SuccessResponse> response) {
                 int status = response.code();
                 if (response.isSuccessful()) {
-                    LoginResponse loginResponse = response.body();
-                    if (loginResponse != null) {
-                        if (loginResponse.success) {
+                    SuccessResponse successResponse = response.body();
+                    if (successResponse != null) {
+                        if (successResponse.success) {
                             saveUserInfo(id, pw, response.headers().get("token"));
                             Intent intent = new Intent(SplashActivity.this, MainActivity.class);
                             startActivity(intent);
@@ -75,7 +75,7 @@ public class SplashActivity extends AppCompatActivity {
                         else {
                             Toast.makeText(getApplicationContext(), "잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
                             goToLogin();
-                            Log.d("SplashActivity", loginResponse.message);
+                            Log.d("SplashActivity", successResponse.message);
                         }
                     }
                     else {
@@ -95,7 +95,7 @@ public class SplashActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<LoginResponse> call, Throwable t) {
+            public void onFailure(Call<SuccessResponse> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "인터넷 연결 상태를 확인해주세요.", Toast.LENGTH_SHORT).show();
                 goToLogin();
                 Log.d("SplashActivity", t.getMessage());
