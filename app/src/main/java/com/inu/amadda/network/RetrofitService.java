@@ -3,6 +3,7 @@ package com.inu.amadda.network;
 import com.inu.amadda.model.AddGroupModel;
 import com.inu.amadda.model.AddScheduleModel;
 import com.inu.amadda.model.ScheduleResponse;
+import com.inu.amadda.model.SearchUserResponse;
 import com.inu.amadda.model.SuccessResponse;
 
 import java.util.HashMap;
@@ -29,5 +30,8 @@ public interface RetrofitService {
 
     @POST("share/group/create")
     Call<SuccessResponse> MakeGroup(@Header("token") String token, @Body AddGroupModel addGroupModel);
+
+    @GET("share/invite/users/search")
+    Call<SearchUserResponse> SearchUser(@Header("token") String token, @Query("user") String user);
 
 }

@@ -15,10 +15,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.inu.amadda.R;
+import com.inu.amadda.adapter.InviteAdapter;
 import com.inu.amadda.etc.Constant;
 import com.inu.amadda.model.AddGroupModel;
+import com.inu.amadda.model.InviteUserData;
+import com.inu.amadda.model.SearchUserResponse;
 import com.inu.amadda.model.SuccessResponse;
 import com.inu.amadda.network.RetrofitInstance;
 import com.inu.amadda.util.PreferenceManager;
@@ -35,7 +40,11 @@ import retrofit2.Response;
 public class AddShareGroupActivity extends AppCompatActivity {
 
     private boolean isExpanded = false, isFirst = true;
-    private List<String> list = new ArrayList<>();
+    private List<String> idList = new ArrayList<>();
+    private List<InviteUserData> inviteList = new ArrayList<>();
+    private String token, user;
+
+    private InviteAdapter adapter;
 
     private EditText et_group_name, et_invite, et_memo;
     private TextView tv_invite, tv_group_color;
@@ -49,6 +58,9 @@ public class AddShareGroupActivity extends AppCompatActivity {
 
         setToolbar();
         initialize();
+        setRecyclerView();
+
+        token = PreferenceManager.getInstance().getSharedPreference(getApplicationContext(), Constant.Preference.TOKEN, null);
 
     }
 
@@ -94,6 +106,14 @@ public class AddShareGroupActivity extends AppCompatActivity {
         btn_make.setOnClickListener(onClickListener);
     }
 
+    private void setRecyclerView() {
+        RecyclerView recyclerView = findViewById(R.id.rv_invite);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        adapter = new InviteAdapter(inviteList);
+        recyclerView.setAdapter(adapter);
+    }
+
     private void setExpandable() {
         if (isExpanded) {
             expandable_invite.collapse();
@@ -112,13 +132,58 @@ public class AddShareGroupActivity extends AppCompatActivity {
         }
     }
 
+    private void searchUser() {
+        RetrofitInstance.getInstance().getService().SearchUser(token, user).enqueue(new Callback<SearchUserResponse>() {
+            @Override
+            public void onResponse(Call<SearchUserResponse> call, Response<SearchUserResponse> response) {
+                int status = response.code();
+                if (response.isSuccessful()) {
+                    SearchUserResponse searchUserResponse = response.body();
+                    if (searchUserResponse != null) {
+                        if (searchUserResponse.success) {
+                            InviteUserData userData = new InviteUserData();
+                            userData.setId(searchUserResponse.users.get(0).getId());
+                            userData.setName(searchUserResponse.users.get(0).getName());
+                            userData.setPath(searchUserResponse.users.get(0).getPath());
+                            inviteList.add(userData);
+                            adapter.notifyDataSetChanged();
+                            et_invite.setText("");
+                        }
+                        else {
+                            Toast.makeText(getApplicationContext(), "잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                            Log.d("AddShareGroupActivity", searchUserResponse.message);
+                        }
+                    }
+                    else {
+                        Toast.makeText(getApplicationContext(), "잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else if(status == 404) {
+                    Toast.makeText(getApplicationContext(), "존재하지 않는 회원입니다.", Toast.LENGTH_SHORT).show();
+                    Log.d("AddShareGroupActivity", status + "");
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                    Log.d("AddShareGroupActivity", status + "");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SearchUserResponse> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "인터넷 연결 상태를 확인해주세요.", Toast.LENGTH_SHORT).show();
+                Log.d("AddShareGroupActivity", t.getMessage());
+            }
+        });
+    }
+
     private void sendGroupInfo() {
         AddGroupModel addGroupModel = new AddGroupModel();
         addGroupModel.setGroupName(et_group_name.getText().toString());
-        addGroupModel.setList(list);
+        for (int i = 0; i  < inviteList.size(); i++){
+            idList.add(inviteList.get(i).getId());
+        }
+        addGroupModel.setList(idList);
         addGroupModel.setMemo(et_memo.getText().toString());
-
-        String token = PreferenceManager.getInstance().getSharedPreference(getApplicationContext(), Constant.Preference.TOKEN, null);
 
         RetrofitInstance.getInstance().getService().MakeGroup(token, addGroupModel).enqueue(new Callback<SuccessResponse>() {
             @Override
@@ -161,6 +226,16 @@ public class AddShareGroupActivity extends AppCompatActivity {
             }
             case R.id.rl_invite:{
                 setExpandable();
+                break;
+            }
+            case R.id.btn_invite:{
+                user = et_invite.getText().toString();
+                if (user.length() == 9){
+                    searchUser();
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "학번 9자리를 정확히 입력해주세요.", Toast.LENGTH_SHORT).show();
+                }
                 break;
             }
             case R.id.btn_make:{
