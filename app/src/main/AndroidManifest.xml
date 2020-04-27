@@ -30,6 +30,7 @@
         <activity android:name=".view.activity.SettingActivity" />
         <activity android:name=".view.activity.EditProfileActivity" />
         <activity android:name=".view.activity.PushSettingActivity" />
+        <activity android:name=".view.activity.ManageInvitationActivity" />
     </application>
 
 </manifest>

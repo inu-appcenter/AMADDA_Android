@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,6 +14,7 @@ import androidx.fragment.app.Fragment;
 
 import com.inu.amadda.R;
 import com.inu.amadda.view.activity.AddShareGroupActivity;
+import com.inu.amadda.view.activity.ManageInvitationActivity;
 import com.inu.amadda.view.activity.SettingActivity;
 
 public class DrawerFragment extends Fragment {
@@ -27,6 +29,12 @@ public class DrawerFragment extends Fragment {
     }
 
     private void initialize(View view) {
+        RelativeLayout rl_personal = view.findViewById(R.id.personal_schedule);
+        RelativeLayout rl_invitation = view.findViewById(R.id.invitation_management);
+
+        rl_personal.setOnClickListener(onClickListener);
+        rl_invitation.setOnClickListener(onClickListener);
+
         ImageButton btn_share_group = view.findViewById(R.id.btn_share_group);
         ImageButton btn_setting = view.findViewById(R.id.btn_setting);
 
@@ -36,6 +44,14 @@ public class DrawerFragment extends Fragment {
 
     private View.OnClickListener onClickListener = view -> {
         switch (view.getId()){
+            case R.id.personal_schedule:{
+                break;
+            }
+            case R.id.invitation_management:{
+                Intent intent = new Intent(getActivity(), ManageInvitationActivity.class);
+                startActivity(intent);
+                break;
+            }
             case R.id.btn_share_group:{
                 Intent intent = new Intent(getActivity(), AddShareGroupActivity.class);
                 startActivity(intent);
