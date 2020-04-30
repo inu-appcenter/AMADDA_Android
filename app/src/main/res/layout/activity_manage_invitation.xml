@@ -77,7 +77,7 @@
             android:textSize="22sp"
             android:textColor="@color/color_b8b8b8"
             android:layout_marginTop="22.9dp"
-            android:text="아직 시간표가 없어요!"
+            android:text="초대가 도착하지 않았어요!"
             android:textStyle="bold"/>
 
         <TextView
@@ -86,7 +86,7 @@
             android:textSize="14sp"
             android:textColor="@color/color_b8b8b8"
             android:layout_marginTop="3dp"
-            android:text="추가버튼을 통해 일정을 추가해보세요"/>
+            android:text="직접 공유 그룹을 생성하고, 멤버를 초대해보세요."/>
 
     </LinearLayout>
 
