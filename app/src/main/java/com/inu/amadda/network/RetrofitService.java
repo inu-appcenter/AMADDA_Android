@@ -5,6 +5,7 @@ import com.inu.amadda.model.AddScheduleModel;
 import com.inu.amadda.model.InvitationResponse;
 import com.inu.amadda.model.ScheduleResponse;
 import com.inu.amadda.model.SearchUserResponse;
+import com.inu.amadda.model.SidebarResponse;
 import com.inu.amadda.model.SuccessResponse;
 
 import java.util.HashMap;
@@ -37,5 +38,8 @@ public interface RetrofitService {
 
     @GET("share/invitations/show")
     Call<InvitationResponse> GetInvitations(@Header("token") String token);
+
+    @GET("appconfig/sidebar")
+    Call<SidebarResponse> GetSidebar(@Header("token") String token);
 
 }

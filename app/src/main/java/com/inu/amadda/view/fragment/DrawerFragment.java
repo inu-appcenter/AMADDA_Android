@@ -15,15 +15,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.inu.amadda.R;
 import com.inu.amadda.etc.Constant;
 import com.inu.amadda.model.InvitationResponse;
+import com.inu.amadda.model.SidebarData;
+import com.inu.amadda.model.SidebarResponse;
 import com.inu.amadda.network.RetrofitInstance;
 import com.inu.amadda.util.PreferenceManager;
 import com.inu.amadda.view.activity.AddShareGroupActivity;
 import com.inu.amadda.view.activity.ManageInvitationActivity;
 import com.inu.amadda.view.activity.SettingActivity;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -32,7 +36,8 @@ public class DrawerFragment extends Fragment {
 
     private String token;
 
-    private TextView tv_invitation_number;
+    private CircleImageView iv_image;
+    private TextView tv_invitation_number, tv_major, tv_name;
 
     @Nullable
     @Override
@@ -42,6 +47,7 @@ public class DrawerFragment extends Fragment {
         token = PreferenceManager.getInstance().getSharedPreference(getContext(), Constant.Preference.TOKEN, null);
 
         initialize(view);
+        getSidebarInfo();
         getInvitationNumber();
 
         return view;
@@ -60,7 +66,52 @@ public class DrawerFragment extends Fragment {
         btn_share_group.setOnClickListener(onClickListener);
         btn_setting.setOnClickListener(onClickListener);
 
+        iv_image = view.findViewById(R.id.iv_image);
+        tv_major = view.findViewById(R.id.tv_major);
+        tv_name = view.findViewById(R.id.tv_name);
         tv_invitation_number = view.findViewById(R.id.tv_invitation_number);
+    }
+
+    private void getSidebarInfo() {
+        RetrofitInstance.getInstance().getService().GetSidebar(token).enqueue(new Callback<SidebarResponse>() {
+            @Override
+            public void onResponse(Call<SidebarResponse> call, Response<SidebarResponse> response) {
+                int status = response.code();
+                if (response.isSuccessful()) {
+                    SidebarResponse sidebarResponse = response.body();
+                    if (sidebarResponse != null) {
+                        if (sidebarResponse.success) {
+                            SidebarData data = sidebarResponse.sidebar;
+                            if (data.getPath() != null){
+                                Glide.with(getContext()).load(data.getPath())
+                                        .thumbnail(0.5f)
+                                        .error(R.drawable.group_profile)
+                                        .into(iv_image);
+                            }
+                            tv_major.setText(data.getMajor());
+                            tv_name.setText(data.getName());
+                        }
+                        else {
+                            Toast.makeText(getContext(), "잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                            Log.d("DrawerFragment", sidebarResponse.message);
+                        }
+                    }
+                    else {
+                        Toast.makeText(getContext(), "잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else {
+                    Toast.makeText(getContext(), "잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                    Log.d("DrawerFragment", status + "");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SidebarResponse> call, Throwable t) {
+                Toast.makeText(getContext(), "인터넷 연결 상태를 확인해주세요.", Toast.LENGTH_SHORT).show();
+                Log.d("DrawerFragment", t.getMessage());
+            }
+        });
     }
 
     private void getInvitationNumber() {

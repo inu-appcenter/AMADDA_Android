@@ -10,13 +10,13 @@
         android:layout_height="110dp"
         >
 
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="46dp"
+            android:layout_height="46dp"
             android:src="@drawable/side_profile"
             android:layout_centerVertical="true"
             android:layout_marginStart="25dp"
-            android:id="@+id/drawer_image"
+            android:id="@+id/iv_image"
 
             />
 
@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_toEndOf="@id/drawer_image"
+            android:layout_toEndOf="@id/iv_image"
             android:layout_centerVertical="true"
             android:layout_marginStart="12dp">
 
@@ -32,17 +32,16 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/drawer_major"
-                android:text="디자인학부"
+                android:id="@+id/tv_major"
                 android:textColor="@color/color_6a6a6a"
                 android:textSize="12sp"
+                android:layout_marginBottom="2dp"
                 />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/drawer_name"
-                android:text="홍길동"
+                android:id="@+id/tv_name"
                 android:textColor="@color/color_2d3e51"
                 android:textSize="20sp"
                 android:textStyle="bold"
