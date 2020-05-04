@@ -124,7 +124,7 @@
             android:src="@drawable/add_new_schedule_ic"
             android:layout_marginTop="15.5dp"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="24dp"
+            android:layout_marginEnd="25dp"
             android:background="?android:selectableItemBackgroundBorderless"
             />
 
@@ -169,6 +169,7 @@
             />
 
         <TextView
+            android:id="@+id/tv_invitation_number"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:background="@drawable/circle_number_icon"
