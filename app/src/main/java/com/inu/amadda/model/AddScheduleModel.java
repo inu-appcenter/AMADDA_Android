@@ -1,16 +1,8 @@
 package com.inu.amadda.model;
 
 public class AddScheduleModel {
-    private String token, schedule_name, start, end, location, alarm, memo;
+    private String schedule_name, start, end, location, alarm, memo;
     private int share;
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token  = token;
-    }
 
     public String getSchedule_name() {
         return schedule_name;

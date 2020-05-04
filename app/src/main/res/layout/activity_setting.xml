@@ -18,43 +18,7 @@
         android:gravity="center_vertical"
         android:background="@color/color_eaf8ff"
         android:textStyle="bold"
-        android:text="nalla5013@gmail.com"
-        />
-    
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/account"
-        android:background="?android:selectableItemBackground">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="58dp"
-            android:layout_marginStart="27dp"
-            android:gravity="center_vertical"
-            android:textColor="@color/color_2d3e51"
-            android:text="계정 관리"
-            android:textSize="18sp"
-            />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="27dp"
-            android:layout_centerVertical="true"
-            android:src="@drawable/next"
-            android:layout_alignParentEnd="true"
-
-            />
-
-    </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:background="@color/color_cccccc"
+        android:text="201602036"
         />
 
     <RelativeLayout
@@ -85,51 +49,6 @@
 
     </RelativeLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:background="@color/color_cccccc"
-        />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/rl_logout"
-        android:background="?android:selectableItemBackground">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="58dp"
-        android:layout_marginStart="27dp"
-        android:text="로그아웃"
-        android:textSize="18sp"
-        android:gravity="center_vertical"
-        android:textColor="@color/color_2d3e51"
-        />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="27dp"
-            android:layout_centerVertical="true"
-            android:src="@drawable/next"
-            android:layout_alignParentEnd="true"
-
-            />
-
-
-    </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:background="@color/color_cccccc"
-        />
-    
     <TextView
         android:layout_width="match_parent"
         android:layout_height="63dp"
@@ -170,9 +89,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="52dp"
-        android:layout_marginStart="27dp"
+        android:layout_marginStart="44dp"
         android:text="시간표 (주간)"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:gravity="center_vertical"
         android:textColor="@color/color_707070"
         />
@@ -196,9 +115,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="52dp"
-        android:layout_marginStart="27dp"
+        android:layout_marginStart="44dp"
         android:text="달력 (월간)"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:gravity="center_vertical"
         android:textColor="@color/color_707070"
         />
@@ -256,17 +175,17 @@
         android:layout_marginEnd="20dp"
         android:background="@color/color_cccccc"
         />
-<!--
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/widget"
+        android:id="@+id/rl_withdrawal"
         android:background="?android:selectableItemBackground">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="58dp"
         android:layout_marginStart="27dp"
-        android:text="위젯 설정"
+        android:text="회원 탈퇴"
         android:textSize="18sp"
         android:gravity="center_vertical"
         android:textColor="@color/color_2d3e51"
@@ -291,5 +210,5 @@
         android:layout_marginEnd="20dp"
         android:background="@color/color_cccccc"
         />
--->
+
 </LinearLayout>

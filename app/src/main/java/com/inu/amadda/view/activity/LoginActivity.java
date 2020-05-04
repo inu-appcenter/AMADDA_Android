@@ -12,7 +12,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.inu.amadda.R;
-import com.inu.amadda.model.LoginResponse;
+import com.inu.amadda.model.SuccessResponse;
 import com.inu.amadda.network.RetrofitInstance;
 import com.inu.amadda.etc.Constant;
 import com.inu.amadda.util.PreferenceManager;
@@ -56,12 +56,14 @@ public class LoginActivity extends AppCompatActivity {
                 else {
                     Toast.makeText(this, "아이디 및 비밀번호를 입력해주세요.", Toast.LENGTH_SHORT).show();
                 }
+                break;
             }
             case R.id.btn_join: {
                 //TODO 일시 처리
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
+                break;
             }
         }
     };
@@ -71,22 +73,22 @@ public class LoginActivity extends AppCompatActivity {
         map.put("id", id);
         map.put("passwd", pw);
 
-        RetrofitInstance.getInstance().getService().Login(map).enqueue(new Callback<LoginResponse>() {
+        RetrofitInstance.getInstance().getService().Login(map).enqueue(new Callback<SuccessResponse>() {
             @Override
-            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+            public void onResponse(Call<SuccessResponse> call, Response<SuccessResponse> response) {
                 int status = response.code();
                 if (response.isSuccessful()) {
-                    LoginResponse loginResponse = response.body();
-                    if (loginResponse != null) {
-                        if (loginResponse.success.equals("true")) {
-                            saveUserInfo(id, pw, loginResponse.token);
+                    SuccessResponse successResponse = response.body();
+                    if (successResponse != null) {
+                        if (successResponse.success) {
+                            saveUserInfo(id, pw, response.headers().get("token"));
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
                             finish();
                         }
                         else {
                             Toast.makeText(getApplicationContext(), "잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
-                            Log.d("LoginActivity", loginResponse.message);
+                            Log.d("LoginActivity", successResponse.message);
                         }
                     }
                     else {
@@ -103,7 +105,7 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<LoginResponse> call, Throwable t) {
+            public void onFailure(Call<SuccessResponse> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "인터넷 연결 상태를 확인해주세요.", Toast.LENGTH_SHORT).show();
                 Log.d("LoginActivity", t.getMessage());
             }

@@ -201,10 +201,10 @@ public class AddScheduleActivity extends AppCompatActivity {
         tv_time.setText(timeFormat.format(date));
 
         if(isStart) {
-            startDate = DateUtils.dateFormat.format(date);
+            startDate = new SimpleDateFormat(DateUtils.dateFormat, Locale.getDefault()).format(date);
         }
         else {
-            endDate = DateUtils.dateFormat.format(date);
+            endDate = new SimpleDateFormat(DateUtils.dateFormat, Locale.getDefault()).format(date);
         }
     }
 
@@ -276,7 +276,6 @@ public class AddScheduleActivity extends AppCompatActivity {
 
     private void sendScheduleInfo() {
         AddScheduleModel addScheduleModel = new AddScheduleModel();
-        addScheduleModel.setToken(PreferenceManager.getInstance().getSharedPreference(getApplicationContext(), Constant.Preference.TOKEN, null));
         addScheduleModel.setSchedule_name(et_name.getText().toString());
         addScheduleModel.setStart(startDate);
         addScheduleModel.setEnd(endDate);
@@ -285,14 +284,16 @@ public class AddScheduleActivity extends AppCompatActivity {
 //        addScheduleModel.setShare(null);
         addScheduleModel.setMemo(et_memo.getText().toString());
 
-        RetrofitInstance.getInstance().getService().AddSchedule(addScheduleModel).enqueue(new Callback<SuccessResponse>() {
+        String token = PreferenceManager.getInstance().getSharedPreference(getApplicationContext(), Constant.Preference.TOKEN, null);
+
+        RetrofitInstance.getInstance().getService().AddSchedule(token, addScheduleModel).enqueue(new Callback<SuccessResponse>() {
             @Override
             public void onResponse(Call<SuccessResponse> call, Response<SuccessResponse> response) {
                 int status = response.code();
                 if (response.isSuccessful()) {
                     SuccessResponse successResponse = response.body();
                     if (successResponse != null) {
-                        if (successResponse.success.equals("true")) {
+                        if (successResponse.success) {
                             finish();
                         }
                         else {
@@ -304,9 +305,6 @@ public class AddScheduleActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
                     }
                 }
-//                else if (status == 400){
-//                    Toast.makeText(getApplicationContext(), "아이디 및 비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show();
-//                }
                 else {
                     Toast.makeText(getApplicationContext(), "잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
                     Log.d("AddScheduleActivity", status + "");
@@ -344,8 +342,7 @@ public class AddScheduleActivity extends AppCompatActivity {
                 break;
             }
             case R.id.btn_add: {
-//                sendScheduleInfo();
-                finish();
+                sendScheduleInfo();
                 break;
             }
         }

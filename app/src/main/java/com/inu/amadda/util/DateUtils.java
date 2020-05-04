@@ -6,7 +6,7 @@ import java.util.Locale;
 
 public class DateUtils {
     public static Date now = new Date();
-    public static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:00", Locale.getDefault());
+    public static String dateFormat = "yyyy-MM-dd HH:mm:ss";
 
     public static int getDayOfWeek() {
         SimpleDateFormat sdf = new SimpleDateFormat("E", Locale.KOREAN);

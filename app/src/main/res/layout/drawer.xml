@@ -10,13 +10,13 @@
         android:layout_height="110dp"
         >
 
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="46dp"
+            android:layout_height="46dp"
             android:src="@drawable/side_profile"
             android:layout_centerVertical="true"
             android:layout_marginStart="25dp"
-            android:id="@+id/drawer_image"
+            android:id="@+id/iv_image"
 
             />
 
@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_toEndOf="@id/drawer_image"
+            android:layout_toEndOf="@id/iv_image"
             android:layout_centerVertical="true"
             android:layout_marginStart="12dp">
 
@@ -32,17 +32,16 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/drawer_major"
-                android:text="디자인학부"
+                android:id="@+id/tv_major"
                 android:textColor="@color/color_6a6a6a"
                 android:textSize="12sp"
+                android:layout_marginBottom="2dp"
                 />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/drawer_name"
-                android:text="홍길동"
+                android:id="@+id/tv_name"
                 android:textColor="@color/color_2d3e51"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -95,50 +94,105 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/layout">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="21dp"
+            android:src="@drawable/shared_schedule"
+            android:layout_marginTop="15.5dp"
+            android:layout_marginStart="20dp"
+            android:id="@+id/naaaa" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="공유그룹"
+            android:textSize="18sp"
+            android:textColor="@color/color_2d3e51"
+            android:layout_toEndOf="@+id/naaaa"
+            android:layout_marginStart="21dp"
+            android:layout_marginTop="15.5dp"
+            />
+
+        <ImageButton
+            android:id="@+id/btn_share_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/add_new_schedule_ic"
+            android:layout_marginTop="15.5dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="25dp"
+            android:background="?android:selectableItemBackgroundBorderless"
+            />
+
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rv_shared_group"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_cccccc"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/invitation_management"
+        android:background="?android:selectableItemBackground">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/add_invitation"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:id="@+id/ic"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="초대 관리"
+            android:textSize="18sp"
+            android:textColor="@color/color_2d3e51"
+            android:layout_toEndOf="@+id/ic"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="18dp"
+
+            />
+
+        <TextView
+            android:id="@+id/tv_invitation_number"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/circle_number_icon"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:textColor="@color/color_ffffff"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="27dp"
+            android:visibility="invisible"
+            />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_cccccc"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:id="@+id/layout">
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="21dp"
-                android:src="@drawable/shared_schedule"
-                android:layout_marginTop="15.5dp"
-                android:layout_marginStart="20dp"
-                android:id="@+id/naaaa" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="공유그룹"
-                android:textSize="18sp"
-                android:textColor="@color/color_2d3e51"
-                android:layout_toEndOf="@+id/naaaa"
-                android:layout_marginStart="21dp"
-                android:layout_marginTop="15.5dp"
-                />
-
-            <ImageButton
-                android:id="@+id/btn_share_group"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/add_new_schedule_ic"
-                android:layout_marginTop="15.5dp"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="24dp"
-                android:background="?android:selectableItemBackgroundBorderless"
-                />
-
-        </RelativeLayout>
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/rv_shared_group"
-            android:layout_below="@+id/layout"/>
 
         <ImageButton
             android:layout_width="wrap_content"

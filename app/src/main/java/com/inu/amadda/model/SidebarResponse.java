@@ -1,6 +1,7 @@
 package com.inu.amadda.model;
 
-public class SuccessResponse {
+public class SidebarResponse {
     public boolean success;
     public String message;
+    public SidebarData sidebar;
 }
