@@ -14,11 +14,15 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.inu.amadda.R;
+import com.inu.amadda.adapter.GroupListAdapter;
 import com.inu.amadda.etc.Constant;
 import com.inu.amadda.model.InvitationResponse;
+import com.inu.amadda.model.ShareGroup;
 import com.inu.amadda.model.SidebarData;
 import com.inu.amadda.model.SidebarResponse;
 import com.inu.amadda.network.RetrofitInstance;
@@ -26,6 +30,9 @@ import com.inu.amadda.util.PreferenceManager;
 import com.inu.amadda.view.activity.AddShareGroupActivity;
 import com.inu.amadda.view.activity.ManageInvitationActivity;
 import com.inu.amadda.view.activity.SettingActivity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -35,6 +42,9 @@ import retrofit2.Response;
 public class DrawerFragment extends Fragment {
 
     private String token;
+    private List<ShareGroup> groupList = new ArrayList<>();
+
+    private GroupListAdapter adapter;
 
     private CircleImageView iv_image;
     private TextView tv_invitation_number, tv_major, tv_name;
@@ -47,6 +57,7 @@ public class DrawerFragment extends Fragment {
         token = PreferenceManager.getInstance().getSharedPreference(getContext(), Constant.Preference.TOKEN, null);
 
         initialize(view);
+        setRecyclerView(view);
         getSidebarInfo();
         getInvitationNumber();
 
@@ -70,6 +81,14 @@ public class DrawerFragment extends Fragment {
         tv_major = view.findViewById(R.id.tv_major);
         tv_name = view.findViewById(R.id.tv_name);
         tv_invitation_number = view.findViewById(R.id.tv_invitation_number);
+    }
+
+    private void setRecyclerView(View view) {
+        RecyclerView recyclerView = view.findViewById(R.id.rv_shared_group);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        adapter = new GroupListAdapter(groupList);
+        recyclerView.setAdapter(adapter);
     }
 
     private void getSidebarInfo() {
