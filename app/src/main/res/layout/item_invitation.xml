@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="16dp"
+    app:cardBackgroundColor="@color/color_cccccc"
+    app:cardElevation="5dp"
+    app:contentPadding="1dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="20dp"
+    android:layout_marginEnd="20dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/rl_card_content"
+            android:layout_width="match_parent"
+            android:layout_height="157dp"
+            android:background="@drawable/card_content_top">
+
+            <View
+                android:id="@+id/view_group_tag"
+                android:layout_width="6dp"
+                android:layout_height="18dp"
+                android:background="@color/color_ff3b30"
+                android:layout_marginTop="34dp"/>
+            
+            <TextView
+                android:id="@+id/tv_group_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorAccent"
+                android:lines="1"
+                android:ellipsize="end"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="23dp"
+                android:text="무대 미술의 이해 팀플"/>
+
+            <TextView
+                android:id="@+id/tv_inviter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/color_707070"
+                android:layout_below="@+id/tv_group_name"
+                android:layout_alignStart="@+id/tv_group_name"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="2dp"
+                android:text="김이박 201602027"
+                android:drawableStart="@drawable/email"
+                android:drawablePadding="10.9dp"/>
+
+            <TextView
+                android:id="@+id/tv_memo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@color/color_707070"
+                android:lines="1"
+                android:ellipsize="end"
+                android:layout_below="@+id/tv_inviter"
+                android:layout_alignStart="@+id/tv_group_name"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="4dp"
+                android:text="무대미술의 이해 조장 김이박입니다."
+                android:drawableStart="@drawable/memo"
+                android:drawablePadding="12.6dp"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_buttons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="1dp">
+
+            <TextView
+                android:id="@+id/tv_refusal"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:textColor="@color/color_ff3b30"
+                android:gravity="center"
+                android:text="거절"
+                android:background="@drawable/card_content_bottom_left"
+                android:layout_marginEnd="0.5dp"/>
+
+            <TextView
+                android:id="@+id/tv_acceptance"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:textColor="@color/colorPrimary"
+                android:gravity="center"
+                android:text="수락"
+                android:textStyle="bold"
+                android:background="@drawable/card_content_bottom_right"
+                android:layout_marginStart="0.5dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
