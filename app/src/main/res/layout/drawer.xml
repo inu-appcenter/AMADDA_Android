@@ -132,7 +132,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/rv_shared_group"/>
+        android:id="@+id/rv_shared_group"
+        android:paddingTop="13.1dp"
+        android:paddingBottom="13.5dp" />
 
     <View
         android:layout_width="match_parent"
