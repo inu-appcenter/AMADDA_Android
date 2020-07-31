@@ -3,7 +3,7 @@ package com.inu.amadda.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -26,14 +26,14 @@ public class GroupListAdapter extends RecyclerView.Adapter<GroupListAdapter.View
 
         View view_group_tag;
         TextView tv_group_name;
-        LinearLayout ll_group_list;
+        RelativeLayout rl_group_list;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             view_group_tag = itemView.findViewById(R.id.view_group_tag);
             tv_group_name = itemView.findViewById(R.id.tv_group_name);
-            ll_group_list = itemView.findViewById(R.id.ll_group_list);
+            rl_group_list = itemView.findViewById(R.id.rl_group_list);
         }
     }
 
@@ -48,7 +48,7 @@ public class GroupListAdapter extends RecyclerView.Adapter<GroupListAdapter.View
         ShareGroup item = mList.get(position);
 //        holder.view_group_tag.setBackgroundResource(R.color.color_ff0000);
         holder.tv_group_name.setText(item.getGroup_name());
-        holder.ll_group_list.setOnClickListener(view -> {
+        holder.rl_group_list.setOnClickListener(view -> {
 
         });
     }
