@@ -3,6 +3,7 @@ package com.inu.amadda.network;
 import com.inu.amadda.model.AddGroupModel;
 import com.inu.amadda.model.AddScheduleModel;
 import com.inu.amadda.model.InvitationResponse;
+import com.inu.amadda.model.RefusalModel;
 import com.inu.amadda.model.ScheduleResponse;
 import com.inu.amadda.model.SearchUserResponse;
 import com.inu.amadda.model.SidebarResponse;
@@ -12,13 +13,12 @@ import java.util.HashMap;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.HTTP;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface RetrofitService {
@@ -46,8 +46,8 @@ public interface RetrofitService {
     @GET("appconfig/sidebar")
     Call<SidebarResponse> GetSidebar(@Header("token") String token);
 
-    @DELETE("share/invitations/group")
-    Call<SuccessResponse> refuseInvitation(@Header("token") String token, @Path("share") int share);
+    @HTTP(method = "DELETE", path = "share/invitations/group", hasBody = true)
+    Call<SuccessResponse> refuseInvitation(@Header("token") String token, @Body RefusalModel refusalModel);
 
     @FormUrlEncoded
     @POST("share/invitations/group")

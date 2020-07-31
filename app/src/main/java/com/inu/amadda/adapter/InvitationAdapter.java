@@ -10,11 +10,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.inu.amadda.R;
 import com.inu.amadda.etc.Constant;
 import com.inu.amadda.model.InvitationData;
+import com.inu.amadda.model.RefusalModel;
 import com.inu.amadda.model.SuccessResponse;
 import com.inu.amadda.network.RetrofitInstance;
 import com.inu.amadda.util.PreferenceManager;
@@ -28,9 +30,12 @@ import retrofit2.Response;
 public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.ViewHolder> {
 
     private List<InvitationData> mList;
+    private TextView tv_invitation_number, tv_message;
 
-    public InvitationAdapter(List<InvitationData> list) {
+    public InvitationAdapter(List<InvitationData> list, TextView textViewNumber, TextView textViewMessage) {
         this.mList = list;
+        this.tv_invitation_number = textViewNumber;
+        this.tv_message = textViewMessage;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
@@ -80,8 +85,10 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
 
     private void refuseInvitation(int share, Context context, LinearLayout layout) {
         String token = PreferenceManager.getInstance().getSharedPreference(context, Constant.Preference.TOKEN, null);
+        RefusalModel model = new RefusalModel();
+        model.share = share;
 
-        RetrofitInstance.getInstance().getService().refuseInvitation(token, share).enqueue(new Callback<SuccessResponse>() {
+        RetrofitInstance.getInstance().getService().refuseInvitation(token, model).enqueue(new Callback<SuccessResponse>() {
             @Override
             public void onResponse(Call<SuccessResponse> call, Response<SuccessResponse> response) {
                 int status = response.code();
@@ -90,6 +97,10 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
                     if (successResponse != null) {
                         if (successResponse.success) {
                             layout.setVisibility(View.GONE);
+                            tv_invitation_number.setVisibility(View.INVISIBLE);
+                            tv_message.setVisibility(View.VISIBLE);
+                            tv_message.setText("거절되었습니다.");
+                            tv_message.setTextColor(ContextCompat.getColor(context, R.color.color_ff0000));
                         }
                         else {
                             Toast.makeText(context, "잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
@@ -126,6 +137,10 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
                     if (successResponse != null) {
                         if (successResponse.success) {
                             layout.setVisibility(View.GONE);
+                            tv_invitation_number.setVisibility(View.INVISIBLE);
+                            tv_message.setVisibility(View.VISIBLE);
+                            tv_message.setText("수락되었습니다.");
+                            tv_message.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary));
                         }
                         else {
                             Toast.makeText(context, "잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();

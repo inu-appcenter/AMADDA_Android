@@ -83,7 +83,7 @@ public class ManageInvitationActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.rv_invitation);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new InvitationAdapter(invitationList);
+        adapter = new InvitationAdapter(invitationList, tv_invitation_number, tv_message);
         recyclerView.setAdapter(adapter);
     }
 
