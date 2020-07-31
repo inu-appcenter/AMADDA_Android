@@ -12,9 +12,13 @@ import java.util.HashMap;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface RetrofitService {
@@ -41,5 +45,12 @@ public interface RetrofitService {
 
     @GET("appconfig/sidebar")
     Call<SidebarResponse> GetSidebar(@Header("token") String token);
+
+    @DELETE("share/invitations/group")
+    Call<SuccessResponse> refuseInvitation(@Header("token") String token, @Path("share") int share);
+
+    @FormUrlEncoded
+    @POST("share/invitations/group")
+    Call<SuccessResponse> acceptInvitation(@Header("token") String token, @Field("share") int share);
 
 }
