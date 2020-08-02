@@ -201,7 +201,7 @@ public class AddShareGroupActivity extends AppCompatActivity {
                             finish();
                             new Thread(() -> {
                                 appDatabase.groupDao().insert(new ShareGroup(addGroupResponse.share, et_group_name.getText().toString(),
-                                        et_memo.getText().toString(), 0xff3b3000));
+                                        et_memo.getText().toString(), "#ff3b30"));
                                 Log.d("AddShareGroupActivity", "Save group: " + addGroupResponse.share);
                             }).start();
                         }

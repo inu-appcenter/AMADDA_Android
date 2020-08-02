@@ -13,11 +13,8 @@ public interface ShareGroupDao {
     @Query("SELECT * FROM ShareGroup ORDER BY share")
     LiveData<List<ShareGroup>> getAll();
 
-//    @Query("SELECT * FROM ShareGroup WHERE idx = :idx")
-//    LiveData<ShareGroup> getByIdx(int idx);
-//
-//    @Query("DELETE FROM ShareGroup WHERE idx = :idx")
-//    void deleteByIdx(int idx);
+    @Query("DELETE FROM ShareGroup WHERE share = :share")
+    void deleteByKey(int share);
 
     @Update
     void update(ShareGroup group);

@@ -148,7 +148,7 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
                             tv_message.setText("수락되었습니다.");
                             tv_message.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
                             new Thread(() -> {
-                                appDatabase.groupDao().insert(new ShareGroup(data.getShare(), data.getGroup_name(), data.getMemo(), 0xff3b3000));
+                                appDatabase.groupDao().insert(new ShareGroup(data.getShare(), data.getGroup_name(), data.getMemo(), "#ff3b30"));
                                 Log.d("InvitationAdapter", "Save group: " + data.getShare());
                             }).start();
                         }

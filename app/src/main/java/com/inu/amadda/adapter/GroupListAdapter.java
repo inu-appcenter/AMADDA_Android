@@ -1,5 +1,6 @@
 package com.inu.amadda.adapter;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,7 +47,7 @@ public class GroupListAdapter extends RecyclerView.Adapter<GroupListAdapter.View
     @Override
     public void onBindViewHolder(@NonNull GroupListAdapter.ViewHolder holder, int position) {
         ShareGroup item = mList.get(position);
-//        holder.view_group_tag.setBackgroundResource(R.color.color_ff0000);
+        holder.view_group_tag.setBackgroundColor(Color.parseColor(item.getColor()));
         holder.tv_group_name.setText(item.getGroup_name());
         holder.rl_group_list.setOnClickListener(view -> {
 

@@ -9,7 +9,7 @@ public class ShareGroup {
     public int share;
     public String group_name;
     public String memo;
-    public int color;
+    public String color;
 
     public int getShare() {
         return share;
@@ -35,15 +35,15 @@ public class ShareGroup {
         this.memo = memo;
     }
 
-    public int getColor() {
+    public String getColor() {
         return color;
     }
 
-    public void setColor(int color) {
+    public void setColor(String color) {
         this.color = color;
     }
 
-    public ShareGroup(int share, String group_name, String memo, int color) {
+    public ShareGroup(int share, String group_name, String memo, String color) {
         this.share = share;
         this.group_name = group_name;
         this.memo = memo;

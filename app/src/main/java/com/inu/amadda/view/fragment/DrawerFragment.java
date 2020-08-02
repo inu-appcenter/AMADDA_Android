@@ -14,12 +14,15 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.inu.amadda.R;
 import com.inu.amadda.adapter.GroupListAdapter;
+import com.inu.amadda.database.AppDatabase;
 import com.inu.amadda.etc.Constant;
 import com.inu.amadda.model.InvitationResponse;
 import com.inu.amadda.database.ShareGroup;
@@ -45,6 +48,7 @@ public class DrawerFragment extends Fragment {
     private List<ShareGroup> groupList = new ArrayList<>();
 
     private GroupListAdapter adapter;
+    private AppDatabase appDatabase;
 
     private CircleImageView iv_image;
     private TextView tv_invitation_number, tv_major, tv_name;
@@ -55,11 +59,13 @@ public class DrawerFragment extends Fragment {
         View view = inflater.inflate(R.layout.drawer, container, false);
 
         token = PreferenceManager.getInstance().getSharedPreference(getContext(), Constant.Preference.TOKEN, null);
+        appDatabase = AppDatabase.getInstance(getActivity());
 
         initialize(view);
         setRecyclerView(view);
         getSidebarInfo();
         getInvitationNumber();
+        getGroupList();
 
         return view;
     }
@@ -171,6 +177,15 @@ public class DrawerFragment extends Fragment {
                 Toast.makeText(getContext(), "인터넷 연결 상태를 확인해주세요.", Toast.LENGTH_SHORT).show();
                 Log.d("DrawerFragment", t.getMessage());
             }
+        });
+    }
+
+    private void getGroupList() {
+        LiveData<List<ShareGroup>> list = appDatabase.groupDao().getAll();
+        list.observe(this, groups -> {
+            groupList.clear();
+            groupList.addAll(groups);
+            adapter.notifyDataSetChanged();
         });
     }
 
