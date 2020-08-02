@@ -14,6 +14,8 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.inu.amadda.R;
+import com.inu.amadda.database.AppDatabase;
+import com.inu.amadda.database.ShareGroup;
 import com.inu.amadda.etc.Constant;
 import com.inu.amadda.model.InvitationData;
 import com.inu.amadda.model.RefusalModel;
@@ -30,12 +32,16 @@ import retrofit2.Response;
 public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.ViewHolder> {
 
     private List<InvitationData> mList;
+    private Context mContext;
     private TextView tv_invitation_number, tv_message;
+    private AppDatabase appDatabase;
 
-    public InvitationAdapter(List<InvitationData> list, TextView textViewNumber, TextView textViewMessage) {
+    public InvitationAdapter(List<InvitationData> list, Context context, TextView textViewNumber, TextView textViewMessage) {
         this.mList = list;
+        this.mContext = context;
         this.tv_invitation_number = textViewNumber;
         this.tv_message = textViewMessage;
+        appDatabase = AppDatabase.getInstance(mContext);
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
@@ -71,10 +77,10 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
         holder.tv_inviter.setText(item.getInviter_name() + " " + item.getInviter_id());
         holder.tv_memo.setText(item.getMemo());
         holder.tv_refusal.setOnClickListener(view -> {
-            refuseInvitation(item.getShare(), holder.tv_refusal.getContext(), holder.ll_buttons);
+            refuseInvitation(item.getShare(), holder.ll_buttons);
         });
         holder.tv_acceptance.setOnClickListener(view -> {
-            acceptInvitation(item.getShare(), holder.tv_refusal.getContext(), holder.ll_buttons);
+            acceptInvitation(item, holder.ll_buttons);
         });
     }
 
@@ -83,8 +89,8 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
         return mList.size();
     }
 
-    private void refuseInvitation(int share, Context context, LinearLayout layout) {
-        String token = PreferenceManager.getInstance().getSharedPreference(context, Constant.Preference.TOKEN, null);
+    private void refuseInvitation(int share, LinearLayout layout) {
+        String token = PreferenceManager.getInstance().getSharedPreference(mContext, Constant.Preference.TOKEN, null);
         RefusalModel model = new RefusalModel();
         model.share = share;
 
@@ -100,35 +106,35 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
                             tv_invitation_number.setVisibility(View.INVISIBLE);
                             tv_message.setVisibility(View.VISIBLE);
                             tv_message.setText("거절되었습니다.");
-                            tv_message.setTextColor(ContextCompat.getColor(context, R.color.color_ff0000));
+                            tv_message.setTextColor(ContextCompat.getColor(mContext, R.color.color_ff0000));
                         }
                         else {
-                            Toast.makeText(context, "잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(mContext, "잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
                             Log.d("InvitationAdapter", successResponse.message);
                         }
                     }
                     else {
-                        Toast.makeText(context, "잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
                     }
                 }
                 else {
-                    Toast.makeText(context, "잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
                     Log.d("InvitationAdapter", status + "");
                 }
             }
 
             @Override
             public void onFailure(Call<SuccessResponse> call, Throwable t) {
-                Toast.makeText(context, "인터넷 연결 상태를 확인해주세요.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "인터넷 연결 상태를 확인해주세요.", Toast.LENGTH_SHORT).show();
                 Log.d("InvitationAdapter", t.getMessage());
             }
         });
     }
 
-    private void acceptInvitation(int share, Context context, LinearLayout layout) {
-        String token = PreferenceManager.getInstance().getSharedPreference(context, Constant.Preference.TOKEN, null);
+    private void acceptInvitation(InvitationData data, LinearLayout layout) {
+        String token = PreferenceManager.getInstance().getSharedPreference(mContext, Constant.Preference.TOKEN, null);
 
-        RetrofitInstance.getInstance().getService().acceptInvitation(token, share).enqueue(new Callback<SuccessResponse>() {
+        RetrofitInstance.getInstance().getService().acceptInvitation(token, data.getShare()).enqueue(new Callback<SuccessResponse>() {
             @Override
             public void onResponse(Call<SuccessResponse> call, Response<SuccessResponse> response) {
                 int status = response.code();
@@ -140,26 +146,30 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
                             tv_invitation_number.setVisibility(View.INVISIBLE);
                             tv_message.setVisibility(View.VISIBLE);
                             tv_message.setText("수락되었습니다.");
-                            tv_message.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary));
+                            tv_message.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
+                            new Thread(() -> {
+                                appDatabase.groupDao().insert(new ShareGroup(data.getShare(), data.getGroup_name(), data.getMemo(), 0xff3b3000));
+                                Log.d("InvitationAdapter", "Save group: " + data.getShare());
+                            }).start();
                         }
                         else {
-                            Toast.makeText(context, "잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(mContext, "잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
                             Log.d("InvitationAdapter", successResponse.message);
                         }
                     }
                     else {
-                        Toast.makeText(context, "잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
                     }
                 }
                 else {
-                    Toast.makeText(context, "잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
                     Log.d("InvitationAdapter", status + "");
                 }
             }
 
             @Override
             public void onFailure(Call<SuccessResponse> call, Throwable t) {
-                Toast.makeText(context, "인터넷 연결 상태를 확인해주세요.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "인터넷 연결 상태를 확인해주세요.", Toast.LENGTH_SHORT).show();
                 Log.d("InvitationAdapter", t.getMessage());
             }
         });

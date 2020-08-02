@@ -17,6 +17,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.inu.amadda.R;
+import com.inu.amadda.database.AppDatabase;
 import com.inu.amadda.util.DateUtils;
 import com.inu.amadda.view.fragment.CalendarFragment;
 import com.inu.amadda.view.fragment.TimetableFragment;
@@ -43,6 +44,12 @@ public class MainActivity extends AppCompatActivity {
         setFloatingActionButton();
 
         setDefaultView();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        AppDatabase.destroyInstance();
     }
 
     private void setToolbar() {

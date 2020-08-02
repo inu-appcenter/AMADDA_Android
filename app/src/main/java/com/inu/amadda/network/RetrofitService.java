@@ -1,6 +1,7 @@
 package com.inu.amadda.network;
 
 import com.inu.amadda.model.AddGroupModel;
+import com.inu.amadda.model.AddGroupResponse;
 import com.inu.amadda.model.AddScheduleModel;
 import com.inu.amadda.model.InvitationResponse;
 import com.inu.amadda.model.RefusalModel;
@@ -35,7 +36,7 @@ public interface RetrofitService {
     Call<ScheduleResponse> GetWeekSchedule(@Header("token") String token, @Query("date") String date);
 
     @POST("share/group/create")
-    Call<SuccessResponse> MakeGroup(@Header("token") String token, @Body AddGroupModel addGroupModel);
+    Call<AddGroupResponse> MakeGroup(@Header("token") String token, @Body AddGroupModel addGroupModel);
 
     @GET("share/invite/users/search")
     Call<SearchUserResponse> SearchUser(@Header("token") String token, @Query("user") String user);

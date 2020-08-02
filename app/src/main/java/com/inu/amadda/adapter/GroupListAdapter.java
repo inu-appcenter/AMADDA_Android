@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.inu.amadda.R;
-import com.inu.amadda.model.ShareGroup;
+import com.inu.amadda.database.ShareGroup;
 
 import java.util.List;
 

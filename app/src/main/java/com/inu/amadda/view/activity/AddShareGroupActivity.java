@@ -20,8 +20,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.inu.amadda.R;
 import com.inu.amadda.adapter.InviteAdapter;
+import com.inu.amadda.database.AppDatabase;
+import com.inu.amadda.database.ShareGroup;
 import com.inu.amadda.etc.Constant;
 import com.inu.amadda.model.AddGroupModel;
+import com.inu.amadda.model.AddGroupResponse;
 import com.inu.amadda.model.InviteUserData;
 import com.inu.amadda.model.SearchUserResponse;
 import com.inu.amadda.model.SuccessResponse;
@@ -50,6 +53,7 @@ public class AddShareGroupActivity extends AppCompatActivity {
     private TextView tv_invite, tv_group_color;
     private ImageView iv_invite;
     private ExpandableLayout expandable_invite;
+    private AppDatabase appDatabase;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,6 +65,7 @@ public class AddShareGroupActivity extends AppCompatActivity {
         setRecyclerView();
 
         token = PreferenceManager.getInstance().getSharedPreference(getApplicationContext(), Constant.Preference.TOKEN, null);
+        appDatabase = AppDatabase.getInstance(this);
 
     }
 
@@ -185,19 +190,24 @@ public class AddShareGroupActivity extends AppCompatActivity {
         addGroupModel.setList(idList);
         addGroupModel.setMemo(et_memo.getText().toString());
 
-        RetrofitInstance.getInstance().getService().MakeGroup(token, addGroupModel).enqueue(new Callback<SuccessResponse>() {
+        RetrofitInstance.getInstance().getService().MakeGroup(token, addGroupModel).enqueue(new Callback<AddGroupResponse>() {
             @Override
-            public void onResponse(Call<SuccessResponse> call, Response<SuccessResponse> response) {
+            public void onResponse(Call<AddGroupResponse> call, Response<AddGroupResponse> response) {
                 int status = response.code();
                 if (response.isSuccessful()) {
-                    SuccessResponse successResponse = response.body();
-                    if (successResponse != null) {
-                        if (successResponse.success) {
+                    AddGroupResponse addGroupResponse = response.body();
+                    if (addGroupResponse != null) {
+                        if (addGroupResponse.success) {
                             finish();
+                            new Thread(() -> {
+                                appDatabase.groupDao().insert(new ShareGroup(addGroupResponse.share, et_group_name.getText().toString(),
+                                        et_memo.getText().toString(), 0xff3b3000));
+                                Log.d("AddShareGroupActivity", "Save group: " + addGroupResponse.share);
+                            }).start();
                         }
                         else {
                             Toast.makeText(getApplicationContext(), "잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
-                            Log.d("AddShareGroupActivity", successResponse.message);
+                            Log.d("AddShareGroupActivity", addGroupResponse.message);
                         }
                     }
                     else {
@@ -211,7 +221,7 @@ public class AddShareGroupActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<SuccessResponse> call, Throwable t) {
+            public void onFailure(Call<AddGroupResponse> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "인터넷 연결 상태를 확인해주세요.", Toast.LENGTH_SHORT).show();
                 Log.d("AddShareGroupActivity", t.getMessage());
             }

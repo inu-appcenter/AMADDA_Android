@@ -22,7 +22,7 @@ import com.inu.amadda.R;
 import com.inu.amadda.adapter.GroupListAdapter;
 import com.inu.amadda.etc.Constant;
 import com.inu.amadda.model.InvitationResponse;
-import com.inu.amadda.model.ShareGroup;
+import com.inu.amadda.database.ShareGroup;
 import com.inu.amadda.model.SidebarData;
 import com.inu.amadda.model.SidebarResponse;
 import com.inu.amadda.network.RetrofitInstance;
