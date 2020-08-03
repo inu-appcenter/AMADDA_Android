@@ -67,12 +67,13 @@ public class AddScheduleActivity extends AppCompatActivity {
         Intent intent = getIntent();
         isPersonal = intent.getBooleanExtra("isPersonal", true);
 
-        LinearLayout layout = findViewById(R.id.ll_share);
+        LinearLayout ll_color = findViewById(R.id.ll_color);
+        LinearLayout ll_share = findViewById(R.id.ll_share);
         if (isPersonal){
-            layout.setVisibility(View.GONE);
+            ll_color.setVisibility(View.VISIBLE);
         }
         else {
-            layout.setVisibility(View.VISIBLE);
+            ll_share.setVisibility(View.VISIBLE);
         }
     }
 
@@ -111,6 +112,7 @@ public class AddScheduleActivity extends AppCompatActivity {
         RelativeLayout rl_start = findViewById(R.id.rl_start);
         RelativeLayout rl_end = findViewById(R.id.rl_end);
         RelativeLayout rl_alarm = findViewById(R.id.rl_alarm);
+        RelativeLayout rl_color = findViewById(R.id.rl_color);
         RelativeLayout rl_share = findViewById(R.id.rl_share);
         expandable_alarm = findViewById(R.id.expandable_alarm);
         expandable_share = findViewById(R.id.expandable_share);
@@ -118,6 +120,7 @@ public class AddScheduleActivity extends AppCompatActivity {
         rl_start.setOnClickListener(onClickListener);
         rl_end.setOnClickListener(onClickListener);
         rl_alarm.setOnClickListener(onClickListener);
+        rl_color.setOnClickListener(onClickListener);
         rl_share.setOnClickListener(onClickListener);
 
         et_name = findViewById(R.id.et_name);
@@ -335,6 +338,9 @@ public class AddScheduleActivity extends AppCompatActivity {
             }
             case R.id.rl_alarm: {
                 setExpandable(true);
+                break;
+            }
+            case R.id.rl_color: {
                 break;
             }
             case R.id.rl_share: {
