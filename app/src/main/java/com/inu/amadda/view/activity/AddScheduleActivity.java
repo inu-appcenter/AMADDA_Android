@@ -14,12 +14,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bigkoo.pickerview.adapter.ArrayWheelAdapter;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.contrarywind.view.WheelView;
 import com.inu.amadda.R;
+import com.inu.amadda.adapter.GroupChoiceAdapter;
+import com.inu.amadda.database.AppDatabase;
+import com.inu.amadda.database.ShareGroup;
 import com.inu.amadda.etc.Constant;
 import com.inu.amadda.model.AddScheduleModel;
 import com.inu.amadda.model.SuccessResponse;
@@ -43,6 +48,9 @@ public class AddScheduleActivity extends AppCompatActivity {
 
     private boolean isPersonal, isExpanded = false, isAlarmClicked;
     private String startDate = null, endDate = null;
+    private List<ShareGroup> groupList = new ArrayList<>();
+
+    private AppDatabase appDatabase;
 
     private ExpandableLayout expandable_alarm, expandable_share;
     private TextView tv_start_date, tv_start_ampm, tv_start_time, tv_end_date, tv_end_ampm, tv_end_time;
@@ -53,6 +61,8 @@ public class AddScheduleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_schedule);
+
+        appDatabase = AppDatabase.getInstance(this);
 
         checkType();
         setToolbar();
@@ -74,6 +84,7 @@ public class AddScheduleActivity extends AppCompatActivity {
         }
         else {
             ll_share.setVisibility(View.VISIBLE);
+            setRecyclerView();
         }
     }
 
@@ -99,6 +110,20 @@ public class AddScheduleActivity extends AppCompatActivity {
         else {
             title.setText("공유 일정 추가");
         }
+    }
+
+    private void setRecyclerView() {
+        new Thread(() -> {
+            groupList.addAll(appDatabase.groupDao().getList());
+        }).start();
+
+        RecyclerView recyclerView = findViewById(R.id.rv_shared_group);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        GroupChoiceAdapter adapter = new GroupChoiceAdapter(groupList);
+        recyclerView.setAdapter(adapter);
+
+        adapter.notifyDataSetChanged();
     }
 
     private void initialize() {
