@@ -1,6 +1,7 @@
 package com.inu.amadda.view.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -44,18 +45,20 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AddScheduleActivity extends AppCompatActivity {
+public class AddScheduleActivity extends AppCompatActivity implements GroupChoiceAdapter.OnSelectListener {
 
     private boolean isPersonal, isExpanded = false, isAlarmClicked;
     private String startDate = null, endDate = null;
     private List<ShareGroup> groupList = new ArrayList<>();
+    private int share = -1;
 
     private AppDatabase appDatabase;
 
     private ExpandableLayout expandable_alarm, expandable_share;
-    private TextView tv_start_date, tv_start_ampm, tv_start_time, tv_end_date, tv_end_ampm, tv_end_time;
+    private TextView tv_start_date, tv_start_ampm, tv_start_time, tv_end_date, tv_end_ampm, tv_end_time, tv_share;
     private TimePickerView timePickerStart, timePickerEnd;
     private EditText et_name, et_place, et_memo;
+    private View view_group_tag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +76,17 @@ public class AddScheduleActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onSelect(ShareGroup group) {
+        share = group.getShare();
+
+        view_group_tag.setVisibility(View.VISIBLE);
+        view_group_tag.setBackgroundColor(Color.parseColor(group.getColor()));
+
+        tv_share.setTextColor(ContextCompat.getColor(this, R.color.color_6a6a6a));
+        tv_share.setText(group.getGroup_name());
+    }
+
     private void checkType() {
         Intent intent = getIntent();
         isPersonal = intent.getBooleanExtra("isPersonal", true);
@@ -80,10 +94,10 @@ public class AddScheduleActivity extends AppCompatActivity {
         LinearLayout ll_color = findViewById(R.id.ll_color);
         LinearLayout ll_share = findViewById(R.id.ll_share);
         if (isPersonal){
-            ll_color.setVisibility(View.VISIBLE);
+            ll_share.setVisibility(View.GONE);
         }
         else {
-            ll_share.setVisibility(View.VISIBLE);
+            ll_color.setVisibility(View.GONE);
             setRecyclerView();
         }
     }
@@ -120,36 +134,43 @@ public class AddScheduleActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.rv_shared_group);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        GroupChoiceAdapter adapter = new GroupChoiceAdapter(groupList);
+        GroupChoiceAdapter adapter = new GroupChoiceAdapter(groupList, this);
         recyclerView.setAdapter(adapter);
 
         adapter.notifyDataSetChanged();
     }
 
     private void initialize() {
+        et_name = findViewById(R.id.et_name);
+
+        RelativeLayout rl_start = findViewById(R.id.rl_start);
+        rl_start.setOnClickListener(onClickListener);
         tv_start_date = findViewById(R.id.tv_start_date);
         tv_start_ampm = findViewById(R.id.tv_start_ampm);
         tv_start_time = findViewById(R.id.tv_start_time);
+
+        RelativeLayout rl_end = findViewById(R.id.rl_end);
+        rl_end.setOnClickListener(onClickListener);
         tv_end_date = findViewById(R.id.tv_end_date);
         tv_end_ampm = findViewById(R.id.tv_end_ampm);
         tv_end_time = findViewById(R.id.tv_end_time);
 
-        RelativeLayout rl_start = findViewById(R.id.rl_start);
-        RelativeLayout rl_end = findViewById(R.id.rl_end);
+        et_place = findViewById(R.id.et_place);
+
         RelativeLayout rl_alarm = findViewById(R.id.rl_alarm);
-        RelativeLayout rl_color = findViewById(R.id.rl_color);
-        RelativeLayout rl_share = findViewById(R.id.rl_share);
+        rl_alarm.setOnClickListener(onClickListener);
         expandable_alarm = findViewById(R.id.expandable_alarm);
+
+        RelativeLayout rl_color = findViewById(R.id.rl_color);
+        rl_color.setOnClickListener(onClickListener);
+
+        RelativeLayout rl_share = findViewById(R.id.rl_share);
+        rl_share.setOnClickListener(onClickListener);
+        view_group_tag = findViewById(R.id.view_group_tag);
+        tv_share = findViewById(R.id.tv_share);
+
         expandable_share = findViewById(R.id.expandable_share);
 
-        rl_start.setOnClickListener(onClickListener);
-        rl_end.setOnClickListener(onClickListener);
-        rl_alarm.setOnClickListener(onClickListener);
-        rl_color.setOnClickListener(onClickListener);
-        rl_share.setOnClickListener(onClickListener);
-
-        et_name = findViewById(R.id.et_name);
-        et_place = findViewById(R.id.et_place);
         et_memo = findViewById(R.id.et_memo);
 
         TextView btn_add = findViewById(R.id.btn_add);
@@ -309,7 +330,12 @@ public class AddScheduleActivity extends AppCompatActivity {
         addScheduleModel.setEnd(endDate);
         addScheduleModel.setLocation(et_place.getText().toString());
 //        addScheduleModel.setAlarm(null);
-//        addScheduleModel.setShare(null);
+        if (isPersonal){
+            // Save color string
+        }
+        else {
+            addScheduleModel.setShare(share);
+        }
         addScheduleModel.setMemo(et_memo.getText().toString());
 
         String token = PreferenceManager.getInstance().getSharedPreference(getApplicationContext(), Constant.Preference.TOKEN, null);
@@ -373,7 +399,14 @@ public class AddScheduleActivity extends AppCompatActivity {
                 break;
             }
             case R.id.btn_add: {
-                sendScheduleInfo();
+                if (!isPersonal){
+                    if (share == -1){
+                        Toast.makeText(getApplicationContext(), "공유할 그룹을 선택해주세요.", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        sendScheduleInfo();
+                    }
+                }
                 break;
             }
         }

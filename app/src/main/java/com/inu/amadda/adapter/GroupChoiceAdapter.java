@@ -18,9 +18,17 @@ import java.util.List;
 public class GroupChoiceAdapter extends RecyclerView.Adapter<GroupChoiceAdapter.ViewHolder> {
 
     private List<ShareGroup> mList;
+    private int selectedPosition = -1;
 
-    public GroupChoiceAdapter(List<ShareGroup> list) {
+    private OnSelectListener mOnSelectListener;
+
+    public interface OnSelectListener{
+        void onSelect(ShareGroup group);
+    }
+
+    public GroupChoiceAdapter(List<ShareGroup> list, OnSelectListener onSelectListener) {
         this.mList = list;
+        this.mOnSelectListener = onSelectListener;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
@@ -49,8 +57,19 @@ public class GroupChoiceAdapter extends RecyclerView.Adapter<GroupChoiceAdapter.
         ShareGroup item = mList.get(position);
         holder.view_group_tag.setBackgroundColor(Color.parseColor(item.getColor()));
         holder.tv_group_name.setText(item.getGroup_name());
+        holder.cb_group_choice.setChecked(position == selectedPosition);
         holder.cb_group_choice.setOnClickListener(view -> {
-
+            // 클릭 이벤트 발생 후 동작
+            if(selectedPosition != position){
+                selectedPosition = position;
+                notifyDataSetChanged();
+                mOnSelectListener.onSelect(item);
+            }
+            else{
+                holder.cb_group_choice.setChecked(true);
+//                selectedPosition = -1;
+                notifyDataSetChanged();
+            }
         });
     }
 
