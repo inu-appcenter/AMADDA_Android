@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="color_picker_array">
+        <item>@color/color1</item>
+        <item>@color/color2</item>
+        <item>@color/color_ffc915</item>
+        <item>@color/color_ff0000</item>
+        <item>@color/color5</item>
+
+        <item>@color/color6</item>
+        <item>@color/color_22af1d</item>
+        <item>@color/color8</item>
+        <item>@color/color9</item>
+        <item>@color/color_8234ff</item>
+
+        <item>@color/colorPrimary</item>
+        <item>@color/color12</item>
+        <item>@color/color13</item>
+        <item>@color/color14</item>
+        <item>@color/color15</item>
+    </array>
+</resources>

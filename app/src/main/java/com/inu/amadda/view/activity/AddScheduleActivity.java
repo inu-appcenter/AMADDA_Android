@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -32,6 +33,7 @@ import com.inu.amadda.model.SuccessResponse;
 import com.inu.amadda.network.RetrofitInstance;
 import com.inu.amadda.util.DateUtils;
 import com.inu.amadda.util.PreferenceManager;
+import com.inu.amadda.util.Utils;
 
 import net.cachapa.expandablelayout.ExpandableLayout;
 
@@ -41,6 +43,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import petrov.kristiyan.colorpicker.ColorPicker;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -48,17 +51,18 @@ import retrofit2.Response;
 public class AddScheduleActivity extends AppCompatActivity implements GroupChoiceAdapter.OnSelectListener {
 
     private boolean isPersonal, isExpanded = false, isAlarmClicked;
-    private String startDate = null, endDate = null;
+    private String startDate = null, endDate = null, color = null, pickColor = null;
     private List<ShareGroup> groupList = new ArrayList<>();
     private int share = -1;
 
     private AppDatabase appDatabase;
 
     private ExpandableLayout expandable_alarm, expandable_share;
-    private TextView tv_start_date, tv_start_ampm, tv_start_time, tv_end_date, tv_end_ampm, tv_end_time, tv_share;
+    private TextView tv_start_date, tv_start_ampm, tv_start_time, tv_end_date, tv_end_ampm, tv_end_time, tv_color, tv_share;
     private TimePickerView timePickerStart, timePickerEnd;
     private EditText et_name, et_place, et_memo;
-    private View view_group_tag;
+    private View view_color_tag, view_group_tag;
+    private ColorPicker colorPicker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,9 +71,9 @@ public class AddScheduleActivity extends AppCompatActivity implements GroupChoic
 
         appDatabase = AppDatabase.getInstance(this);
 
+        initialize();
         checkType();
         setToolbar();
-        initialize();
         setDefaultDateTime();
         setDateTimePicker();
         setAlarmWheelView();
@@ -95,6 +99,7 @@ public class AddScheduleActivity extends AppCompatActivity implements GroupChoic
         LinearLayout ll_share = findViewById(R.id.ll_share);
         if (isPersonal){
             ll_share.setVisibility(View.GONE);
+            setPersonalColor();
         }
         else {
             ll_color.setVisibility(View.GONE);
@@ -124,6 +129,46 @@ public class AddScheduleActivity extends AppCompatActivity implements GroupChoic
         else {
             title.setText("공유 일정 추가");
         }
+    }
+
+    private void setPersonalColor() {
+        color = PreferenceManager.getInstance().getSharedPreference(getApplicationContext(), Constant.Preference.COLOR, null);
+
+        if (color != null){
+            view_color_tag.setBackgroundColor(Color.parseColor(color));
+            view_color_tag.setVisibility(View.VISIBLE);
+            tv_color.setTextColor(ContextCompat.getColor(AddScheduleActivity.this, R.color.color_6a6a6a));
+            tv_color.setText(String.valueOf(color));
+        }
+    }
+
+    private void setColorPicker() {
+        colorPicker = new ColorPicker(this);
+        colorPicker
+                .setOnChooseColorListener(new ColorPicker.OnChooseColorListener() {
+            @Override
+            public void onChooseColor(int position,int colorChoice) {
+                if (colorChoice != 0){
+                    view_color_tag.setBackgroundColor(colorChoice);
+                    view_color_tag.setVisibility(View.VISIBLE);
+                    tv_color.setTextColor(ContextCompat.getColor(AddScheduleActivity.this, R.color.color_6a6a6a));
+                    pickColor = Utils.toStringColor(colorChoice);
+                    tv_color.setText(pickColor);
+                }
+                ((ViewGroup) colorPicker.getDialogViewLayout().getParent()).removeView(colorPicker.getDialogViewLayout());
+            }
+
+            @Override
+            public void onCancel(){
+                ((ViewGroup) colorPicker.getDialogViewLayout().getParent()).removeView(colorPicker.getDialogViewLayout());
+            }
+        })
+                .setTitle("컬러 선택")
+                .setColors(R.array.color_picker_array)
+                .setRoundColorButton(true);
+        if (color != null)
+            colorPicker.setDefaultColorButton(Color.parseColor(color));
+        colorPicker.show();
     }
 
     private void setRecyclerView() {
@@ -163,6 +208,8 @@ public class AddScheduleActivity extends AppCompatActivity implements GroupChoic
 
         RelativeLayout rl_color = findViewById(R.id.rl_color);
         rl_color.setOnClickListener(onClickListener);
+        view_color_tag = findViewById(R.id.view_color_tag);
+        tv_color = findViewById(R.id.tv_color);
 
         RelativeLayout rl_share = findViewById(R.id.rl_share);
         rl_share.setOnClickListener(onClickListener);
@@ -330,10 +377,7 @@ public class AddScheduleActivity extends AppCompatActivity implements GroupChoic
         addScheduleModel.setEnd(endDate);
         addScheduleModel.setLocation(et_place.getText().toString());
 //        addScheduleModel.setAlarm(null);
-        if (isPersonal){
-            // Save color string
-        }
-        else {
+        if (!isPersonal){
             addScheduleModel.setShare(share);
         }
         addScheduleModel.setMemo(et_memo.getText().toString());
@@ -348,6 +392,9 @@ public class AddScheduleActivity extends AppCompatActivity implements GroupChoic
                     SuccessResponse successResponse = response.body();
                     if (successResponse != null) {
                         if (successResponse.success) {
+                            if (isPersonal && pickColor != null){
+                                PreferenceManager.getInstance().putSharedPreference(getApplicationContext(), Constant.Preference.COLOR, pickColor);
+                            }
                             finish();
                         }
                         else {
@@ -392,6 +439,7 @@ public class AddScheduleActivity extends AppCompatActivity implements GroupChoic
                 break;
             }
             case R.id.rl_color: {
+                setColorPicker();
                 break;
             }
             case R.id.rl_share: {
@@ -399,7 +447,15 @@ public class AddScheduleActivity extends AppCompatActivity implements GroupChoic
                 break;
             }
             case R.id.btn_add: {
-                if (!isPersonal){
+                if (isPersonal){
+                    if (color == null && pickColor == null){
+                        Toast.makeText(getApplicationContext(), "컬러를 선택해주세요.", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        sendScheduleInfo();
+                    }
+                }
+                else {
                     if (share == -1){
                         Toast.makeText(getApplicationContext(), "공유할 그룹을 선택해주세요.", Toast.LENGTH_SHORT).show();
                     }

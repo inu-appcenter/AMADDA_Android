@@ -5,5 +5,6 @@ public class Constant {
         public static final String ID = "ID";
         public static final String PASSWORD = "PASSWORD";
         public static final String TOKEN = "TOKEN";
+        public static final String COLOR = "COLOR";
     }
 }
