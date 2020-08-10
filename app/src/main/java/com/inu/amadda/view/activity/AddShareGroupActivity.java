@@ -3,6 +3,7 @@ package com.inu.amadda.view.activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -27,15 +28,16 @@ import com.inu.amadda.model.AddGroupModel;
 import com.inu.amadda.model.AddGroupResponse;
 import com.inu.amadda.model.InviteUserData;
 import com.inu.amadda.model.SearchUserResponse;
-import com.inu.amadda.model.SuccessResponse;
 import com.inu.amadda.network.RetrofitInstance;
 import com.inu.amadda.util.PreferenceManager;
+import com.inu.amadda.util.Utils;
 
 import net.cachapa.expandablelayout.ExpandableLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import petrov.kristiyan.colorpicker.ColorPicker;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -45,23 +47,25 @@ public class AddShareGroupActivity extends AppCompatActivity {
     private boolean isExpanded = false, isFirst = true;
     private List<String> idList = new ArrayList<>();
     private List<InviteUserData> inviteList = new ArrayList<>();
-    private String token, user;
+    private String token, user, pickColor = null;
 
     private InviteAdapter adapter;
+    private AppDatabase appDatabase;
 
     private EditText et_group_name, et_invite, et_memo;
     private TextView tv_invite, tv_group_color;
     private ImageView iv_invite;
     private ExpandableLayout expandable_invite;
-    private AppDatabase appDatabase;
+    private ColorPicker colorPicker;
+    private View view_group_tag;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_share_group);
 
-        setToolbar();
         initialize();
+        setToolbar();
         setRecyclerView();
 
         token = PreferenceManager.getInstance().getSharedPreference(getApplicationContext(), Constant.Preference.TOKEN, null);
@@ -103,6 +107,7 @@ public class AddShareGroupActivity extends AppCompatActivity {
 
         RelativeLayout rl_group_color = findViewById(R.id.rl_group_color);
         rl_group_color.setOnClickListener(onClickListener);
+        view_group_tag = findViewById(R.id.view_group_tag);
         tv_group_color = findViewById(R.id.tv_group_color);
 
         et_memo = findViewById(R.id.et_memo);
@@ -181,6 +186,33 @@ public class AddShareGroupActivity extends AppCompatActivity {
         });
     }
 
+    private void setColorPicker() {
+        colorPicker = new ColorPicker(this);
+        colorPicker
+                .setOnChooseColorListener(new ColorPicker.OnChooseColorListener() {
+                    @Override
+                    public void onChooseColor(int position,int colorChoice) {
+                        if (colorChoice != 0){
+                            view_group_tag.setBackgroundColor(colorChoice);
+                            view_group_tag.setVisibility(View.VISIBLE);
+                            tv_group_color.setTextColor(ContextCompat.getColor(AddShareGroupActivity.this, R.color.color_6a6a6a));
+                            pickColor = Utils.toStringColor(colorChoice);
+                            tv_group_color.setText(pickColor);
+                        }
+                        ((ViewGroup) colorPicker.getDialogViewLayout().getParent()).removeView(colorPicker.getDialogViewLayout());
+                    }
+
+                    @Override
+                    public void onCancel(){
+                        ((ViewGroup) colorPicker.getDialogViewLayout().getParent()).removeView(colorPicker.getDialogViewLayout());
+                    }
+                })
+                .setTitle("그룹 컬러 선택")
+                .setColors(R.array.color_picker_array)
+                .setRoundColorButton(true);
+        colorPicker.show();
+    }
+
     private void sendGroupInfo() {
         AddGroupModel addGroupModel = new AddGroupModel();
         addGroupModel.setGroupName(et_group_name.getText().toString());
@@ -201,7 +233,7 @@ public class AddShareGroupActivity extends AppCompatActivity {
                             finish();
                             new Thread(() -> {
                                 appDatabase.groupDao().insert(new ShareGroup(addGroupResponse.share, et_group_name.getText().toString(),
-                                        et_memo.getText().toString(), "#ff3b30"));
+                                        et_memo.getText().toString(), pickColor));
                                 Log.d("AddShareGroupActivity", "Save group: " + addGroupResponse.share);
                             }).start();
                         }
@@ -248,8 +280,17 @@ public class AddShareGroupActivity extends AppCompatActivity {
                 }
                 break;
             }
+            case R.id.rl_group_color:{
+                setColorPicker();
+                break;
+            }
             case R.id.btn_make:{
-                sendGroupInfo();
+                if (pickColor == null){
+                    Toast.makeText(getApplicationContext(), "그룹 컬러를 선택해주세요.", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    sendGroupInfo();
+                }
                 break;
             }
         }

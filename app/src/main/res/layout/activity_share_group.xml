@@ -142,18 +142,31 @@
             android:layout_marginStart="35dp"
             android:id="@+id/kaa" />
 
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
             android:layout_centerVertical="true"
-            android:textSize="16dp"
-            android:textColor="@color/color_cccccc"
-            android:text="그룹 컬러"
             android:layout_marginStart="19dp"
-            android:layout_toEndOf="@+id/kaa"
-            android:id="@+id/tv_group_color"
-            android:gravity="center"
-            />
+            android:layout_toEndOf="@+id/kaa">
+
+            <View
+                android:id="@+id/view_group_tag"
+                android:layout_width="6dp"
+                android:layout_height="16dp"
+                android:layout_marginEnd="4dp"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/tv_group_color"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@color/color_cccccc"
+                android:text="그룹 컬러"/>
+
+        </LinearLayout>
 
     </RelativeLayout>
 
