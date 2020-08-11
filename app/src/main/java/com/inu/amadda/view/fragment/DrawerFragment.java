@@ -32,6 +32,7 @@ import com.inu.amadda.network.RetrofitInstance;
 import com.inu.amadda.util.PreferenceManager;
 import com.inu.amadda.view.activity.AddShareGroupActivity;
 import com.inu.amadda.view.activity.ManageInvitationActivity;
+import com.inu.amadda.view.activity.ScheduleListActivity;
 import com.inu.amadda.view.activity.SettingActivity;
 
 import java.util.ArrayList;
@@ -192,6 +193,9 @@ public class DrawerFragment extends Fragment {
     private View.OnClickListener onClickListener = view -> {
         switch (view.getId()){
             case R.id.personal_schedule:{
+                Intent intent = new Intent(getActivity(), ScheduleListActivity.class);
+                intent.putExtra("share", -1);
+                startActivity(intent);
                 break;
             }
             case R.id.invitation_management:{

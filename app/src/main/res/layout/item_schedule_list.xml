@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cv_schedule"
+    app:cardCornerRadius="6dp"
+    app:cardBackgroundColor="@color/color_cccccc"
+    app:cardElevation="5dp"
+    app:contentPadding="1dp"
+    android:background="?selectableItemBackground"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="19dp"
+    android:layout_marginEnd="19dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/rl_card_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/card_content">
+
+            <View
+                android:id="@+id/view_group_tag"
+                android:layout_width="6dp"
+                android:layout_height="16dp"
+                android:background="@color/color_ff3b30"
+                android:layout_marginTop="31dp"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="25dp"
+                android:layout_marginStart="23dp"
+                android:layout_marginBottom="30dp">
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorAccent"
+                    android:lines="1"
+                    android:ellipsize="end"
+                    android:text="무대 미술의 이해 팀플"/>
+
+                <TextView
+                    android:id="@+id/tv_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/color_707070"
+                    android:layout_marginTop="16dp"
+                    android:text="오후 01:00 ~ 오후 02:00"
+                    android:drawableStart="@drawable/time"
+                    android:drawablePadding="14.4dp"/>
+
+                <TextView
+                    android:id="@+id/tv_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="@color/color_707070"
+                    android:lines="1"
+                    android:ellipsize="end"
+                    android:layout_marginTop="11dp"
+                    android:layout_marginStart="1dp"
+                    android:text="공씨네 주먹밥"
+                    android:drawableStart="@drawable/pin_map"
+                    android:drawablePadding="12.4dp"/>
+
+                <TextView
+                    android:id="@+id/tv_memo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="@color/color_707070"
+                    android:lines="1"
+                    android:ellipsize="end"
+                    android:layout_marginTop="11dp"
+                    android:layout_marginStart="1.8dp"
+                    android:text="같이 작업 할 사람 동방오세요!"
+                    android:drawableStart="@drawable/memo"
+                    android:drawablePadding="15dp"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

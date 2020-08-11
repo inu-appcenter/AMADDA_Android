@@ -1,5 +1,7 @@
 package com.inu.amadda.adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,12 +14,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.inu.amadda.R;
 import com.inu.amadda.database.ShareGroup;
+import com.inu.amadda.view.activity.ScheduleListActivity;
 
 import java.util.List;
 
 public class GroupListAdapter extends RecyclerView.Adapter<GroupListAdapter.ViewHolder> {
 
     private List<ShareGroup> mList;
+    private Context mContext;
 
     public GroupListAdapter(List<ShareGroup> list) {
         this.mList = list;
@@ -41,7 +45,8 @@ public class GroupListAdapter extends RecyclerView.Adapter<GroupListAdapter.View
     @NonNull
     @Override
     public GroupListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new GroupListAdapter.ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_group_list, parent, false));
+        mContext = parent.getContext();
+        return new GroupListAdapter.ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_group_list, parent, false));
     }
 
     @Override
@@ -50,7 +55,10 @@ public class GroupListAdapter extends RecyclerView.Adapter<GroupListAdapter.View
         holder.view_group_tag.setBackgroundColor(Color.parseColor(item.getColor()));
         holder.tv_group_name.setText(item.getGroup_name());
         holder.rl_group_list.setOnClickListener(view -> {
-
+            Intent intent = new Intent(mContext, ScheduleListActivity.class);
+            intent.putExtra("share", item.getShare());
+            intent.putExtra("group_name", item.getGroup_name());
+            mContext.startActivity(intent);
         });
     }
 
