@@ -23,7 +23,7 @@
                 android:id="@+id/rv_schedule_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="5dp"/>
+                android:paddingTop="6dp"/>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_add_schedule"
@@ -35,7 +35,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="19dp"
                 android:layout_marginEnd="19dp"
-                android:layout_marginBottom="11dp">
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="22dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"

@@ -54,4 +54,10 @@ public interface RetrofitService {
     @POST("share/invitations/group")
     Call<SuccessResponse> acceptInvitation(@Header("token") String token, @Field("share") int share);
 
+    @GET("schedule/show/me")
+    Call<ScheduleResponse> GetPersonalSchedules(@Header("token") String token);
+
+    @GET("schedule/show/group")
+    Call<ScheduleResponse> GetGroupSchedules(@Header("token") String token, @Query("share") int share);
+
 }
