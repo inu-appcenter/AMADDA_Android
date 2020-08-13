@@ -19,6 +19,9 @@ public interface ShareGroupDao {
     @Query("DELETE FROM ShareGroup WHERE share = :share")
     void deleteByKey(int share);
 
+    @Query("SELECT color FROM ShareGroup WHERE share = :share")
+    String getColorByKey(int share);
+
     @Update
     void update(ShareGroup group);
 

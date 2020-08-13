@@ -1,7 +1,7 @@
 package com.inu.amadda.model;
 
 public class ScheduleData {
-    private int number, key;
+    private int number, share;
     private String id, schedule_name, start, end, location, alarm, memo;
 
     public int getNumber() {
@@ -12,12 +12,12 @@ public class ScheduleData {
         this.number = number;
     }
 
-    public int getKey() {
-        return key;
+    public int getShare() {
+        return share;
     }
 
-    public void setKey(int key) {
-        this.key = key;
+    public void setShare(int share) {
+        this.share = share;
     }
 
     public String getId() {
