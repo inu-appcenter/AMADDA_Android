@@ -16,6 +16,9 @@ public interface ShareGroupDao {
     @Query("SELECT * FROM ShareGroup ORDER BY share")
     List<ShareGroup> getList();
 
+    @Query("SELECT * FROM ShareGroup WHERE share = :share")
+    List<ShareGroup> getShareGroup(int share);
+
     @Query("DELETE FROM ShareGroup WHERE share = :share")
     void deleteByKey(int share);
 

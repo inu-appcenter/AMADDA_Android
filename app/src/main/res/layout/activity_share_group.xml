@@ -1,243 +1,233 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/color_ffffff">
 
-    <include
-    layout="@layout/toolbar"/>
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="79dp"
-        android:layout_marginStart="27dp"
-        android:layout_marginEnd="27dp"
-        android:textSize="28sp"
-        android:textColor="@color/color_2d3e51"
-        android:textColorHint="@color/color_cccccc"
-        android:hint="공유 그룹 이름"
-        android:backgroundTint="@color/color_ffffff"
-        android:id="@+id/et_group_name"
-        android:textStyle="bold"
-        android:inputType="text"
-        />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:id="@+id/rl_invite"
-        android:background="?android:selectableItemBackground">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/email"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="32dp"
-            android:id="@+id/ka"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:textSize="16dp"
-            android:textColor="@color/color_cccccc"
-            android:text="초대하기"
-            android:layout_marginStart="18dp"
-            android:layout_toEndOf="@+id/ka"
-            android:id="@+id/tv_invite"
-            android:gravity="center"
-            />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/add_new_schedule_ic"
-            android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="25dp"
-            android:id="@+id/iv_invite"
-            />
-    </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:background="@color/color_cccccc"
-        />
-
-    <net.cachapa.expandablelayout.ExpandableLayout
-        android:id="@+id/expandable_invite"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:el_duration="300"
-        app:el_expanded="false">
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:orientation="vertical">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_invite"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="52dp"
-                android:layout_marginTop="14dp">
-
-                <EditText
-                    android:id="@+id/et_invite"
-                    android:layout_width="200dp"
-                    android:layout_height="match_parent"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="93dp"
-                    android:hint="초대자 추가"
-                    android:textSize="16sp"
-                    android:textColor="@color/color_707070"
-                    android:backgroundTint="@android:color/transparent"
-                    android:inputType="number"/>
-
-                <ImageButton
-                    android:id="@+id/btn_invite"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="4dp"
-                    android:src="@drawable/invitation"
-                    android:background="?android:selectableItemBackgroundBorderless"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"/>
-
-            </RelativeLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/color_cccccc"/>
-
-        </LinearLayout>
-
-    </net.cachapa.expandablelayout.ExpandableLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:id="@+id/rl_group_color"
-        android:background="?android:selectableItemBackground">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/group_color"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="35dp"
-            android:id="@+id/kaa" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="19dp"
-            android:layout_toEndOf="@+id/kaa">
-
-            <View
-                android:id="@+id/view_group_tag"
-                android:layout_width="6dp"
-                android:layout_height="16dp"
-                android:layout_marginEnd="4dp"
-                android:visibility="gone"/>
-
-            <TextView
-                android:id="@+id/tv_group_color"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:textColor="@color/color_cccccc"
-                android:text="그룹 컬러"/>
-
-        </LinearLayout>
-
-    </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:background="@color/color_cccccc"
-        />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="56dp">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/memo"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="35dp"
-            android:id="@+id/kaaa" />
+        <include layout="@layout/toolbar" />
 
         <EditText
-            android:id="@+id/et_memo"
+            android:id="@+id/et_group_name"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:textSize="16sp"
-            android:textColor="@color/color_707070"
-            android:hint="메모"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="22dp"
-            android:layout_toEndOf="@+id/kaaa"
+            android:layout_height="79dp"
+            android:layout_marginStart="27dp"
+            android:layout_marginEnd="27dp"
             android:backgroundTint="@color/color_ffffff"
-            android:textColorHint="@color/color_cccccc"
+            android:hint="공유 그룹 이름"
             android:inputType="text"
-            />
+            android:textColor="@color/color_2d3e51"
+            android:textColorHint="@color/color_cccccc"
+            android:textSize="28sp"
+            android:textStyle="bold" />
 
-    </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:background="@color/color_cccccc"
-        />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
-        <TextView
-            android:id="@+id/btn_make"
+        <RelativeLayout
+            android:id="@+id/rl_invite"
             android:layout_width="match_parent"
-            android:layout_height="46dp"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="41dp"
-            android:background="@drawable/makefinish"
-            android:text="생성 완료"
-            android:gravity="center"
-            android:textColor="@color/color_ffffff"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_marginStart="68dp"
-            android:layout_marginEnd="68dp"
-            />
+            android:layout_height="56dp"
+            android:background="?android:selectableItemBackground">
 
-    </RelativeLayout>
+            <ImageView
+                android:id="@+id/ka"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="32dp"
+                android:src="@drawable/email" />
 
+            <TextView
+                android:id="@+id/tv_invite"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="18dp"
+                android:layout_toEndOf="@+id/ka"
+                android:gravity="center"
+                android:text="초대하기"
+                android:textColor="@color/color_cccccc"
+                android:textSize="16dp" />
 
-</LinearLayout>
+            <ImageView
+                android:id="@+id/iv_invite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="25dp"
+                android:src="@drawable/add_new_schedule_ic" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@color/color_cccccc" />
+
+        <net.cachapa.expandablelayout.ExpandableLayout
+            android:id="@+id/expandable_invite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:el_duration="300"
+            app:el_expanded="false">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:orientation="vertical">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_invite"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="14dp" />
+
+                <RelativeLayout
+                    android:id="@+id/rl_add_invitee"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp">
+
+                    <EditText
+                        android:id="@+id/et_invite"
+                        android:layout_width="200dp"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="93dp"
+                        android:backgroundTint="@android:color/transparent"
+                        android:hint="초대자 추가"
+                        android:inputType="number"
+                        android:textColor="@color/color_707070"
+                        android:textSize="16sp" />
+
+                    <ImageButton
+                        android:id="@+id/btn_invite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:background="?android:selectableItemBackgroundBorderless"
+                        android:padding="4dp"
+                        android:src="@drawable/invitation" />
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/color_cccccc" />
+
+            </LinearLayout>
+
+        </net.cachapa.expandablelayout.ExpandableLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_group_color"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:background="?android:selectableItemBackground">
+
+            <ImageView
+                android:id="@+id/kaa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="35dp"
+                android:src="@drawable/group_color" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="19dp"
+                android:layout_toEndOf="@+id/kaa"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <View
+                    android:id="@+id/view_group_tag"
+                    android:layout_width="6dp"
+                    android:layout_height="16dp"
+                    android:layout_marginEnd="4dp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/tv_group_color"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="그룹 컬러"
+                    android:textColor="@color/color_cccccc"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@color/color_cccccc" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp">
+
+            <ImageView
+                android:id="@+id/kaaa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="35dp"
+                android:src="@drawable/memo" />
+
+            <EditText
+                android:id="@+id/et_memo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="22dp"
+                android:layout_toEndOf="@+id/kaaa"
+                android:backgroundTint="@color/color_ffffff"
+                android:hint="메모"
+                android:inputType="text"
+                android:textColor="@color/color_707070"
+                android:textColorHint="@color/color_cccccc"
+                android:textSize="16sp" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@color/color_cccccc" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/btn_make"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="68dp"
+        android:layout_marginEnd="68dp"
+        android:layout_marginBottom="41dp"
+        android:background="@drawable/makefinish"
+        android:gravity="center"
+        android:text="생성 완료"
+        android:textColor="@color/color_ffffff"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

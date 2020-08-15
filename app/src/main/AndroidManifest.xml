@@ -32,6 +32,7 @@
         <activity android:name=".view.activity.PushSettingActivity" />
         <activity android:name=".view.activity.ManageInvitationActivity" />
         <activity android:name=".view.activity.ScheduleListActivity" />
+        <activity android:name=".view.activity.EditShareGroupActivity" />
     </application>
 
 </manifest>

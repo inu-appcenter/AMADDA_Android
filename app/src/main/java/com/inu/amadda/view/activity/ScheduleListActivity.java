@@ -189,7 +189,9 @@ public class ScheduleListActivity extends AppCompatActivity {
                 break;
             }
             case R.id.toolbar_right_image:{
-                // 공유 그룹 수정으로
+                Intent intent = new Intent(this, EditShareGroupActivity.class);
+                intent.putExtra("share", share);
+                startActivity(intent);
                 break;
             }
             case R.id.cv_add_schedule: {

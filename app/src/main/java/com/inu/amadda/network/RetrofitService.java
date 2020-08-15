@@ -4,6 +4,7 @@ import com.inu.amadda.model.AddGroupModel;
 import com.inu.amadda.model.AddGroupResponse;
 import com.inu.amadda.model.AddScheduleModel;
 import com.inu.amadda.model.InvitationResponse;
+import com.inu.amadda.model.MemberResponse;
 import com.inu.amadda.model.RefusalModel;
 import com.inu.amadda.model.ScheduleResponse;
 import com.inu.amadda.model.SearchUserResponse;
@@ -59,5 +60,11 @@ public interface RetrofitService {
 
     @GET("schedule/show/group")
     Call<ScheduleResponse> GetGroupSchedules(@Header("token") String token, @Query("share") int share);
+
+    @GET("share/group/member")
+    Call<MemberResponse> GetGroupMembers(@Header("token") String token, @Query("share") int share);
+
+    @HTTP(method = "DELETE", path = "share/group/escape", hasBody = true)
+    Call<SuccessResponse> LeaveGroup(@Header("token") String token, @Body RefusalModel refusalModel);
 
 }
