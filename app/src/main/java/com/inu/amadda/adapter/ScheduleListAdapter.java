@@ -72,7 +72,7 @@ public class ScheduleListAdapter extends RecyclerView.Adapter<ScheduleListAdapte
     public void onBindViewHolder(@NonNull ScheduleListAdapter.ViewHolder holder, int position) {
         ScheduleData item = mList.get(position);
         holder.tv_name.setText(item.getSchedule_name());
-//        holder.tv_time.setText(item.getStart() + " 안녕");
+        holder.tv_time.setText(item.getStart() + " " +item.getEnd());  //TODO 디자인에 맞게
         holder.tv_location.setText(item.getLocation());
         holder.tv_memo.setText(item.getMemo());
         holder.cv_schedule.setOnClickListener(view -> {

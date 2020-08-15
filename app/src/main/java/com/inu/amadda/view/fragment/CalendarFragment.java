@@ -1,5 +1,6 @@
 package com.inu.amadda.view.fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -15,6 +16,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.inu.amadda.R;
+import com.inu.amadda.database.AppDatabase;
 import com.inu.amadda.etc.Constant;
 import com.inu.amadda.model.ScheduleData;
 import com.inu.amadda.model.ScheduleResponse;
@@ -46,11 +48,16 @@ import retrofit2.Response;
 public class CalendarFragment extends Fragment {
 
     private List<ScheduleData> schedules = new ArrayList<>();
+
+    private AppDatabase appDatabase;
+
     private CalendarView calendarView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_calendar, container, false);
+
+        appDatabase = AppDatabase.getInstance(getActivity());
 
         getSchedulesData();
         setCalendarView(view);
@@ -170,50 +177,65 @@ public class CalendarFragment extends Fragment {
                 LocalDate endDay = StringToLocalDate(currentSchedules.get(i).getEnd());
                 Log.d("CalendarFragment", "start: " + startDay.toString());
                 Log.d("CalendarFragment", "end: " + endDay.toString());
+                Log.d("CalendarFragment", "share: " + currentSchedules.get(i).getShare());
 
-                //이벤트 표시 - 하루
-                if (startDay.isEqual(endDay) && currentDay.isEqual(startDay)){
-                    View index = new View(getContext());
-                    index.setId(View.generateViewId());
-                    index.setBackgroundResource(R.color.color_ff0000);
-                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dpToPx(8));
-                    index.setLayoutParams(params);
-                    params.setMargins(dpToPx(12), 0, dpToPx(12), 0);
-                    container.rl_calendar_day.addView(index);
+                int share = currentSchedules.get(i).getShare();
+                if (share > 0){
+                    new Thread(() -> {
+                        String color = appDatabase.groupDao().getColorByKey(share);
+                        setScheduleTag(container, startDay, endDay, currentDay, color);
+                    }).start();
                 }
-                //이벤트 표시 - 연속
                 else {
-                    if (currentDay.isEqual(startDay)){
-                        View index = new View(getContext());
-                        index.setId(View.generateViewId());
-                        index.setBackgroundResource(R.color.color_22af1d);
-                        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dpToPx(8));
-                        index.setLayoutParams(params);
-                        params.setMargins(dpToPx(12), 0, 0, 0);
-                        container.rl_calendar_day.addView(index);
-                    }
-                    else if (currentDay.isAfter(startDay) && currentDay.isBefore(endDay)){
-                        View index = new View(getContext());
-                        index.setId(View.generateViewId());
-                        index.setBackgroundResource(R.color.color_22af1d);
-                        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dpToPx(8));
-                        index.setLayoutParams(params);
-                        container.rl_calendar_day.addView(index);
-                    }
-                    else if (currentDay.isEqual(endDay)){
-                        View index = new View(getContext());
-                        index.setId(View.generateViewId());
-                        index.setBackgroundResource(R.color.color_22af1d);
-                        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dpToPx(8));
-                        index.setLayoutParams(params);
-                        params.setMargins(0, 0, dpToPx(12), 0);
-                        container.rl_calendar_day.addView(index);
-                    }
+                    String color = PreferenceManager.getInstance().getSharedPreference(getActivity(), Constant.Preference.COLOR, null);
+                    setScheduleTag(container, startDay, endDay, currentDay, color);
                 }
             }
 
         }
     };
+
+    private void setScheduleTag(DayViewContainer container, LocalDate startDay, LocalDate endDay, LocalDate currentDay, String color) {
+        //이벤트 표시 - 하루
+        if (startDay.isEqual(endDay) && currentDay.isEqual(startDay)){
+            View index = new View(getContext());
+            index.setId(View.generateViewId());
+            index.setBackgroundColor(Color.parseColor(color));
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dpToPx(8));
+            index.setLayoutParams(params);
+            params.setMargins(dpToPx(12), 0, dpToPx(12), 0);
+            container.rl_calendar_day.addView(index);
+        }
+        //이벤트 표시 - 연속
+        else {
+            if (currentDay.isEqual(startDay)){
+                View index = new View(getContext());
+                index.setId(View.generateViewId());
+                index.setBackgroundColor(Color.parseColor(color));
+                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dpToPx(8));
+                index.setLayoutParams(params);
+                params.setMargins(dpToPx(12), 0, 0, 0);
+                container.rl_calendar_day.addView(index);
+            }
+            else if (currentDay.isAfter(startDay) && currentDay.isBefore(endDay)){
+                View index = new View(getContext());
+                index.setId(View.generateViewId());
+                index.setBackgroundColor(Color.parseColor(color));
+                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dpToPx(8));
+                index.setLayoutParams(params);
+                container.rl_calendar_day.addView(index);
+            }
+            else if (currentDay.isEqual(endDay)){
+                View index = new View(getContext());
+                index.setId(View.generateViewId());
+                index.setBackgroundColor(Color.parseColor(color));
+                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dpToPx(8));
+                index.setLayoutParams(params);
+                params.setMargins(0, 0, dpToPx(12), 0);
+                container.rl_calendar_day.addView(index);
+            }
+        }
+    }
 
     private LocalDate StringToLocalDate(String string){
         return LocalDate.parse(string, DateTimeFormatter.ofPattern(DateUtils.dateFormat));
