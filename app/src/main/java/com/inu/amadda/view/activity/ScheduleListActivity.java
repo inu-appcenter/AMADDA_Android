@@ -34,6 +34,7 @@ public class ScheduleListActivity extends AppCompatActivity {
 
     private static int PERSONAL = -1;
     private static int DAY = -2;
+    private static int REQUEST = 1000, RESULT_DELETE = 1000;
 
     private int share;
     private String group_name;
@@ -52,6 +53,16 @@ public class ScheduleListActivity extends AppCompatActivity {
         setRecyclerView();
         getSchedulesData();
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST) {
+            if (resultCode == RESULT_DELETE){
+                finish();
+            }
+        }
     }
 
     private void initialize() {
@@ -191,7 +202,7 @@ public class ScheduleListActivity extends AppCompatActivity {
             case R.id.toolbar_right_image:{
                 Intent intent = new Intent(this, EditShareGroupActivity.class);
                 intent.putExtra("share", share);
-                startActivity(intent);
+                startActivityForResult(intent, REQUEST);
                 break;
             }
             case R.id.cv_add_schedule: {

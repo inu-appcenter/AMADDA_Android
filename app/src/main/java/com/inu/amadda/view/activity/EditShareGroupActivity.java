@@ -45,6 +45,8 @@ import retrofit2.Response;
 
 public class EditShareGroupActivity extends AppCompatActivity {
 
+    private static int RESULT_DELETE = 1000;
+
     private boolean isExpanded = false;
     private List<InviteUserData> inviteList = new ArrayList<>();
     private String token, color = null, pickColor = null, saveColor;
@@ -270,6 +272,8 @@ public class EditShareGroupActivity extends AppCompatActivity {
                                 appDatabase.groupDao().deleteByKey(share);
                                 Log.d("EditShareGroupActivity", "Delete group: " + share);
                             }).start();
+                            Intent intent = new Intent();
+                            setResult(RESULT_DELETE, intent);
                             finish();
                         }
                         else {
