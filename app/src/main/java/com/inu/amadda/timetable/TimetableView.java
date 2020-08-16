@@ -21,7 +21,10 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.inu.amadda.R;
+import com.inu.amadda.database.AppDatabase;
+import com.inu.amadda.etc.Constant;
 import com.inu.amadda.util.DateUtils;
+import com.inu.amadda.util.PreferenceManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -59,13 +62,14 @@ public class TimetableView extends LinearLayout {
     private Context context;
 
     HashMap<Integer, Sticker> classStickers = new HashMap<Integer, Sticker>();
-    HashMap<Integer, Sticker> scheduleStickers = new HashMap<Integer, Sticker>();
     private int stickerCount = -1;
 
     private static final boolean CLASS = true;
     private static final boolean SCHEDULE = false;
 
     private OnStickerSelectedListener stickerSelectedListener = null;
+
+    private AppDatabase appDatabase;
 
     public TimetableView(Context context) {
         super(context, null);
@@ -74,6 +78,7 @@ public class TimetableView extends LinearLayout {
 
     public TimetableView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
+        appDatabase = AppDatabase.getInstance(this.context);
     }
 
     public TimetableView(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -148,8 +153,8 @@ public class TimetableView extends LinearLayout {
         addClassList(schedules, -1);
     }
 
-    public void addSchedule(ArrayList<Schedule> schedules) {
-        addScheduleList(schedules, -1);
+    public void addSchedule(ArrayList<Schedule> schedules, int share, Context activityContext) {
+        addScheduleList(schedules, share, activityContext, -1);
     }
 
     private void addClassList(final ArrayList<Schedule> schedules, int specIdx) {
@@ -201,7 +206,7 @@ public class TimetableView extends LinearLayout {
         setClassStickerColor();
     }
 
-    private void addScheduleList(final ArrayList<Schedule> schedules, int specIdx) {
+    private void addScheduleList(final ArrayList<Schedule> schedules, int share, Context activityContext, int specIdx) {
         final int count = specIdx < 0 ? ++stickerCount : specIdx;
         Sticker sticker = new Sticker();
         for (Schedule schedule : schedules) {
@@ -244,10 +249,9 @@ public class TimetableView extends LinearLayout {
 
             sticker.addTextView(rl);
             sticker.addSchedule(schedule);
-            scheduleStickers.put(count, sticker);
+            getScheduleStickerColor(sticker, share, activityContext);
             stickerBox.addView(rl);
         }
-        setScheduleStickerColor();
     }
 
     public String createSaveData() {
@@ -333,21 +337,27 @@ public class TimetableView extends LinearLayout {
 
     }
 
-    private void setScheduleStickerColor() {
-        int size = scheduleStickers.size();
-        int[] orders = new int[size];
-        int i = 0;
-        for (int key : scheduleStickers.keySet()) {
-            orders[i++] = key;
+    private void getScheduleStickerColor(Sticker sticker, int share, Context activityContext) {
+        if (share > 0){
+            new Thread(() -> {
+                String color = appDatabase.groupDao().getColorByKey(share);
+                if(activityContext == null)
+                    return;
+                ((Activity)activityContext).runOnUiThread(() -> setScheduleStickerColor(sticker, color));
+            }).start();
         }
-        Arrays.sort(orders);
-
-        for (i = 0; i < size; i++) {
-            for (RelativeLayout rl : scheduleStickers.get(orders[i]).getView()) {
-                rl.setBackgroundColor(Color.parseColor("#66ff0000"));
-            }
+        else {
+            String color = PreferenceManager.getInstance().getSharedPreference(context, Constant.Preference.COLOR, null);
+            setScheduleStickerColor(sticker, color);
         }
+    }
 
+    private void setScheduleStickerColor(Sticker sticker, String color) {
+        StringBuilder sb = new StringBuilder(color);
+        sb.insert(1, "66");
+        for (RelativeLayout rl : sticker.getView()) {
+            rl.setBackgroundColor(Color.parseColor(sb.toString()));
+        }
     }
 
     private void createTable() {

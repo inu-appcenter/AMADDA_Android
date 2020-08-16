@@ -190,7 +190,7 @@ public class TimetableFragment extends Fragment {
                 }
 
                 schedules.add(schedule);
-                timetable.addSchedule(schedules);
+                timetable.addSchedule(schedules, data.get(i).getShare(), getActivity());
             }
 
         }
