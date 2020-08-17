@@ -1,6 +1,7 @@
 package com.inu.amadda.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,8 @@ import com.inu.amadda.database.AppDatabase;
 import com.inu.amadda.etc.Constant;
 import com.inu.amadda.model.ScheduleData;
 import com.inu.amadda.util.PreferenceManager;
+import com.inu.amadda.view.activity.EditScheduleActivity;
+import com.inu.amadda.view.activity.ScheduleListActivity;
 
 import java.util.List;
 
@@ -76,7 +79,11 @@ public class ScheduleListAdapter extends RecyclerView.Adapter<ScheduleListAdapte
         holder.tv_location.setText(item.getLocation());
         holder.tv_memo.setText(item.getMemo());
         holder.cv_schedule.setOnClickListener(view -> {
-
+            Intent intent = new Intent(mContext, EditScheduleActivity.class);
+            if (item.getShare() > 0)
+                intent.putExtra("share", item.getShare());
+            intent.putExtra("number", item.getNumber());
+            mContext.startActivity(intent);
         });
     }
 

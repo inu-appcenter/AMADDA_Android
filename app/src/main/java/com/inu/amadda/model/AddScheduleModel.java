@@ -2,7 +2,7 @@ package com.inu.amadda.model;
 
 public class AddScheduleModel {
     private String schedule_name, start, end, location, alarm, memo;
-    private int share;
+    private int share, number;
 
     public String getSchedule_name() {
         return schedule_name;
@@ -60,4 +60,11 @@ public class AddScheduleModel {
         this.share = share;
     }
 
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
 }

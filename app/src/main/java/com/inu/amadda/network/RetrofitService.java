@@ -3,9 +3,11 @@ package com.inu.amadda.network;
 import com.inu.amadda.model.AddGroupModel;
 import com.inu.amadda.model.AddGroupResponse;
 import com.inu.amadda.model.AddScheduleModel;
+import com.inu.amadda.model.DeleteScheduleModel;
 import com.inu.amadda.model.InvitationResponse;
 import com.inu.amadda.model.MemberResponse;
 import com.inu.amadda.model.RefusalModel;
+import com.inu.amadda.model.ScheduleDetailResponse;
 import com.inu.amadda.model.ScheduleResponse;
 import com.inu.amadda.model.SearchUserResponse;
 import com.inu.amadda.model.SidebarResponse;
@@ -21,6 +23,7 @@ import retrofit2.http.GET;
 import retrofit2.http.HTTP;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Query;
 
 public interface RetrofitService {
@@ -66,5 +69,14 @@ public interface RetrofitService {
 
     @HTTP(method = "DELETE", path = "share/group/escape", hasBody = true)
     Call<SuccessResponse> LeaveGroup(@Header("token") String token, @Body RefusalModel refusalModel);
+
+    @GET("schedule/detail")
+    Call<ScheduleDetailResponse> GetScheduleDetail(@Header("token") String token, @Query("num") int num);
+
+    @PUT("schedule/modify")
+    Call<SuccessResponse> EditSchedule(@Header("token") String token, @Body AddScheduleModel addScheduleModel);
+
+    @HTTP(method = "DELETE", path = "schedule/delete", hasBody = true)
+    Call<SuccessResponse> DeleteSchedule(@Header("token") String token, @Body DeleteScheduleModel deleteScheduleModel);
 
 }

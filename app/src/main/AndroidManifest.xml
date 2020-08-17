@@ -33,6 +33,7 @@
         <activity android:name=".view.activity.ManageInvitationActivity" />
         <activity android:name=".view.activity.ScheduleListActivity" />
         <activity android:name=".view.activity.EditShareGroupActivity" />
+        <activity android:name=".view.activity.EditScheduleActivity" />
     </application>
 
 </manifest>
