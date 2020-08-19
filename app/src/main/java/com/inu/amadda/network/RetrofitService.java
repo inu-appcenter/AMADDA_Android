@@ -4,6 +4,7 @@ import com.inu.amadda.model.AddGroupModel;
 import com.inu.amadda.model.AddGroupResponse;
 import com.inu.amadda.model.AddScheduleModel;
 import com.inu.amadda.model.DeleteScheduleModel;
+import com.inu.amadda.model.GroupResponse;
 import com.inu.amadda.model.InvitationResponse;
 import com.inu.amadda.model.MemberResponse;
 import com.inu.amadda.model.RefusalModel;
@@ -78,5 +79,8 @@ public interface RetrofitService {
 
     @HTTP(method = "DELETE", path = "schedule/delete", hasBody = true)
     Call<SuccessResponse> DeleteSchedule(@Header("token") String token, @Body DeleteScheduleModel deleteScheduleModel);
+
+    @GET("share/groups/show")
+    Call<GroupResponse> GetGroups(@Header("token") String token);
 
 }
