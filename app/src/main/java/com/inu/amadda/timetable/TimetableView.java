@@ -341,7 +341,7 @@ public class TimetableView extends LinearLayout {
         if (share > 0){
             new Thread(() -> {
                 String color = appDatabase.groupDao().getColorByKey(share);
-                if(activityContext == null)
+                if(color == null || activityContext == null)
                     return;
                 ((Activity)activityContext).runOnUiThread(() -> setScheduleStickerColor(sticker, color));
             }).start();

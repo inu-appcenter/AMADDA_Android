@@ -183,7 +183,8 @@ public class CalendarFragment extends Fragment {
                 if (share > 0){
                     new Thread(() -> {
                         String color = appDatabase.groupDao().getColorByKey(share);
-                        setScheduleTag(container, startDay, endDay, currentDay, color);
+                        if (color != null)
+                            setScheduleTag(container, startDay, endDay, currentDay, color);
                     }).start();
                 }
                 else {
