@@ -172,24 +172,26 @@ public class CalendarFragment extends Fragment {
             }
 
             for (int i = 0; i < currentSchedules.size(); i++){
-                Log.d("CalendarFragment", "num: " + currentSchedules.get(i).getNumber());
-                LocalDate startDay = StringToLocalDate(currentSchedules.get(i).getStart());
-                LocalDate endDay = StringToLocalDate(currentSchedules.get(i).getEnd());
-                Log.d("CalendarFragment", "start: " + startDay.toString());
-                Log.d("CalendarFragment", "end: " + endDay.toString());
-                Log.d("CalendarFragment", "share: " + currentSchedules.get(i).getShare());
+                if (!currentSchedules.get(i).getStart().equals("Invalid date") && !currentSchedules.get(i).getEnd().equals("Invalid date")) {
+                    Log.d("CalendarFragment", "num: " + currentSchedules.get(i).getNumber());
+                    LocalDate startDay = StringToLocalDate(currentSchedules.get(i).getStart());
+                    LocalDate endDay = StringToLocalDate(currentSchedules.get(i).getEnd());
+                    Log.d("CalendarFragment", "start: " + startDay.toString());
+                    Log.d("CalendarFragment", "end: " + endDay.toString());
+                    Log.d("CalendarFragment", "share: " + currentSchedules.get(i).getShare());
 
-                int share = currentSchedules.get(i).getShare();
-                if (share > 0){
-                    new Thread(() -> {
-                        String color = appDatabase.groupDao().getColorByKey(share);
-                        if (color != null)
-                            setScheduleTag(container, startDay, endDay, currentDay, color);
-                    }).start();
-                }
-                else {
-                    String color = PreferenceManager.getInstance().getSharedPreference(getActivity(), Constant.Preference.COLOR, null);
-                    setScheduleTag(container, startDay, endDay, currentDay, color);
+                    int share = currentSchedules.get(i).getShare();
+                    if (share > 0){
+                        new Thread(() -> {
+                            String color = appDatabase.groupDao().getColorByKey(share);
+                            if (color != null)
+                                setScheduleTag(container, startDay, endDay, currentDay, color);
+                        }).start();
+                    }
+                    else {
+                        String color = PreferenceManager.getInstance().getSharedPreference(getActivity(), Constant.Preference.COLOR, null);
+                        setScheduleTag(container, startDay, endDay, currentDay, color);
+                    }
                 }
             }
 

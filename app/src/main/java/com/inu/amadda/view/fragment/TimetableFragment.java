@@ -152,45 +152,47 @@ public class TimetableFragment extends Fragment {
 
     private void setScheduleSticker(List<ScheduleData> data) {
         for(int i = 0; i < data.size(); i++){
-            LocalDate startDate = StringToLocalDate(data.get(i).getStart());
-            LocalDate endDate = StringToLocalDate(data.get(i).getEnd());
-            DayOfWeek day = startDate.getDayOfWeek();
+            if (!data.get(i).getStart().equals("Invalid date") && !data.get(i).getEnd().equals("Invalid date")){
+                LocalDate startDate = StringToLocalDate(data.get(i).getStart());
+                LocalDate endDate = StringToLocalDate(data.get(i).getEnd());
+                DayOfWeek day = startDate.getDayOfWeek();
 
-            if (startDate.isEqual(endDate) && day != DayOfWeek.SATURDAY && day != DayOfWeek.SUNDAY){
-                ArrayList<Schedule> schedules = new ArrayList<>();
-                Schedule schedule = new Schedule();
+                if (startDate.isEqual(endDate) && day != DayOfWeek.SATURDAY && day != DayOfWeek.SUNDAY){
+                    ArrayList<Schedule> schedules = new ArrayList<>();
+                    Schedule schedule = new Schedule();
 
-                schedule.setClassTitle(data.get(i).getSchedule_name());
-                schedule.setClassPlace(data.get(i).getLocation());
-                Log.d("TimetableFragment", data.get(i).getNumber() + " " + data.get(i).getSchedule_name());
+                    schedule.setClassTitle(data.get(i).getSchedule_name());
+                    schedule.setClassPlace(data.get(i).getLocation());
+                    Log.d("TimetableFragment", data.get(i).getNumber() + " " + data.get(i).getSchedule_name());
 
-                LocalTime startTime = StringToLocalTime(data.get(i).getStart());
-                LocalTime endTime = StringToLocalTime(data.get(i).getEnd());
-                schedule.setStartTime(new Time(startTime.getHour(), startTime.getMinute()));
-                schedule.setEndTime(new Time(endTime.getHour(), endTime.getMinute()));
-                Log.d("TimetableFragment", startTime.getHour() + " " + startTime.getMinute());
-                Log.d("TimetableFragment", endTime.getHour() + " " + endTime.getMinute());
+                    LocalTime startTime = StringToLocalTime(data.get(i).getStart());
+                    LocalTime endTime = StringToLocalTime(data.get(i).getEnd());
+                    schedule.setStartTime(new Time(startTime.getHour(), startTime.getMinute()));
+                    schedule.setEndTime(new Time(endTime.getHour(), endTime.getMinute()));
+                    Log.d("TimetableFragment", startTime.getHour() + " " + startTime.getMinute());
+                    Log.d("TimetableFragment", endTime.getHour() + " " + endTime.getMinute());
 
-                switch (day){
-                    case MONDAY:
-                        schedule.setDay(0);
-                        break;
-                    case TUESDAY:
-                        schedule.setDay(1);
-                        break;
-                    case WEDNESDAY:
-                        schedule.setDay(2);
-                        break;
-                    case THURSDAY:
-                        schedule.setDay(3);
-                        break;
-                    case FRIDAY:
-                        schedule.setDay(4);
-                        break;
+                    switch (day){
+                        case MONDAY:
+                            schedule.setDay(0);
+                            break;
+                        case TUESDAY:
+                            schedule.setDay(1);
+                            break;
+                        case WEDNESDAY:
+                            schedule.setDay(2);
+                            break;
+                        case THURSDAY:
+                            schedule.setDay(3);
+                            break;
+                        case FRIDAY:
+                            schedule.setDay(4);
+                            break;
+                    }
+
+                    schedules.add(schedule);
+                    timetable.addSchedule(schedules, data.get(i).getShare(), getActivity());
                 }
-
-                schedules.add(schedule);
-                timetable.addSchedule(schedules, data.get(i).getShare(), getActivity());
             }
 
         }
