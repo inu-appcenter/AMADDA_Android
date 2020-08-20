@@ -1,6 +1,7 @@
 package com.inu.amadda.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,7 @@ import com.inu.amadda.model.RefusalModel;
 import com.inu.amadda.model.SuccessResponse;
 import com.inu.amadda.network.RetrofitInstance;
 import com.inu.amadda.util.PreferenceManager;
+import com.inu.amadda.util.Utils;
 
 import java.util.List;
 
@@ -72,7 +74,8 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         InvitationData item = mList.get(position);
-        //view_group_tag color
+        String color = Utils.getRandomColor(mContext);
+        holder.view_group_tag.setBackgroundColor(Color.parseColor(color));
         holder.tv_group_name.setText(item.getGroup_name());
         holder.tv_inviter.setText(item.getInviter_name() + " " + item.getInviter_id());
         holder.tv_memo.setText(item.getMemo());
@@ -80,7 +83,7 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
             refuseInvitation(item.getShare(), holder.ll_buttons);
         });
         holder.tv_acceptance.setOnClickListener(view -> {
-            acceptInvitation(item, holder.ll_buttons);
+            acceptInvitation(item, holder.ll_buttons, color);
         });
     }
 
@@ -131,7 +134,7 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
         });
     }
 
-    private void acceptInvitation(InvitationData data, LinearLayout layout) {
+    private void acceptInvitation(InvitationData data, LinearLayout layout, String color) {
         String token = PreferenceManager.getInstance().getSharedPreference(mContext, Constant.Preference.TOKEN, null);
 
         RetrofitInstance.getInstance().getService().acceptInvitation(token, data.getShare()).enqueue(new Callback<SuccessResponse>() {
@@ -148,7 +151,7 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
                             tv_message.setText("수락되었습니다.");
                             tv_message.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
                             new Thread(() -> {
-                                appDatabase.groupDao().insert(new ShareGroup(data.getShare(), data.getGroup_name(), data.getMemo(), "#ff3b30"));
+                                appDatabase.groupDao().insert(new ShareGroup(data.getShare(), data.getGroup_name(), data.getMemo(), color));
                                 Log.d("InvitationAdapter", "Save group: " + data.getShare());
                             }).start();
                         }
