@@ -69,10 +69,8 @@ public class LoginActivity extends AppCompatActivity {
                 break;
             }
             case R.id.btn_join: {
-                //TODO 일시 처리
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                Intent intent = new Intent(LoginActivity.this, JoinActivity.class);
                 startActivity(intent);
-                finish();
                 break;
             }
         }
@@ -121,6 +119,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void getGroups(String token) {
+        //TODO if 데이터베이스 생성 여부
         RetrofitInstance.getInstance().getService().GetGroups(token).enqueue(new Callback<GroupResponse>() {
             @Override
             public void onResponse(Call<GroupResponse> call, Response<GroupResponse> response) {
