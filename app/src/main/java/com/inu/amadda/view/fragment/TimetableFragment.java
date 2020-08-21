@@ -43,6 +43,7 @@ public class TimetableFragment extends Fragment {
         getSchedulesData();
 
         timetable = view.findViewById(R.id.timetable);
+        timetable.setDayHighlight();
 
         setClassSticker();
 

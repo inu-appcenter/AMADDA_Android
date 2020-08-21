@@ -295,7 +295,7 @@ public class TimetableView extends LinearLayout {
         setClassStickerColor();
     }
 
-    private void setHeaderHighlight() {
+    public void setDayHighlight() {
         int idx = DateUtils.getDayOfWeek();
         if(idx < 0)return;
 
@@ -389,7 +389,7 @@ public class TimetableView extends LinearLayout {
             tableBox.addView(tableRow);
         }
 
-        setHeaderHighlight();
+//        setDayHighlight();
     }
 
     private void createTableHeader() {
