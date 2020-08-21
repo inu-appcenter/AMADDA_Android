@@ -137,7 +137,8 @@ public class MainActivity extends AppCompatActivity {
         Intent intent;
         switch (menuItem.getItemId()) {
             case R.id.add_class:
-
+                intent = new Intent(this, AddTimetableActivity.class);
+                startActivity(intent);
                 return true;
             case R.id.personal_schedule:
                 intent = new Intent(this, AddScheduleActivity.class);

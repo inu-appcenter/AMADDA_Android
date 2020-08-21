@@ -6,5 +6,6 @@ public class Constant {
         public static final String PASSWORD = "PASSWORD";
         public static final String TOKEN = "TOKEN";
         public static final String COLOR = "COLOR";
+        public static final String TIMETABLE = "TIMETABLE";
     }
 }
