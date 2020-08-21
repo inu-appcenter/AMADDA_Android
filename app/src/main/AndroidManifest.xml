@@ -35,7 +35,7 @@
         <activity android:name=".view.activity.EditShareGroupActivity" />
         <activity android:name=".view.activity.EditScheduleActivity" />
         <activity android:name=".view.activity.JoinActivity" />
-        <activity android:name=".view.activity.AddTimetableActivity" />
+        <activity android:name=".view.activity.AddTimetableActivity" android:windowSoftInputMode="adjustNothing" />
     </application>
 
 </manifest>

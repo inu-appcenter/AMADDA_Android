@@ -21,8 +21,15 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ViewHolder> 
     private List<ClassData> mList;
     private Context mContext;
 
-    public ClassAdapter(List<ClassData> list) {
+    private OnSelectListener mOnSelectListener;
+
+    public interface OnSelectListener{
+        void onSelect(ClassData data);
+    }
+
+    public ClassAdapter(List<ClassData> list, OnSelectListener onSelectListener) {
         this.mList = list;
+        this.mOnSelectListener = onSelectListener;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
@@ -62,6 +69,7 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ViewHolder> 
         holder.tv_day.setText(item.getDay());
         holder.tv_time_place.setText(item.getStart() + "~" + item.getEnd() + " (" + item.getRoom() + ")");
         holder.rl_class.setOnClickListener(view -> {
+            mOnSelectListener.onSelect(item);
         });
     }
 

@@ -25,8 +25,13 @@ import com.inu.amadda.etc.Constant;
 import com.inu.amadda.model.ClassData;
 import com.inu.amadda.model.ClassResponse;
 import com.inu.amadda.network.RetrofitInstance;
+import com.inu.amadda.timetable.Schedule;
+import com.inu.amadda.timetable.Time;
 import com.inu.amadda.timetable.TimetableView;
 import com.inu.amadda.util.PreferenceManager;
+
+import org.threeten.bp.LocalTime;
+import org.threeten.bp.format.DateTimeFormatter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,9 +40,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AddTimetableActivity extends AppCompatActivity {
+public class AddTimetableActivity extends AppCompatActivity implements ClassAdapter.OnSelectListener {
 
     private List<ClassData> classList = new ArrayList<>();
+    private List<ClassData> addList = new ArrayList<>();
 
     private ClassAdapter adapter;
 
@@ -57,6 +63,76 @@ public class AddTimetableActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onSelect(ClassData data) {
+        addClassSticker(data);
+    }
+
+    private void addClassSticker(ClassData data) {
+        String day = data.getDay();
+        LocalTime startTime = StringToLocalTime(data.getStart());
+        LocalTime endTime = StringToLocalTime(data.getEnd());
+
+        if (checkOverlapping(day, startTime, endTime)){
+            ArrayList<Schedule> schedules = new ArrayList<>();
+
+            Schedule schedule = new Schedule();
+            schedule.setClassTitle(data.getLecture());
+            schedule.setClassPlace(data.getRoom());
+            schedule.setProfessorName(data.getProfessor());
+            schedule.setStartTime(new Time(startTime.getHour(),startTime.getMinute()));
+            schedule.setEndTime(new Time(endTime.getHour(),endTime.getMinute()));
+            switch (day){
+                case "월":
+                    schedule.setDay(0);
+                    break;
+                case "화":
+                    schedule.setDay(1);
+                    break;
+                case "수":
+                    schedule.setDay(2);
+                    break;
+                case "목":
+                    schedule.setDay(3);
+                    break;
+                case "금":
+                    schedule.setDay(4);
+                    break;
+                default:
+                    break;
+            }
+
+            schedules.add(schedule);
+            timetable.addClass(schedules);
+
+            addList.add(data);
+        }
+        else {
+            Toast.makeText(getApplicationContext(), "시간이 겹쳐서 추가하지 못했습니다.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private boolean checkOverlapping(String day, LocalTime startTime, LocalTime endTime){
+        boolean isPossible = true;
+        for (int i = 0; i < addList.size(); i++){
+            LocalTime currentStartTime = StringToLocalTime(addList.get(i).getStart());
+            LocalTime currentEndTime = StringToLocalTime(addList.get(i).getEnd());
+            if (day.equals(addList.get(i).getDay())){
+                if (((startTime.equals(currentStartTime) || startTime.isAfter(currentStartTime)) &&
+                        (startTime.equals(currentEndTime) || startTime.isBefore(currentEndTime))) ||
+                        ((endTime.equals(currentStartTime) || endTime.isAfter(currentStartTime)) &&
+                                (endTime.equals(currentEndTime) || endTime.isBefore(currentEndTime)))){
+                    isPossible = false;
+                }
+            }
+        }
+        return isPossible;
+    }
+
+    private LocalTime StringToLocalTime(String string){
+        return LocalTime.parse(string, DateTimeFormatter.ofPattern("HH:mm"));
+    }
+
     private void getTimetable() {
         timetable = findViewById(R.id.timetable);
 
@@ -70,7 +146,7 @@ public class AddTimetableActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.rv_class);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new ClassAdapter(classList);
+        adapter = new ClassAdapter(classList, this);
         recyclerView.setAdapter(adapter);
     }
 
