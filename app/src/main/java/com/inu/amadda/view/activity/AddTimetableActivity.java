@@ -1,5 +1,6 @@
 package com.inu.amadda.view.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -245,7 +246,8 @@ public class AddTimetableActivity extends AppCompatActivity implements ClassAdap
                 break;
             }
             case R.id.toolbar_right_add: {
-                //AddClassActivity
+                Intent intent = new Intent(this, AddClassActivity.class);
+                startActivity(intent);
                 break;
             }
             case R.id.toolbar_right_finish: {
