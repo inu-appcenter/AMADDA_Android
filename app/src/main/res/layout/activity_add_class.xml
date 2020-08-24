@@ -102,10 +102,36 @@
                     android:layout_marginEnd="20dp"
                     android:orientation="vertical">
 
-                    <com.contrarywind.view.WheelView
-                        android:id="@+id/wheel_start"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.contrarywind.view.WheelView
+                            android:id="@+id/wheel_start_day"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"/>
+
+                        <com.contrarywind.view.WheelView
+                            android:id="@+id/wheel_start_ampm"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"/>
+
+                        <com.contrarywind.view.WheelView
+                            android:id="@+id/wheel_start_hour"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"/>
+
+                        <com.contrarywind.view.WheelView
+                            android:id="@+id/wheel_start_minute"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"/>
+
+                    </LinearLayout>
 
                     <View
                         android:layout_width="match_parent"
@@ -193,10 +219,36 @@
                     android:layout_marginEnd="20dp"
                     android:orientation="vertical">
 
-                    <com.contrarywind.view.WheelView
-                        android:id="@+id/wheel_end"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.contrarywind.view.WheelView
+                            android:id="@+id/wheel_end_day"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"/>
+
+                        <com.contrarywind.view.WheelView
+                            android:id="@+id/wheel_end_ampm"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"/>
+
+                        <com.contrarywind.view.WheelView
+                            android:id="@+id/wheel_end_hour"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"/>
+
+                        <com.contrarywind.view.WheelView
+                            android:id="@+id/wheel_end_minute"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"/>
+
+                    </LinearLayout>
 
                     <View
                         android:layout_width="match_parent"
