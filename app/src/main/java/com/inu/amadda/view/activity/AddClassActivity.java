@@ -300,7 +300,7 @@ public class AddClassActivity extends AppCompatActivity {
     }
 
     private void sendClassInfo() {
-        ClassData data = new ClassData(et_class_name.getText().toString(), null, startDay,
+        ClassData data = new ClassData(et_class_name.getText().toString(), "", startDay,
                 toFormatTime(startAmpm, startHour, startMinute), toFormatTime(endAmpm, endHour, endMinute), et_place.getText().toString());
         Intent intent = new Intent();
         intent.putExtra("Class", data);

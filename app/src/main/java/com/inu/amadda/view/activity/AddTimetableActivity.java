@@ -195,6 +195,7 @@ public class AddTimetableActivity extends AppCompatActivity implements ClassAdap
 
     private void saveTimetable() {
         PreferenceManager.getInstance().putSharedPreference(getApplicationContext(), Constant.Preference.TIMETABLE, timetable.createSaveData());
+        finish();
     }
 
     TextView.OnEditorActionListener onEditorActionListener = new TextView.OnEditorActionListener() {
