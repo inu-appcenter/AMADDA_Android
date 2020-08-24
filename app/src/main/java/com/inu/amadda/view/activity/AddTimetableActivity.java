@@ -43,6 +43,8 @@ import retrofit2.Response;
 
 public class AddTimetableActivity extends AppCompatActivity implements ClassAdapter.OnSelectListener {
 
+    private static int REQUEST = 1000, RESULT = 1000;
+
     private List<ClassData> classList = new ArrayList<>();
     private List<ClassData> addList = new ArrayList<>();
 
@@ -67,6 +69,17 @@ public class AddTimetableActivity extends AppCompatActivity implements ClassAdap
     @Override
     public void onSelect(ClassData data) {
         addClassSticker(data);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST) {
+            if (resultCode == RESULT){
+                ClassData classData = (ClassData)data.getSerializableExtra("Class");
+                addClassSticker(classData);
+            }
+        }
     }
 
     private void addClassSticker(ClassData data) {
@@ -247,7 +260,7 @@ public class AddTimetableActivity extends AppCompatActivity implements ClassAdap
             }
             case R.id.toolbar_right_add: {
                 Intent intent = new Intent(this, AddClassActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, REQUEST);
                 break;
             }
             case R.id.toolbar_right_finish: {

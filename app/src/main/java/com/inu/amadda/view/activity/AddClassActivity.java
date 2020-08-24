@@ -1,5 +1,6 @@
 package com.inu.amadda.view.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -14,12 +15,15 @@ import androidx.core.content.ContextCompat;
 import com.bigkoo.pickerview.adapter.ArrayWheelAdapter;
 import com.contrarywind.view.WheelView;
 import com.inu.amadda.R;
+import com.inu.amadda.model.ClassData;
 
 import net.cachapa.expandablelayout.ExpandableLayout;
 
 import java.util.ArrayList;
 
 public class AddClassActivity extends AppCompatActivity {
+
+    private static int RESULT = 1000;
 
     private boolean isExpanded = false, isStartClicked;
     private String startDay = "월", startAmpm = "오전", startHour = "01", startMinute = "00", endDay = "월", endAmpm = "오전", endHour = "01", endMinute = "00";
@@ -296,6 +300,33 @@ public class AddClassActivity extends AppCompatActivity {
     }
 
     private void sendClassInfo() {
+        ClassData data = new ClassData(et_class_name.getText().toString(), null, startDay,
+                toFormatTime(startAmpm, startHour, startMinute), toFormatTime(endAmpm, endHour, endMinute), et_place.getText().toString());
+        Intent intent = new Intent();
+        intent.putExtra("Class", data);
+        setResult(RESULT, intent);
+        finish();
+    }
+
+    private String toFormatTime(String ampm, String hour, String minute) {
+        String result;
+        if (ampm.equals("오전")){
+            if (hour.equals("12")){
+                result = "00" + ":" + minute;
+            }
+            else  {
+                result = hour + ":" + minute;
+            }
+        }
+        else {
+            if (hour.equals("12")){
+                result = hour + ":" + minute;
+            }
+            else  {
+                result = (Integer.valueOf(endHour) + 12) + ":" + minute;
+            }
+        }
+        return result;
     }
 
     View.OnClickListener onClickListener = view -> {

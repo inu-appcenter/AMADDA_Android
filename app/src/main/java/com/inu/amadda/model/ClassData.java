@@ -1,6 +1,8 @@
 package com.inu.amadda.model;
 
-public class ClassData {
+import java.io.Serializable;
+
+public class ClassData implements Serializable {
     private String lecture, professor, day, start, end, room;
 
     public String getLecture() {
