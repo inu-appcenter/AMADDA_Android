@@ -41,8 +41,8 @@ public class TimetableFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_timetable, container, false);
 
+        setTimetable(view);
         getSchedulesData();
-        getTimetableData(view);
 
         return view;
     }
@@ -85,9 +85,13 @@ public class TimetableFragment extends Fragment {
 
     }
 
-    private void getTimetableData(View view) {
+    private void setTimetable(View view) {
         timetable = view.findViewById(R.id.timetable);
         timetable.setDayHighlight();
+        timetable.setDayClick();
+        timetable.setOnStickerSelectEventListener((idx, schedules) -> {
+            Toast.makeText(getContext(), "k: " + (schedules.get(0).getDay() + 1), Toast.LENGTH_SHORT).show();
+        });
 
         String data = PreferenceManager.getInstance().getSharedPreference(getContext(), Constant.Preference.TIMETABLE, null);
         if (data == null){

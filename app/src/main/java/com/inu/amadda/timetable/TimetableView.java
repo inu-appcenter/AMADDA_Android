@@ -19,6 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.inu.amadda.R;
 import com.inu.amadda.database.AppDatabase;
@@ -318,6 +319,25 @@ public class TimetableView extends LinearLayout {
         }
     }
 
+    public void setDayClick() {
+        for (int i = 0; i < rowCount; i++) {
+            TableRow row = (TableRow) tableBox.getChildAt(i);
+            for (int k = 0; k < columnCount; k++) {
+                View element = row.getChildAt(k);
+                TextView tv = (TextView)element;
+                if (k != 0){
+                    int idx = k;
+                    tv.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Toast.makeText(getContext(), "k: " + idx, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }
+        }
+    }
+
     private void setClassStickerColor() {
         int size = classStickers.size();
         int[] orders = new int[size];
@@ -370,17 +390,14 @@ public class TimetableView extends LinearLayout {
                 TextView tv = new TextView(context);
                 if (k == 0) {
                     tv.setLayoutParams(createTableRowParam(sideCellWidth, cellHeight));
+                    tv.setText(getHeaderTime(i));
                 } else {
                     tv.setLayoutParams(createTableRowParam(cellHeight));
+                    tv.setText("");
                 }
                 tv.setTextColor(getResources().getColor(R.color.colorHeaderText));
                 tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, DEFAULT_SIDE_HEADER_FONT_SIZE_DP);
                 tv.setBackground(getResources().getDrawable(R.drawable.item_border));
-                if (k == 0){
-                    tv.setText(getHeaderTime(i));
-                } else {
-                    tv.setText("");
-                }
                 tv.setPadding(0, dp2Px(4),dp2Px(3), 0);
                 tv.setGravity(Gravity.END);
 
@@ -403,11 +420,11 @@ public class TimetableView extends LinearLayout {
             } else {
                 tv.setLayoutParams(createTableRowParam(headerCellHeight));
             }
+            tv.setGravity(Gravity.CENTER);
             tv.setTextColor(getResources().getColor(R.color.colorHeaderText));
             tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, DEFAULT_HEADER_FONT_SIZE_DP);
             tv.setBackground(getResources().getDrawable(R.drawable.item_border));
             tv.setText(headerTitle[i]);
-            tv.setGravity(Gravity.CENTER);
 
             tableRow.addView(tv);
         }
