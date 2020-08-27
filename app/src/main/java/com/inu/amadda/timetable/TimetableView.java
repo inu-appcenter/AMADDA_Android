@@ -2,6 +2,7 @@ package com.inu.amadda.timetable;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
@@ -26,6 +27,7 @@ import com.inu.amadda.database.AppDatabase;
 import com.inu.amadda.etc.Constant;
 import com.inu.amadda.util.DateUtils;
 import com.inu.amadda.util.PreferenceManager;
+import com.inu.amadda.view.activity.DayScheduleActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -298,7 +300,7 @@ public class TimetableView extends LinearLayout {
 
     public void setDayHighlight() {
         int idx = DateUtils.getDayOfWeek();
-        if(idx < 0)return;
+        if(idx < 1 || idx > 5) return;
 
         TableRow row = (TableRow) tableHeader.getChildAt(0);
         View element = row.getChildAt(idx);
@@ -330,7 +332,9 @@ public class TimetableView extends LinearLayout {
                     tv.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            Toast.makeText(getContext(), "k: " + idx, Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(context, DayScheduleActivity.class);
+                            intent.putExtra("Day", idx);
+                            context.startActivity(intent);
                         }
                     });
                 }

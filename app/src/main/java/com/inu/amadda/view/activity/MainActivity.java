@@ -22,6 +22,8 @@ import com.inu.amadda.util.DateUtils;
 import com.inu.amadda.view.fragment.CalendarFragment;
 import com.inu.amadda.view.fragment.TimetableFragment;
 
+import org.threeten.bp.LocalDate;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
@@ -69,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         right_btn_text.setVisibility(View.GONE);
 
         TextView title = toolbar.findViewById(R.id.toolbar_title);
-        title.setText(DateUtils.getToday());
+        title.setText(DateUtils.getTitleString(LocalDate.now()));
     }
 
     private void setFloatingActionButton() {

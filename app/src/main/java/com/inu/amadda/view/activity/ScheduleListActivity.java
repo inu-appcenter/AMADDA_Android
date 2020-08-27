@@ -20,7 +20,6 @@ import com.inu.amadda.etc.Constant;
 import com.inu.amadda.model.ScheduleData;
 import com.inu.amadda.model.ScheduleResponse;
 import com.inu.amadda.network.RetrofitInstance;
-import com.inu.amadda.util.DateUtils;
 import com.inu.amadda.util.PreferenceManager;
 
 import java.util.ArrayList;
@@ -33,7 +32,6 @@ import retrofit2.Response;
 public class ScheduleListActivity extends AppCompatActivity {
 
     private static int PERSONAL = -1;
-    private static int DAY = -2;
     private static int REQUEST = 1000, RESULT_DELETE = 1000;
 
     private int share;
@@ -86,7 +84,7 @@ public class ScheduleListActivity extends AppCompatActivity {
         left_btn.setOnClickListener(onClickListener);
 
         AppCompatImageButton right_btn_image = toolbar.findViewById(R.id.toolbar_right_image);
-        if (share == PERSONAL || share == DAY){
+        if (share == PERSONAL) {
             right_btn_image.setVisibility(View.GONE);
         }
         else {
@@ -100,9 +98,6 @@ public class ScheduleListActivity extends AppCompatActivity {
         TextView title = toolbar.findViewById(R.id.toolbar_title);
         if (share == PERSONAL){
             title.setText("개인일정");
-        }
-        else if (share == DAY){
-            title.setText(DateUtils.getToday());
         }
         else {
             title.setText(group_name);
@@ -153,9 +148,6 @@ public class ScheduleListActivity extends AppCompatActivity {
                     Log.d("ScheduleListActivity", t.getMessage());
                 }
             });
-        }
-        else if (share == DAY){
-
         }
         else {
             RetrofitInstance.getInstance().getService().GetGroupSchedules(token, share).enqueue(new Callback<ScheduleResponse>() {

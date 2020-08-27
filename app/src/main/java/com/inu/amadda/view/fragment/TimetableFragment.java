@@ -1,5 +1,6 @@
 package com.inu.amadda.view.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import com.inu.amadda.timetable.Time;
 import com.inu.amadda.timetable.TimetableView;
 import com.inu.amadda.util.DateUtils;
 import com.inu.amadda.util.PreferenceManager;
+import com.inu.amadda.view.activity.DayScheduleActivity;
 
 import org.threeten.bp.DayOfWeek;
 import org.threeten.bp.LocalDate;
@@ -49,7 +51,7 @@ public class TimetableFragment extends Fragment {
 
     private void getSchedulesData(){
         String token = PreferenceManager.getInstance().getSharedPreference(getContext(), Constant.Preference.TOKEN, null);
-        String date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        String date = DateUtils.now.format(DateTimeFormatter.ofPattern(DateUtils.dateFormat));
 
         RetrofitInstance.getInstance().getService().GetWeekSchedule(token, date).enqueue(new Callback<ScheduleResponse>() {
             @Override
@@ -90,7 +92,9 @@ public class TimetableFragment extends Fragment {
         timetable.setDayHighlight();
         timetable.setDayClick();
         timetable.setOnStickerSelectEventListener((idx, schedules) -> {
-            Toast.makeText(getContext(), "k: " + (schedules.get(0).getDay() + 1), Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getActivity(), DayScheduleActivity.class);
+            intent.putExtra("Day", schedules.get(0).getDay() + 1);
+            startActivity(intent);
         });
 
         String data = PreferenceManager.getInstance().getSharedPreference(getContext(), Constant.Preference.TIMETABLE, null);
@@ -153,11 +157,11 @@ public class TimetableFragment extends Fragment {
     }
 
     private LocalDate StringToLocalDate(String string){
-        return LocalDate.parse(string, DateTimeFormatter.ofPattern(DateUtils.dateFormat));
+        return LocalDate.parse(string, DateTimeFormatter.ofPattern(DateUtils.dateTimeFormat));
     }
 
     private LocalTime StringToLocalTime(String string){
-        return LocalTime.parse(string, DateTimeFormatter.ofPattern(DateUtils.dateFormat));
+        return LocalTime.parse(string, DateTimeFormatter.ofPattern(DateUtils.dateTimeFormat));
     }
 
 }

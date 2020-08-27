@@ -241,7 +241,7 @@ public class CalendarFragment extends Fragment {
     }
 
     private LocalDate StringToLocalDate(String string){
-        return LocalDate.parse(string, DateTimeFormatter.ofPattern(DateUtils.dateFormat));
+        return LocalDate.parse(string, DateTimeFormatter.ofPattern(DateUtils.dateTimeFormat));
     }
 
     private MonthHeaderFooterBinder monthHeaderBinder = new MonthHeaderFooterBinder<MonthHeaderViewContainer>() {

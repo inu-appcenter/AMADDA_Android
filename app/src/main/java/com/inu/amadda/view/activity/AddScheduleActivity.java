@@ -225,8 +225,9 @@ public class AddScheduleActivity extends AppCompatActivity implements GroupChoic
     }
 
     private void setDefaultDateTime() {
-        setDateTimeData(DateUtils.now, tv_start_date, tv_start_ampm, tv_start_time, true);
-        setDateTimeData(DateUtils.now, tv_end_date, tv_end_ampm, tv_end_time, false);
+        Date now = new Date();
+        setDateTimeData(now, tv_start_date, tv_start_ampm, tv_start_time, true);
+        setDateTimeData(now, tv_end_date, tv_end_ampm, tv_end_time, false);
     }
 
     private void setDateTimePicker() {
@@ -297,10 +298,10 @@ public class AddScheduleActivity extends AppCompatActivity implements GroupChoic
         tv_time.setText(timeFormat.format(date));
 
         if(isStart) {
-            startDate = new SimpleDateFormat(DateUtils.dateFormat, Locale.getDefault()).format(date);
+            startDate = new SimpleDateFormat(DateUtils.dateTimeFormat, Locale.getDefault()).format(date);
         }
         else {
-            endDate = new SimpleDateFormat(DateUtils.dateFormat, Locale.getDefault()).format(date);
+            endDate = new SimpleDateFormat(DateUtils.dateTimeFormat, Locale.getDefault()).format(date);
         }
     }
 

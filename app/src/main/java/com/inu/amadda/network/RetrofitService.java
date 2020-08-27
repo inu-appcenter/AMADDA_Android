@@ -87,4 +87,7 @@ public interface RetrofitService {
     @GET("time/table/search")
     Call<ClassResponse> GetClasses(@Header("token") String token, @Query("name") String name);
 
+    @GET("schedule/show/day")
+    Call<ScheduleResponse> GetDaySchedule(@Header("token") String token, @Query("date") String date);
+
 }
