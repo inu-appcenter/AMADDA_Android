@@ -65,7 +65,7 @@ public class DayScheduleAdapter extends RecyclerView.Adapter<DayScheduleAdapter.
 
         holder.tv_location.setText(item.getLocation());
 
-        if (item.getMemo() != null) {
+        if (item.getMemo().length() > 0) {
             holder.tv_memo.setText(item.getMemo());
         }
         else {
