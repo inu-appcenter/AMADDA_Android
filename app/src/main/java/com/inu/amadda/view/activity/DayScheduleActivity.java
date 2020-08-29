@@ -15,8 +15,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.inu.amadda.R;
-import com.inu.amadda.adapter.ScheduleListAdapter;
+import com.inu.amadda.adapter.DayScheduleAdapter;
+import com.inu.amadda.database.AppDatabase;
 import com.inu.amadda.etc.Constant;
+import com.inu.amadda.model.DaySchedule;
 import com.inu.amadda.model.ScheduleData;
 import com.inu.amadda.model.ScheduleResponse;
 import com.inu.amadda.network.RetrofitInstance;
@@ -24,10 +26,12 @@ import com.inu.amadda.util.DateUtils;
 import com.inu.amadda.util.PreferenceManager;
 
 import org.threeten.bp.LocalDate;
+import org.threeten.bp.LocalTime;
 import org.threeten.bp.format.DateTimeFormatter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,15 +40,20 @@ import retrofit2.Response;
 public class DayScheduleActivity extends AppCompatActivity {
 
     private List<ScheduleData> scheduleList = new ArrayList<>();
+    private List<DaySchedule> itemList = new ArrayList<>();
     private String titleString;
     private LocalDate resultDate;
 
-    private ScheduleListAdapter adapter;
+    private AppDatabase appDatabase;
+
+    private DayScheduleAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule_list);
+
+        appDatabase = AppDatabase.getInstance(this);
 
         initialize();
         checkType();
@@ -95,7 +104,7 @@ public class DayScheduleActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.rv_schedule_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new ScheduleListAdapter(scheduleList);
+        adapter = new DayScheduleAdapter(itemList);
         recyclerView.setAdapter(adapter);
     }
 
@@ -112,11 +121,11 @@ public class DayScheduleActivity extends AppCompatActivity {
                     if (scheduleResponse != null) {
                         if (scheduleResponse.success) {
                             scheduleList.addAll(scheduleResponse.schedules);
-                            adapter.notifyDataSetChanged();
+                            getGroupColor();
                         }
                         else {
                             Toast.makeText(getApplicationContext(), "일정을 불러올 수 없습니다. 잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
-                            Log.d("DayScheduleListActivity", scheduleResponse.message);
+                            Log.d("DayScheduleActivity", scheduleResponse.message);
                         }
                     }
                     else {
@@ -125,16 +134,43 @@ public class DayScheduleActivity extends AppCompatActivity {
                 }
                 else {
                     Toast.makeText(getApplicationContext(), "일정을 불러올 수 없습니다. 잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
-                    Log.d("DayScheduleListActivity", status + "");
+                    Log.d("DayScheduleActivity", status + "");
                 }
             }
 
             @Override
             public void onFailure(Call<ScheduleResponse> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "인터넷 연결 상태를 확인해주세요.", Toast.LENGTH_SHORT).show();
-                Log.d("DayScheduleListActivity", t.getMessage());
+                Log.d("DayScheduleActivity", t.getMessage());
             }
         });
+    }
+
+    private void getGroupColor() {
+        new Thread(() -> {
+            for (int i = 0; i < scheduleList.size(); i++){
+                ScheduleData data = scheduleList.get(i);
+                String color;
+                if (data.getShare() > 0) {
+                    color = appDatabase.groupDao().getColorByKey(data.getShare());
+                }
+                else {
+                    color = PreferenceManager.getInstance().getSharedPreference(getApplicationContext(), Constant.Preference.COLOR, null);
+                }
+                itemList.add(new DaySchedule(true, data.getNumber(), data.getShare(), data.getSchedule_name(), formatScheduleTime(data.getStart()), formatScheduleTime(data.getEnd()),
+                        data.getLocation(), data.getMemo(), color));
+            }
+
+            runOnUiThread(() -> {
+                adapter.notifyDataSetChanged();
+            });
+
+        }).start();
+    }
+
+    private String formatScheduleTime(String string){
+        LocalTime localTime = LocalTime.parse(string, DateTimeFormatter.ofPattern(DateUtils.dateTimeFormat));
+        return localTime.format(DateTimeFormatter.ofPattern("a hh:mm", Locale.KOREAN));
     }
 
     View.OnClickListener onClickListener = view -> {
