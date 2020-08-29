@@ -22,6 +22,8 @@ import com.inu.amadda.model.DaySchedule;
 import com.inu.amadda.model.ScheduleData;
 import com.inu.amadda.model.ScheduleResponse;
 import com.inu.amadda.network.RetrofitInstance;
+import com.inu.amadda.timetable.Schedule;
+import com.inu.amadda.timetable.TimetableView;
 import com.inu.amadda.util.DateUtils;
 import com.inu.amadda.util.PreferenceManager;
 
@@ -43,6 +45,7 @@ public class DayScheduleActivity extends AppCompatActivity {
     private List<DaySchedule> itemList = new ArrayList<>();
     private String titleString;
     private LocalDate resultDate;
+    private int day;
 
     private AppDatabase appDatabase;
 
@@ -69,7 +72,7 @@ public class DayScheduleActivity extends AppCompatActivity {
 
     private void checkType() {
         Intent intent = getIntent();
-        int day = intent.getIntExtra("Day", -1);
+        day = intent.getIntExtra("Day", -1);
 
         if (day != -1) {
             int today = DateUtils.getDayOfWeek();
@@ -163,6 +166,7 @@ public class DayScheduleActivity extends AppCompatActivity {
 
             runOnUiThread(() -> {
                 adapter.notifyDataSetChanged();
+                getClassesData();
             });
 
         }).start();
@@ -171,6 +175,33 @@ public class DayScheduleActivity extends AppCompatActivity {
     private String formatScheduleTime(String string){
         LocalTime localTime = LocalTime.parse(string, DateTimeFormatter.ofPattern(DateUtils.dateTimeFormat));
         return localTime.format(DateTimeFormatter.ofPattern("a hh:mm", Locale.KOREAN));
+    }
+
+    private String formatClassTime(String string){
+        LocalTime localTime = LocalTime.parse(string, DateTimeFormatter.ofPattern("HHmm"));
+        return localTime.format(DateTimeFormatter.ofPattern("a hh:mm", Locale.KOREAN));
+    }
+
+    private String formatIntegerZero(int hour, int minute){
+        return String.format("%02d%02d", hour, minute);
+    }
+
+    private void getClassesData() {
+        TimetableView timetableView = new TimetableView(this);
+        timetableView.loadOnlyData(PreferenceManager.getInstance().getSharedPreference(getApplicationContext(), Constant.Preference.TIMETABLE, null));
+
+        List<Schedule> classList = timetableView.getAllSchedulesInStickers();
+        for (int i = 0; i < classList.size(); i++){
+            Schedule data = classList.get(i);
+            if (data.getDay() == day) {
+                itemList.add(new DaySchedule(false, i, -1, data.getClassTitle(),
+                        formatClassTime(formatIntegerZero(data.getStartTime().getHour(), data.getStartTime().getMinute())),
+                        formatClassTime(formatIntegerZero(data.getEndTime().getHour(), data.getEndTime().getMinute())),
+                        data.getClassPlace(), null, null));
+            }
+        }
+
+        adapter.notifyDataSetChanged();
     }
 
     View.OnClickListener onClickListener = view -> {

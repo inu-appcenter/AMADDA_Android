@@ -65,19 +65,21 @@ public class DayScheduleAdapter extends RecyclerView.Adapter<DayScheduleAdapter.
 
         holder.tv_location.setText(item.getLocation());
 
-        if (item.getMemo().length() > 0) {
-            holder.tv_memo.setText(item.getMemo());
+        if (item.getMemo() == null || item.getMemo().length() == 0) {
+            holder.tv_memo.setVisibility(View.GONE);
         }
         else {
-            holder.tv_memo.setVisibility(View.GONE);
+            holder.tv_memo.setText(item.getMemo());
         }
 
         holder.cv_schedule.setOnClickListener(view -> {
-            Intent intent = new Intent(mContext, EditScheduleActivity.class);
-            if (item.getShare() > 0)
-                intent.putExtra("share", item.getShare());
-            intent.putExtra("number", item.getNumber());
-            mContext.startActivity(intent);
+            if (item.isSchedule()) {
+                Intent intent = new Intent(mContext, EditScheduleActivity.class);
+                if (item.getShare() > 0)
+                    intent.putExtra("share", item.getShare());
+                intent.putExtra("number", item.getNumber());
+                mContext.startActivity(intent);
+            }
         });
     }
 

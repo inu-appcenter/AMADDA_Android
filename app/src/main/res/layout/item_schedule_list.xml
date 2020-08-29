@@ -22,8 +22,7 @@
             android:id="@+id/view_group_tag"
             android:layout_width="6dp"
             android:layout_height="16dp"
-            android:layout_marginTop="31dp"
-            android:background="@color/color_ff3b30" />
+            android:layout_marginTop="31dp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -39,7 +38,6 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:lines="1"
-                android:text="무대 미술의 이해 팀플"
                 android:textColor="@color/colorAccent"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -51,7 +49,6 @@
                 android:layout_marginTop="16dp"
                 android:drawableStart="@drawable/time"
                 android:drawablePadding="14.4dp"
-                android:text="오후 01:00 ~ 오후 02:00"
                 android:textColor="@color/color_707070"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -66,7 +63,6 @@
                 android:drawablePadding="12.4dp"
                 android:ellipsize="end"
                 android:lines="1"
-                android:text="공씨네 주먹밥"
                 android:textColor="@color/color_707070"
                 android:textSize="16sp" />
 
@@ -80,7 +76,6 @@
                 android:drawablePadding="15dp"
                 android:ellipsize="end"
                 android:lines="1"
-                android:text="같이 작업 할 사람 동방오세요!"
                 android:textColor="@color/color_707070"
                 android:textSize="16sp" />
 

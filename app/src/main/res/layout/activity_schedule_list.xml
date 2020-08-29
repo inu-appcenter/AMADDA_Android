@@ -21,6 +21,7 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_schedule_list"
+                android:overScrollMode="never"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="6dp"/>

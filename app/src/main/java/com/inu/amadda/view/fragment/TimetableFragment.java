@@ -93,7 +93,7 @@ public class TimetableFragment extends Fragment {
         timetable.setDayClick();
         timetable.setOnStickerSelectEventListener((idx, schedules) -> {
             Intent intent = new Intent(getActivity(), DayScheduleActivity.class);
-            intent.putExtra("Day", schedules.get(0).getDay() + 1);
+            intent.putExtra("Day", schedules.get(0).getDay());
             startActivity(intent);
         });
 
@@ -132,19 +132,19 @@ public class TimetableFragment extends Fragment {
 
                     switch (day){
                         case MONDAY:
-                            schedule.setDay(0);
+                            schedule.setDay(DateUtils.MON);
                             break;
                         case TUESDAY:
-                            schedule.setDay(1);
+                            schedule.setDay(DateUtils.TUE);
                             break;
                         case WEDNESDAY:
-                            schedule.setDay(2);
+                            schedule.setDay(DateUtils.WED);
                             break;
                         case THURSDAY:
-                            schedule.setDay(3);
+                            schedule.setDay(DateUtils.THU);
                             break;
                         case FRIDAY:
-                            schedule.setDay(4);
+                            schedule.setDay(DateUtils.FRI);
                             break;
                     }
 

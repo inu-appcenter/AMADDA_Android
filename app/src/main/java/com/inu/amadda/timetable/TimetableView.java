@@ -20,7 +20,6 @@ import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.inu.amadda.R;
 import com.inu.amadda.database.AppDatabase;
@@ -274,6 +273,10 @@ public class TimetableView extends LinearLayout {
         setClassStickerColor();
     }
 
+    public void loadOnlyData(String data) {
+        classStickers = SaveManager.loadSticker(data);
+    }
+
     public void removeAll() {
         for (int key : classStickers.keySet()) {
             Sticker sticker = classStickers.get(key);
@@ -299,8 +302,10 @@ public class TimetableView extends LinearLayout {
     }
 
     public void setDayHighlight() {
-        int idx = DateUtils.getDayOfWeek();
-        if(idx < 1 || idx > 5) return;
+        int day = DateUtils.getDayOfWeek();
+        if(day == DateUtils.SAT || day == DateUtils.SUN) return;
+
+        int idx = DateUtils.getDayOfWeek() + 1;
 
         TableRow row = (TableRow) tableHeader.getChildAt(0);
         View element = row.getChildAt(idx);
@@ -333,7 +338,7 @@ public class TimetableView extends LinearLayout {
                         @Override
                         public void onClick(View view) {
                             Intent intent = new Intent(context, DayScheduleActivity.class);
-                            intent.putExtra("Day", idx);
+                            intent.putExtra("Day", idx - 1);
                             context.startActivity(intent);
                         }
                     });

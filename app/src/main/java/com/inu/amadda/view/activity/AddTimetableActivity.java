@@ -29,6 +29,7 @@ import com.inu.amadda.network.RetrofitInstance;
 import com.inu.amadda.timetable.Schedule;
 import com.inu.amadda.timetable.Time;
 import com.inu.amadda.timetable.TimetableView;
+import com.inu.amadda.util.DateUtils;
 import com.inu.amadda.util.PreferenceManager;
 
 import org.threeten.bp.LocalTime;
@@ -98,19 +99,19 @@ public class AddTimetableActivity extends AppCompatActivity implements ClassAdap
             schedule.setEndTime(new Time(endTime.getHour(),endTime.getMinute()));
             switch (day){
                 case "월":
-                    schedule.setDay(0);
+                    schedule.setDay(DateUtils.MON);
                     break;
                 case "화":
-                    schedule.setDay(1);
+                    schedule.setDay(DateUtils.TUE);
                     break;
                 case "수":
-                    schedule.setDay(2);
+                    schedule.setDay(DateUtils.WED);
                     break;
                 case "목":
-                    schedule.setDay(3);
+                    schedule.setDay(DateUtils.THU);
                     break;
                 case "금":
-                    schedule.setDay(4);
+                    schedule.setDay(DateUtils.FRI);
                     break;
                 default:
                     break;
