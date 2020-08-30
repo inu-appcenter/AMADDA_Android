@@ -78,7 +78,12 @@ public class DayScheduleActivity extends AppCompatActivity {
         if (day != -1) {
             int today = DateUtils.getDayOfWeek();
             LocalDate todayDate = LocalDate.now();
-            resultDate = todayDate.plusDays(day - today);
+            if (today == DateUtils.SUN){
+                resultDate = todayDate.plusDays(day + 1);
+            }
+            else {
+                resultDate = todayDate.plusDays(day - today);
+            }
             titleString = DateUtils.getTitleString(resultDate);
         }
 
