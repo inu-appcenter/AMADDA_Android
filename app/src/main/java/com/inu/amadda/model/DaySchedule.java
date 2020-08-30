@@ -1,6 +1,6 @@
 package com.inu.amadda.model;
 
-public class DaySchedule {
+public class DaySchedule implements Comparable<DaySchedule> {
     private boolean isSchedule;
     private int number, share;
     private String schedule_name, start, end, location, memo, color;
@@ -87,5 +87,10 @@ public class DaySchedule {
         this.location = location;
         this.memo = memo;
         this.color = color;
+    }
+
+    @Override
+    public int compareTo(DaySchedule daySchedule) {
+        return this.start.compareTo(daySchedule.start);
     }
 }

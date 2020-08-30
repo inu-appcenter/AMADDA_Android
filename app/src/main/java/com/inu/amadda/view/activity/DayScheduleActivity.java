@@ -32,6 +32,7 @@ import org.threeten.bp.LocalTime;
 import org.threeten.bp.format.DateTimeFormatter;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -200,6 +201,8 @@ public class DayScheduleActivity extends AppCompatActivity {
                         data.getClassPlace(), null, null));
             }
         }
+
+        Collections.sort(itemList);
 
         adapter.notifyDataSetChanged();
     }
