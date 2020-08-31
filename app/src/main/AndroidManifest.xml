@@ -38,6 +38,7 @@
         <activity android:name=".view.activity.AddTimetableActivity" android:windowSoftInputMode="adjustNothing" />
         <activity android:name=".view.activity.AddClassActivity" />
         <activity android:name=".view.activity.DayScheduleActivity" />
+        <activity android:name=".view.activity.EditClassActivity" />
     </application>
 
 </manifest>

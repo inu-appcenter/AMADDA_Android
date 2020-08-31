@@ -167,7 +167,7 @@ public class DayScheduleActivity extends AppCompatActivity {
                     color = PreferenceManager.getInstance().getSharedPreference(getApplicationContext(), Constant.Preference.COLOR, null);
                 }
                 itemList.add(new DaySchedule(true, data.getNumber(), data.getShare(), data.getSchedule_name(), formatScheduleTime(data.getStart()), formatScheduleTime(data.getEnd()),
-                        data.getLocation(), data.getMemo(), color));
+                        data.getLocation(), data.getMemo(), color, null));
             }
 
             runOnUiThread(() -> {
@@ -203,7 +203,7 @@ public class DayScheduleActivity extends AppCompatActivity {
                 itemList.add(new DaySchedule(false, i, -1, data.getClassTitle(),
                         formatClassTime(formatIntegerZero(data.getStartTime().getHour(), data.getStartTime().getMinute())),
                         formatClassTime(formatIntegerZero(data.getEndTime().getHour(), data.getEndTime().getMinute())),
-                        data.getClassPlace(), null, null));
+                        data.getClassPlace(), null, null, data));
             }
         }
 

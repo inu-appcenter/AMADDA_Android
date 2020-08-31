@@ -14,6 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.inu.amadda.R;
 import com.inu.amadda.model.DaySchedule;
+import com.inu.amadda.timetable.Schedule;
+import com.inu.amadda.timetable.Time;
+import com.inu.amadda.view.activity.EditClassActivity;
 import com.inu.amadda.view.activity.EditScheduleActivity;
 
 import java.util.List;
@@ -78,6 +81,11 @@ public class DayScheduleAdapter extends RecyclerView.Adapter<DayScheduleAdapter.
                 if (item.getShare() > 0)
                     intent.putExtra("share", item.getShare());
                 intent.putExtra("number", item.getNumber());
+                mContext.startActivity(intent);
+            }
+            else {
+                Intent intent = new Intent(mContext, EditClassActivity.class);
+                intent.putExtra("class", item.getClassData());
                 mContext.startActivity(intent);
             }
         });

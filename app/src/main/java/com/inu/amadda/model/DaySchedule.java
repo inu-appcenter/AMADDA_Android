@@ -1,9 +1,12 @@
 package com.inu.amadda.model;
 
+import com.inu.amadda.timetable.Schedule;
+
 public class DaySchedule implements Comparable<DaySchedule> {
     private boolean isSchedule;
     private int number, share;
     private String schedule_name, start, end, location, memo, color;
+    private Schedule classData;
 
     public boolean isSchedule() {
         return isSchedule;
@@ -77,7 +80,15 @@ public class DaySchedule implements Comparable<DaySchedule> {
         this.color = color;
     }
 
-    public DaySchedule(boolean isSchedule, int number, int share, String schedule_name, String start, String end, String location, String memo, String color) {
+    public Schedule getClassData() {
+        return classData;
+    }
+
+    public void setClassData(Schedule classData) {
+        this.classData = classData;
+    }
+
+    public DaySchedule(boolean isSchedule, int number, int share, String schedule_name, String start, String end, String location, String memo, String color, Schedule classData) {
         this.isSchedule = isSchedule;
         this.number = number;
         this.share = share;
@@ -87,6 +98,7 @@ public class DaySchedule implements Comparable<DaySchedule> {
         this.location = location;
         this.memo = memo;
         this.color = color;
+        this.classData = classData;
     }
 
     @Override
