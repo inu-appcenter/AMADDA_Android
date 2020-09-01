@@ -15,9 +15,13 @@ import androidx.core.content.ContextCompat;
 import com.bigkoo.pickerview.adapter.ArrayWheelAdapter;
 import com.contrarywind.view.WheelView;
 import com.inu.amadda.R;
+import com.inu.amadda.etc.Constant;
 import com.inu.amadda.model.ClassData;
 import com.inu.amadda.timetable.Schedule;
+import com.inu.amadda.timetable.Time;
+import com.inu.amadda.timetable.TimetableView;
 import com.inu.amadda.util.DateUtils;
+import com.inu.amadda.util.PreferenceManager;
 
 import net.cachapa.expandablelayout.ExpandableLayout;
 
@@ -31,6 +35,9 @@ public class EditClassActivity extends AppCompatActivity {
 
     private boolean isExpanded = false, isStartClicked;
     private String startDay = "월", startAmpm = "오전", startHour = "01", startMinute = "00", endDay = "월", endAmpm = "오전", endHour = "01", endMinute = "00";
+    private int idx;
+
+    private Schedule schedule;
 
     private EditText et_class_name, et_place;
     private TextView tv_start_day, tv_start_ampm, tv_start_time, tv_end_day, tv_end_ampm, tv_end_time;
@@ -82,7 +89,8 @@ public class EditClassActivity extends AppCompatActivity {
 
     private void getInitialData() {
         Intent intent = getIntent();
-        Schedule schedule = (Schedule) intent.getSerializableExtra("class");
+        schedule = (Schedule) intent.getSerializableExtra("class");
+        idx = intent.getIntExtra("idx", -1);
 
         if (schedule != null) {
             et_class_name.setText(schedule.getClassTitle());
@@ -370,34 +378,64 @@ public class EditClassActivity extends AppCompatActivity {
     }
 
     private void saveClass() {
-        ClassData data = new ClassData(et_class_name.getText().toString(), "", startDay,
-                toFormatTime(startAmpm, startHour, startMinute), toFormatTime(endAmpm, endHour, endMinute), et_place.getText().toString());
+        TimetableView timetableView = new TimetableView(this);
+        timetableView.loadOnlyData(PreferenceManager.getInstance().getSharedPreference(getApplicationContext(), Constant.Preference.TIMETABLE, null));
 
-        finish();
-    }
+        if (idx != -1) {
+            ArrayList<Schedule> schedules = new ArrayList<>();
 
-    private String toFormatTime(String ampm, String hour, String minute) {
-        String result;
-        if (ampm.equals("오전")){
-            if (hour.equals("12")){
-                result = "00" + ":" + minute;
+            Schedule schedule = new Schedule();
+
+            schedule.setClassTitle(et_class_name.getText().toString());
+            schedule.setClassPlace(et_place.getText().toString());
+            schedule.setProfessorName(this.schedule.getProfessorName());
+
+            String start = startAmpm.equals("오전") ? "AM" + " " + startHour : "PM" + " " + startHour;
+            String end = endAmpm.equals("오전") ? "AM" + " " + endHour : "PM" + " " + endHour;
+            schedule.setStartTime(new Time(Integer.parseInt(LocalTime.parse(start, DateTimeFormatter.ofPattern("a hh")).format(DateTimeFormatter.ofPattern("HH", Locale.KOREAN))),
+                    Integer.parseInt(startMinute)));
+            schedule.setEndTime(new Time(Integer.parseInt(LocalTime.parse(end, DateTimeFormatter.ofPattern("a hh")).format(DateTimeFormatter.ofPattern("HH", Locale.KOREAN))),
+                    Integer.parseInt(endMinute)));
+
+            switch (startDay) {
+                case "월":
+                    schedule.setDay(DateUtils.MON);
+                    break;
+                case "화":
+                    schedule.setDay(DateUtils.TUE);
+                    break;
+                case "수":
+                    schedule.setDay(DateUtils.WED);
+                    break;
+                case "목":
+                    schedule.setDay(DateUtils.THU);
+                    break;
+                case "금":
+                    schedule.setDay(DateUtils.FRI);
+                    break;
+                default:
+                    break;
             }
-            else  {
-                result = hour + ":" + minute;
-            }
+
+            schedules.add(schedule);
+
+            timetableView.edit(idx, schedules);
+            PreferenceManager.getInstance().putSharedPreference(getApplicationContext(), Constant.Preference.TIMETABLE, timetableView.createSaveData());
+
+            finish();
         }
-        else {
-            if (hour.equals("12")){
-                result = hour + ":" + minute;
-            }
-            else  {
-                result = (Integer.valueOf(endHour) + 12) + ":" + minute;
-            }
-        }
-        return result;
     }
 
     private void deleteClass() {
+        TimetableView timetableView = new TimetableView(this);
+        timetableView.loadOnlyData(PreferenceManager.getInstance().getSharedPreference(getApplicationContext(), Constant.Preference.TIMETABLE, null));
+
+        if (idx != -1) {
+            timetableView.remove(idx);
+            PreferenceManager.getInstance().putSharedPreference(getApplicationContext(), Constant.Preference.TIMETABLE, timetableView.createSaveData());
+
+            finish();
+        }
     }
 
     View.OnClickListener onClickListener = view -> {

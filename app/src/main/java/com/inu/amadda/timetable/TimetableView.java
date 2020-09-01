@@ -24,6 +24,7 @@ import android.widget.TextView;
 import com.inu.amadda.R;
 import com.inu.amadda.database.AppDatabase;
 import com.inu.amadda.etc.Constant;
+import com.inu.amadda.model.ScheduleWithKey;
 import com.inu.amadda.util.DateUtils;
 import com.inu.amadda.util.PreferenceManager;
 import com.inu.amadda.view.activity.DayScheduleActivity;
@@ -126,11 +127,11 @@ public class TimetableView extends LinearLayout {
      * date : 2019-02-08
      * get all schedules TimetableView has.
      */
-    public ArrayList<Schedule> getAllSchedulesInStickers() {
-        ArrayList<Schedule> allSchedules = new ArrayList<Schedule>();
+    public ArrayList<ScheduleWithKey> getAllSchedulesInStickers() {
+        ArrayList<ScheduleWithKey> allSchedules = new ArrayList<>();
         for (int key : classStickers.keySet()) {
             for (Schedule schedule : classStickers.get(key).getSchedules()) {
-                allSchedules.add(schedule);
+                allSchedules.add(new ScheduleWithKey(key, schedule));
             }
         }
         return allSchedules;
@@ -208,6 +209,45 @@ public class TimetableView extends LinearLayout {
         setClassStickerColor();
     }
 
+    private void addClassListOnlyData(final ArrayList<Schedule> schedules, int specIdx) {
+        final int count = specIdx < 0 ? ++stickerCount : specIdx;
+        Sticker sticker = new Sticker();
+        for (Schedule schedule : schedules) {
+            RelativeLayout rl = new RelativeLayout(context);
+            RelativeLayout.LayoutParams param = createStickerParam(schedule);
+            rl.setLayoutParams(param);
+
+            TextView tv_title = new TextView(context);
+            tv_title.setId(View.generateViewId());
+            RelativeLayout.LayoutParams titleParams = new RelativeLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT );
+            tv_title.setLayoutParams(titleParams);
+            titleParams.setMargins(dp2Px(4), dp2Px(5), dp2Px(4), 0);
+            tv_title.setText(schedule.getClassTitle());
+            tv_title.setTextColor(Color.parseColor("#FFFFFF"));
+            tv_title.setTextSize(TypedValue.COMPLEX_UNIT_SP, DEFAULT_STICKER_TITLE_FONT_SIZE_SP);
+            tv_title.setTypeface(null, Typeface.BOLD);
+
+            TextView tv_place = new TextView(context);
+            tv_place.setId(View.generateViewId());
+            RelativeLayout.LayoutParams placeParams = new RelativeLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT );
+            tv_place.setLayoutParams(placeParams);
+            placeParams.addRule(RelativeLayout.BELOW, tv_title.getId());
+            placeParams.setMargins(dp2Px(4), dp2Px(2), dp2Px(4), 0);
+            tv_place.setText(schedule.getClassPlace());
+            tv_place.setTextColor(Color.parseColor("#FFFFFF"));
+            tv_place.setTextSize(TypedValue.COMPLEX_UNIT_SP, DEFAULT_STICKER_PLACE_FONT_SIZE_SP);
+
+            rl.addView(tv_title);
+            rl.addView(tv_place);
+
+            sticker.addTextView(rl);
+            sticker.addSchedule(schedule);
+            classStickers.put(count, sticker);
+        }
+    }
+
     private void addScheduleList(final ArrayList<Schedule> schedules, int share, Context activityContext, int specIdx) {
         final int count = specIdx < 0 ? ++stickerCount : specIdx;
         Sticker sticker = new Sticker();
@@ -274,7 +314,15 @@ public class TimetableView extends LinearLayout {
     }
 
     public void loadOnlyData(String data) {
+        removeAll();
         classStickers = SaveManager.loadSticker(data);
+        int maxKey = 0;
+        for (int key : classStickers.keySet()) {
+            ArrayList<Schedule> schedules = classStickers.get(key).getSchedules();
+            addClassListOnlyData(schedules, key);
+            if (maxKey < key) maxKey = key;
+        }
+        stickerCount = maxKey + 1;
     }
 
     public void removeAll() {
@@ -289,16 +337,16 @@ public class TimetableView extends LinearLayout {
 
     public void edit(int idx, ArrayList<Schedule> schedules) {
         remove(idx);
-        addClassList(schedules, idx);
+        addClassListOnlyData(schedules, idx);
     }
 
     public void remove(int idx) {
-        Sticker sticker = classStickers.get(idx);
-        for (RelativeLayout rl : sticker.getView()) {
-            stickerBox.removeView(rl);
-        }
+//        Sticker sticker = classStickers.get(idx);
+//        for (RelativeLayout rl : sticker.getView()) {
+//            stickerBox.removeView(rl);
+//        }
         classStickers.remove(idx);
-        setClassStickerColor();
+//        setClassStickerColor();
     }
 
     public void setDayHighlight() {

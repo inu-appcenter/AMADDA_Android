@@ -21,6 +21,7 @@ import com.inu.amadda.etc.Constant;
 import com.inu.amadda.model.DaySchedule;
 import com.inu.amadda.model.ScheduleData;
 import com.inu.amadda.model.ScheduleResponse;
+import com.inu.amadda.model.ScheduleWithKey;
 import com.inu.amadda.network.RetrofitInstance;
 import com.inu.amadda.timetable.Schedule;
 import com.inu.amadda.timetable.TimetableView;
@@ -196,11 +197,11 @@ public class DayScheduleActivity extends AppCompatActivity {
         TimetableView timetableView = new TimetableView(this);
         timetableView.loadOnlyData(PreferenceManager.getInstance().getSharedPreference(getApplicationContext(), Constant.Preference.TIMETABLE, null));
 
-        List<Schedule> classList = timetableView.getAllSchedulesInStickers();
+        ArrayList<ScheduleWithKey> classList = timetableView.getAllSchedulesInStickers();
         for (int i = 0; i < classList.size(); i++){
-            Schedule data = classList.get(i);
+            Schedule data = classList.get(i).schedule;
             if (data.getDay() == day) {
-                itemList.add(new DaySchedule(false, i, -1, data.getClassTitle(),
+                itemList.add(new DaySchedule(false, classList.get(i).key, -1, data.getClassTitle(),
                         formatClassTime(formatIntegerZero(data.getStartTime().getHour(), data.getStartTime().getMinute())),
                         formatClassTime(formatIntegerZero(data.getEndTime().getHour(), data.getEndTime().getMinute())),
                         data.getClassPlace(), null, null, data));

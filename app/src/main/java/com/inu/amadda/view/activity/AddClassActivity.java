@@ -323,7 +323,7 @@ public class AddClassActivity extends AppCompatActivity {
                 result = hour + ":" + minute;
             }
             else  {
-                result = (Integer.valueOf(endHour) + 12) + ":" + minute;
+                result = (Integer.valueOf(hour) + 12) + ":" + minute;
             }
         }
         return result;

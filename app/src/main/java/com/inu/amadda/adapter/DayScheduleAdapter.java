@@ -86,6 +86,7 @@ public class DayScheduleAdapter extends RecyclerView.Adapter<DayScheduleAdapter.
             else {
                 Intent intent = new Intent(mContext, EditClassActivity.class);
                 intent.putExtra("class", item.getClassData());
+                intent.putExtra("idx", item.getNumber());
                 mContext.startActivity(intent);
             }
         });
