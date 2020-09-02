@@ -18,7 +18,9 @@ import android.widget.TextView;
 
 import com.inu.amadda.R;
 import com.inu.amadda.database.AppDatabase;
+import com.inu.amadda.etc.Constant;
 import com.inu.amadda.util.DateUtils;
+import com.inu.amadda.util.PreferenceManager;
 import com.inu.amadda.view.fragment.CalendarFragment;
 import com.inu.amadda.view.fragment.TimetableFragment;
 
@@ -92,13 +94,16 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-        boolean isTimetable = true;
+        boolean isTimetable = PreferenceManager.getInstance().getSharedPreference(getApplicationContext(), Constant.Preference.DEFAULT_VIEW,
+                Constant.DefaultView.TIMETABLE);
 
         if (isTimetable){
             transaction.replace(R.id.fragment_container, new TimetableFragment()).commit();
+            changeToCalender = true;
         }
         else {
             transaction.replace(R.id.fragment_container, new CalendarFragment()).commit();
+            changeToCalender = false;
         }
     }
 

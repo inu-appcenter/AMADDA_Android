@@ -2,204 +2,151 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/color_ffffff">
+    android:background="@color/color_ffffff"
+    android:orientation="vertical">
 
-    <include
-        layout="@layout/toolbar"/>
+    <include layout="@layout/toolbar" />
 
     <TextView
+        android:id="@+id/tv_id"
         android:layout_width="match_parent"
         android:layout_height="62dp"
-        android:paddingStart="27dp"
-        android:textSize="20sp"
-        android:textColor="@color/color_2d3e51"
-        android:id="@+id/mail"
-        android:gravity="center_vertical"
         android:background="@color/color_eaf8ff"
-        android:textStyle="bold"
-        android:text="201602036"
-        />
+        android:gravity="center_vertical"
+        android:paddingStart="27dp"
+        android:textColor="@color/color_2d3e51"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <RelativeLayout
+        android:id="@+id/rl_profile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/rl_profile"
         android:background="?android:selectableItemBackground">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="58dp"
-        android:layout_marginStart="27dp"
-        android:gravity="center_vertical"
-        android:text="프로필 편집"
-        android:textSize="18sp"
-        android:textColor="@color/color_2d3e51"
-        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="58dp"
+            android:layout_marginStart="27dp"
+            android:gravity="center_vertical"
+            android:text="프로필 편집"
+            android:textColor="@color/color_2d3e51"
+            android:textSize="18sp" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="27dp"
-            android:layout_centerVertical="true"
-            android:src="@drawable/next"
             android:layout_alignParentEnd="true"
-
-            />
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="27dp"
+            android:src="@drawable/next" />
 
     </RelativeLayout>
 
     <TextView
+        android:id="@+id/normal"
         android:layout_width="match_parent"
         android:layout_height="63dp"
-        android:paddingStart="27dp"
-        android:textSize="20sp"
-        android:textColor="@color/color_2d3e51"
-        android:text="일반"
-        android:id="@+id/normal"
         android:background="@color/color_eaf8ff"
         android:gravity="center_vertical"
-        android:textStyle="bold"
-        />
+        android:paddingStart="27dp"
+        android:text="일반"
+        android:textColor="@color/color_2d3e51"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/screen"
         android:layout_width="match_parent"
         android:layout_height="58dp"
+        android:gravity="center_vertical"
         android:paddingStart="27dp"
         android:text="기본 화면"
-        android:textSize="18sp"
-        android:gravity="center_vertical"
-        android:id="@+id/screen"
         android:textColor="@color/color_2d3e51"
-        />
+        android:textSize="18sp" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:background="@color/color_cccccc"
-        />
-
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    >
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="52dp"
-        android:layout_marginStart="44dp"
-        android:text="시간표 (주간)"
-        android:textSize="16sp"
-        android:gravity="center_vertical"
-        android:textColor="@color/color_707070"
-        />
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="52dp"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="56dp"
-        android:id="@+id/cb_timetable"
-        android:gravity="center_vertical"
-        android:checked="true"
-        />
-</RelativeLayout>
+        android:background="@color/color_cccccc" />
 
     <RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    >
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="52dp"
-        android:layout_marginStart="44dp"
-        android:text="달력 (월간)"
-        android:textSize="16sp"
-        android:gravity="center_vertical"
-        android:textColor="@color/color_707070"
-        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="52dp"
+            android:layout_marginStart="44dp"
+            android:gravity="center_vertical"
+            android:text="시간표 (주간)"
+            android:textColor="@color/color_707070"
+            android:textSize="16sp" />
 
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="52dp"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="56dp"
-        android:id="@+id/cb_calendar"
-        android:gravity="center_vertical"
-        android:checked="false"
-        />
-</RelativeLayout>
+        <CheckBox
+            android:id="@+id/cb_timetable"
+            android:layout_width="wrap_content"
+            android:layout_height="52dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="56dp"
+            android:gravity="center_vertical" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="52dp"
+            android:layout_marginStart="44dp"
+            android:gravity="center_vertical"
+            android:text="달력 (월간)"
+            android:textColor="@color/color_707070"
+            android:textSize="16sp" />
+
+        <CheckBox
+            android:id="@+id/cb_calendar"
+            android:layout_width="wrap_content"
+            android:layout_height="52dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="56dp"
+            android:gravity="center_vertical" />
+
+    </RelativeLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:background="@color/color_cccccc"
-        />
+        android:background="@color/color_cccccc" />
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/rl_push"
-        android:background="?android:selectableItemBackground">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="58dp"
-        android:layout_marginStart="27dp"
-        android:text="푸쉬 알림"
-        android:textSize="18sp"
-        android:gravity="center_vertical"
-        android:textColor="@color/color_2d3e51"
-        />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="27dp"
-            android:layout_centerVertical="true"
-            android:src="@drawable/next"
-            android:layout_alignParentEnd="true"
-
-            />
-
-    </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:background="@color/color_cccccc"
-        />
-
-    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/rl_withdrawal"
         android:background="?android:selectableItemBackground">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="58dp"
-        android:layout_marginStart="27dp"
-        android:text="회원 탈퇴"
-        android:textSize="18sp"
-        android:gravity="center_vertical"
-        android:textColor="@color/color_2d3e51"
-        />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="58dp"
+            android:layout_marginStart="27dp"
+            android:gravity="center_vertical"
+            android:text="푸쉬 알림"
+            android:textColor="@color/color_2d3e51"
+            android:textSize="18sp" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="27dp"
-            android:layout_centerVertical="true"
-            android:src="@drawable/next"
             android:layout_alignParentEnd="true"
-
-            />
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="27dp"
+            android:src="@drawable/next" />
 
     </RelativeLayout>
 
@@ -208,7 +155,38 @@
         android:layout_height="1dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:background="@color/color_cccccc"
-        />
+        android:background="@color/color_cccccc" />
+
+    <RelativeLayout
+        android:id="@+id/rl_withdrawal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:selectableItemBackground">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="58dp"
+            android:layout_marginStart="27dp"
+            android:gravity="center_vertical"
+            android:text="회원 탈퇴"
+            android:textColor="@color/color_2d3e51"
+            android:textSize="18sp" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="27dp"
+            android:src="@drawable/next" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@color/color_cccccc" />
 
 </LinearLayout>
