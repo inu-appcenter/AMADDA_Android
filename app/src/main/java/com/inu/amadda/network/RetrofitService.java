@@ -19,6 +19,7 @@ import java.util.HashMap;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -89,5 +90,8 @@ public interface RetrofitService {
 
     @GET("schedule/show/day")
     Call<ScheduleResponse> GetDaySchedule(@Header("token") String token, @Query("date") String date);
+
+    @DELETE("user/secession")
+    Call<SuccessResponse> Withdrawal(@Header("token") String token);
 
 }

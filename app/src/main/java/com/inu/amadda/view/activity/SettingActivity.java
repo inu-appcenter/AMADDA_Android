@@ -2,10 +2,12 @@ package com.inu.amadda.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,7 +16,13 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.inu.amadda.R;
 import com.inu.amadda.etc.Constant;
+import com.inu.amadda.model.SuccessResponse;
+import com.inu.amadda.network.RetrofitInstance;
 import com.inu.amadda.util.PreferenceManager;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SettingActivity extends AppCompatActivity {
 
@@ -84,6 +92,46 @@ public class SettingActivity extends AppCompatActivity {
         }
     }
 
+    private void withdrawal() {
+        String token = PreferenceManager.getInstance().getSharedPreference(getApplicationContext(), Constant.Preference.TOKEN, null);
+
+        RetrofitInstance.getInstance().getService().Withdrawal(token).enqueue(new Callback<SuccessResponse>() {
+            @Override
+            public void onResponse(Call<SuccessResponse> call, Response<SuccessResponse> response) {
+                int status = response.code();
+                if (response.isSuccessful()) {
+                    SuccessResponse successResponse = response.body();
+                    if (successResponse != null) {
+                        if (successResponse.success) {
+                            PreferenceManager.getInstance().resetSharedPreference(getApplicationContext());
+                            // TODO Room 초기화
+                            Intent intent = new Intent(SettingActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                        else {
+                            Toast.makeText(getApplicationContext(), "잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                            Log.d("SettingActivity", successResponse.message);
+                        }
+                    }
+                    else {
+                        Toast.makeText(getApplicationContext(), "잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                    Log.d("SettingActivity", status + "");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SuccessResponse> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "인터넷 연결 상태를 확인해주세요.", Toast.LENGTH_SHORT).show();
+                Log.d("SettingActivity", t.getMessage());
+            }
+        });
+    }
+
     private View.OnClickListener onClickListener = view -> {
         switch (view.getId()){
             case R.id.toolbar_left_btn:{
@@ -96,7 +144,7 @@ public class SettingActivity extends AppCompatActivity {
                 break;
             }
             case R.id.rl_withdrawal:{
-
+                withdrawal();
                 break;
             }
             case R.id.rl_push:{
