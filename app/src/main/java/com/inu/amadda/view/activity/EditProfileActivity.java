@@ -17,6 +17,7 @@ import com.inu.amadda.etc.Constant;
 import com.inu.amadda.model.UserProfileResponse;
 import com.inu.amadda.network.RetrofitInstance;
 import com.inu.amadda.util.PreferenceManager;
+import com.inu.amadda.view.fragment.ImageBottomSheetDialog;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -121,6 +122,11 @@ public class EditProfileActivity extends AppCompatActivity {
     private void deleteUserImage() {
     }
 
+    private void showBottomSheetDialog() {
+        ImageBottomSheetDialog dialog = new ImageBottomSheetDialog();
+        dialog.show(getSupportFragmentManager(), "ImageBottomSheetDialog");
+    }
+
     private View.OnClickListener onClickListener = view -> {
         switch (view.getId()){
             case R.id.toolbar_left_btn:{
@@ -137,6 +143,10 @@ public class EditProfileActivity extends AppCompatActivity {
                 else {
                     finish();
                 }
+                break;
+            }
+            case R.id.btn_add_picture:{
+                showBottomSheetDialog();
                 break;
             }
         }

@@ -182,7 +182,7 @@ public class AddTimetableActivity extends AppCompatActivity implements ClassAdap
 
     private void setBottomSheet() {
         CoordinatorLayout coordinatorLayout = findViewById(R.id.coordinatorLayout);
-        View bottomSheet = coordinatorLayout.findViewById(R.id.bottom_sheet);
+        View bottomSheet = coordinatorLayout.findViewById(R.id.bottom_sheet_search);
         BottomSheetBehavior.from(bottomSheet).setState(BottomSheetBehavior.STATE_EXPANDED);
     }
 

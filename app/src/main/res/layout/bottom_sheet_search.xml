@@ -5,7 +5,7 @@
     android:layout_height="450dp"
     android:background="@color/color_ffffff"
     android:orientation="vertical"
-    android:id="@+id/bottom_sheet"
+    android:id="@+id/bottom_sheet_search"
     app:behavior_peekHeight="73.3dp"
     app:behavior_hideable="false"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">

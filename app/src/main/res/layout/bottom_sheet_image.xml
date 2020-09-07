@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bottom_sheet_image"
+    android:layout_width="match_parent"
+    android:layout_height="260dp"
+    android:background="@color/color_ffffff"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="24dp"
+        android:text="프로필 사진 설정"
+        android:textColor="@color/color_8a000000"
+        android:textSize="16sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@color/color_cccccc" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingTop="10dp"
+        android:paddingBottom="20dp">
+
+        <TextView
+            android:id="@+id/tv_camera"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="?selectableItemBackground"
+            android:gravity="center_vertical"
+            android:paddingStart="27dp"
+            android:text="사진 촬영"
+            android:textColor="@color/color_de000000"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_album"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="?selectableItemBackground"
+            android:gravity="center_vertical"
+            android:paddingStart="27dp"
+            android:text="앨범에서 사진 선택"
+            android:textColor="@color/color_de000000"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_default"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="?selectableItemBackground"
+            android:gravity="center_vertical"
+            android:paddingStart="27dp"
+            android:text="기본 이미지로 변경"
+            android:textColor="@color/color_de000000"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+</LinearLayout>
