@@ -1,5 +1,6 @@
 package com.inu.amadda.view.activity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +19,7 @@ import com.inu.amadda.model.UserProfileResponse;
 import com.inu.amadda.network.RetrofitInstance;
 import com.inu.amadda.util.PreferenceManager;
 import com.inu.amadda.view.fragment.ImageBottomSheetDialog;
+import com.yanzhenjie.album.Album;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -28,7 +30,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
     private static final int EDIT = 100, DELETE = 200, NONE = 300;
     private int EDIT_MODE = NONE;
-    private String token;
+    private String token, imagePath = null;
 
     private CircleImageView iv_profile;
     private TextView tv_name, tv_major;
@@ -46,6 +48,30 @@ public class EditProfileActivity extends AppCompatActivity {
         getUserInfo();
 
     }
+
+    private ImageBottomSheetDialog.OnDismissListener onDismissListener = new ImageBottomSheetDialog.OnDismissListener() {
+
+        @Override
+        public void onDismiss(DialogInterface dialogInterface) {
+            Log.d("EditProfileActivity", "dismiss");
+        }
+
+        @Override
+        public void onDismiss(String path) {
+            if (path != null) {
+                if (path.equals("default")) {
+                    iv_profile.setImageResource(R.drawable.edit_profile);
+                }
+                else {
+                    Album.getAlbumConfig()
+                            .getAlbumLoader()
+                            .load(iv_profile, path);
+                }
+                imagePath = path;
+                Log.d("EditProfileActivity", imagePath);
+            }
+        }
+    };
 
     private void initialize() {
         iv_profile = findViewById(R.id.iv_profile);
@@ -124,6 +150,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
     private void showBottomSheetDialog() {
         ImageBottomSheetDialog dialog = new ImageBottomSheetDialog();
+        dialog.setOnDismissListener(onDismissListener);
         dialog.show(getSupportFragmentManager(), "ImageBottomSheetDialog");
     }
 

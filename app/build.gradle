@@ -42,4 +42,5 @@ dependencies {
     implementation 'androidx.room:room-runtime:2.2.5'
     annotationProcessor 'androidx.room:room-compiler:2.2.5'
     implementation 'petrov.kristiyan:colorpicker-library:1.1.10'
+    implementation 'com.yanzhenjie:album:2.1.3'
 }
