@@ -13,8 +13,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.Toolbar;
 
+import com.bumptech.glide.Glide;
 import com.inu.amadda.R;
 import com.inu.amadda.etc.Constant;
+import com.inu.amadda.model.UserImageResponse;
 import com.inu.amadda.model.UserProfileResponse;
 import com.inu.amadda.network.RetrofitInstance;
 import com.inu.amadda.util.PreferenceManager;
@@ -105,6 +107,43 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     private void getUserImage() {
+        RetrofitInstance.getInstance().getService().GetUserImage(token).enqueue(new Callback<UserImageResponse>() {
+            @Override
+            public void onResponse(Call<UserImageResponse> call, Response<UserImageResponse> response) {
+                int status = response.code();
+                if (response.isSuccessful()) {
+                    UserImageResponse userImageResponse = response.body();
+                    if (userImageResponse != null) {
+                        if (userImageResponse.success) {
+                            if (userImageResponse.path != null) {
+                                Glide.with(EditProfileActivity.this)
+                                        .load(userImageResponse.path)
+                                        .error(R.drawable.edit_profile)
+                                        .placeholder(R.drawable.edit_profile)
+                                        .into(iv_profile);
+                            }
+                        }
+                        else {
+                            Toast.makeText(getApplicationContext(), "잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                            Log.d("EditProfileActivity", userImageResponse.message);
+                        }
+                    }
+                    else {
+                        Toast.makeText(getApplicationContext(), "잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                    Log.d("EditProfileActivity", status + "");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserImageResponse> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "인터넷 연결 상태를 확인해주세요.", Toast.LENGTH_SHORT).show();
+                Log.d("EditProfileActivity", t.getMessage());
+            }
+        });
     }
 
     private void getUserInfo() {

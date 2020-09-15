@@ -14,6 +14,7 @@ import com.inu.amadda.model.ScheduleResponse;
 import com.inu.amadda.model.SearchUserResponse;
 import com.inu.amadda.model.SidebarResponse;
 import com.inu.amadda.model.SuccessResponse;
+import com.inu.amadda.model.UserImageResponse;
 import com.inu.amadda.model.UserProfileResponse;
 
 import java.util.HashMap;
@@ -97,5 +98,8 @@ public interface RetrofitService {
 
     @POST("user/account")
     Call<UserProfileResponse> GetUserProfile(@Header("token") String token);
+
+    @GET("user/image")
+    Call<UserImageResponse> GetUserImage(@Header("token") String token);
 
 }
