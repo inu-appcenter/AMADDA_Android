@@ -16,6 +16,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.bumptech.glide.Glide;
 import com.inu.amadda.R;
 import com.inu.amadda.etc.Constant;
+import com.inu.amadda.model.SuccessResponse;
 import com.inu.amadda.model.UserImageResponse;
 import com.inu.amadda.model.UserProfileResponse;
 import com.inu.amadda.network.RetrofitInstance;
@@ -23,15 +24,18 @@ import com.inu.amadda.util.PreferenceManager;
 import com.inu.amadda.view.fragment.ImageBottomSheetDialog;
 import com.yanzhenjie.album.Album;
 
+import java.io.File;
+
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class EditProfileActivity extends AppCompatActivity {
 
-    private static final int EDIT = 100, DELETE = 200, NONE = 300;
-    private int EDIT_MODE = NONE;
     private String token, imagePath = null;
 
     private CircleImageView iv_profile;
@@ -182,6 +186,41 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     private void uploadUserImage() {
+        File file = new File(imagePath);
+        RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), file);
+        MultipartBody.Part multipart = MultipartBody.Part.createFormData("user_image", file.getName(), requestBody);
+
+        RetrofitInstance.getInstance().getService().UploadUserImage(token, multipart).enqueue(new Callback<SuccessResponse>() {
+            @Override
+            public void onResponse(Call<SuccessResponse> call, Response<SuccessResponse> response) {
+                int status = response.code();
+                if (response.isSuccessful()) {
+                    SuccessResponse successResponse = response.body();
+                    if (successResponse != null) {
+                        if (successResponse.success) {
+                            finish();
+                        }
+                        else {
+                            Toast.makeText(getApplicationContext(), "잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                            Log.d("EditProfileActivity", successResponse.message);
+                        }
+                    }
+                    else {
+                        Toast.makeText(getApplicationContext(), "잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                    Log.d("EditProfileActivity", status + "");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SuccessResponse> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "인터넷 연결 상태를 확인해주세요.", Toast.LENGTH_SHORT).show();
+                Log.d("EditProfileActivity", t.getMessage());
+            }
+        });
     }
 
     private void deleteUserImage() {
@@ -200,14 +239,14 @@ public class EditProfileActivity extends AppCompatActivity {
                 break;
             }
             case R.id.toolbar_right_text:{
-                if (EDIT_MODE == EDIT) {
-                    uploadUserImage();
+                if (imagePath == null) {
+                    finish();
                 }
-                else if (EDIT_MODE == DELETE) {
+                else if (imagePath.equals("default")) {
                     deleteUserImage();
                 }
                 else {
-                    finish();
+                    uploadUserImage();
                 }
                 break;
             }
