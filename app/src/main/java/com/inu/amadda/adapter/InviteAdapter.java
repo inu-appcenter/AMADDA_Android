@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.inu.amadda.R;
 import com.inu.amadda.model.InviteUserData;
 
@@ -50,6 +51,8 @@ public class InviteAdapter extends RecyclerView.Adapter<InviteAdapter.ViewHolder
         Glide.with(holder.imageView.getContext()).load(item.getPath())
                 .thumbnail(0.1f)
                 .error(R.drawable.group_profile)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
                 .into(holder.imageView);
     }
 

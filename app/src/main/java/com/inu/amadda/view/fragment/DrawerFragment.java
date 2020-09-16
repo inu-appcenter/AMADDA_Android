@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.inu.amadda.R;
 import com.inu.amadda.adapter.GroupListAdapter;
 import com.inu.amadda.database.AppDatabase;
@@ -112,6 +113,8 @@ public class DrawerFragment extends Fragment {
                                 Glide.with(getContext()).load(data.getPath())
                                         .thumbnail(0.5f)
                                         .error(R.drawable.group_profile)
+                                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                        .skipMemoryCache(true)
                                         .into(iv_image);
                             }
                             tv_major.setText(data.getMajor());

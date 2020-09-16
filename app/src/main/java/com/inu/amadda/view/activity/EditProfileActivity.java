@@ -14,6 +14,7 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.inu.amadda.R;
 import com.inu.amadda.etc.Constant;
 import com.inu.amadda.model.SuccessResponse;
@@ -124,6 +125,8 @@ public class EditProfileActivity extends AppCompatActivity {
                                         .load(userImageResponse.path)
                                         .error(R.drawable.edit_profile)
                                         .placeholder(R.drawable.edit_profile)
+                                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                        .skipMemoryCache(true)
                                         .into(iv_profile);
                             }
                         }

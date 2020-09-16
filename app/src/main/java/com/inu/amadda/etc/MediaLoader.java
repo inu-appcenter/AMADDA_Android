@@ -3,6 +3,7 @@ package com.inu.amadda.etc;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.inu.amadda.R;
 import com.yanzhenjie.album.AlbumFile;
 import com.yanzhenjie.album.AlbumLoader;
@@ -20,6 +21,8 @@ public class MediaLoader implements AlbumLoader {
                 .load(url)
                 .error(R.drawable.edit_profile)
                 .placeholder(R.drawable.edit_profile)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
                 .into(imageView);
     }
 }
