@@ -109,4 +109,7 @@ public interface RetrofitService {
     @POST("image")
     Call<SuccessResponse> UploadUserImage(@Header("token") String token, @Part MultipartBody.Part user_image);
 
+    @DELETE("image")
+    Call<SuccessResponse> DeleteUserImage(@Header("token") String token);
+
 }

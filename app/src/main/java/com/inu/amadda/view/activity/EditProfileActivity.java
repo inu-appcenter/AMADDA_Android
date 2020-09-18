@@ -227,6 +227,37 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     private void deleteUserImage() {
+        RetrofitInstance.getInstance().getService().DeleteUserImage(token).enqueue(new Callback<SuccessResponse>() {
+            @Override
+            public void onResponse(Call<SuccessResponse> call, Response<SuccessResponse> response) {
+                int status = response.code();
+                if (response.isSuccessful()) {
+                    SuccessResponse successResponse = response.body();
+                    if (successResponse != null) {
+                        if (successResponse.success) {
+                            finish();
+                        }
+                        else {
+                            Toast.makeText(getApplicationContext(), "잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                            Log.d("EditProfileActivity", successResponse.message);
+                        }
+                    }
+                    else {
+                        Toast.makeText(getApplicationContext(), "잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                    Log.d("EditProfileActivity", status + "");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SuccessResponse> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "인터넷 연결 상태를 확인해주세요.", Toast.LENGTH_SHORT).show();
+                Log.d("EditProfileActivity", t.getMessage());
+            }
+        });
     }
 
     private void showBottomSheetDialog() {
