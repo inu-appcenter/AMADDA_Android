@@ -14,8 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.inu.amadda.R;
 import com.inu.amadda.model.DaySchedule;
-import com.inu.amadda.timetable.Schedule;
-import com.inu.amadda.timetable.Time;
 import com.inu.amadda.view.activity.EditClassActivity;
 import com.inu.amadda.view.activity.EditScheduleActivity;
 
@@ -52,7 +50,7 @@ public class DayScheduleAdapter extends RecyclerView.Adapter<DayScheduleAdapter.
     @Override
     public DayScheduleAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         mContext = parent.getContext();
-        return new DayScheduleAdapter.ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_schedule_list, parent, false));
+        return new DayScheduleAdapter.ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_day_schedule, parent, false));
     }
 
     @Override

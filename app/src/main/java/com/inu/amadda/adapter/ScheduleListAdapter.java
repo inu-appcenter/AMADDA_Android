@@ -16,11 +16,15 @@ import com.inu.amadda.R;
 import com.inu.amadda.database.AppDatabase;
 import com.inu.amadda.etc.Constant;
 import com.inu.amadda.model.ScheduleData;
+import com.inu.amadda.util.DateUtils;
 import com.inu.amadda.util.PreferenceManager;
 import com.inu.amadda.view.activity.EditScheduleActivity;
-import com.inu.amadda.view.activity.ScheduleListActivity;
+
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.format.DateTimeFormatter;
 
 import java.util.List;
+import java.util.Locale;
 
 public class ScheduleListAdapter extends RecyclerView.Adapter<ScheduleListAdapter.ViewHolder> {
 
@@ -75,7 +79,7 @@ public class ScheduleListAdapter extends RecyclerView.Adapter<ScheduleListAdapte
     public void onBindViewHolder(@NonNull ScheduleListAdapter.ViewHolder holder, int position) {
         ScheduleData item = mList.get(position);
         holder.tv_name.setText(item.getSchedule_name());
-        holder.tv_time.setText(item.getStart() + " " +item.getEnd());  //TODO 디자인에 맞게
+        holder.tv_time.setText(formatDateTimeString(item.getStart()) + "에서\n" +formatDateTimeString(item.getEnd()) + "까지");
         holder.tv_location.setText(item.getLocation());
         holder.tv_memo.setText(item.getMemo());
         holder.cv_schedule.setOnClickListener(view -> {
@@ -90,6 +94,11 @@ public class ScheduleListAdapter extends RecyclerView.Adapter<ScheduleListAdapte
     @Override
     public int getItemCount() {
         return mList.size();
+    }
+
+    private String formatDateTimeString(String string){
+        LocalDateTime dateTime = LocalDateTime.parse(string, DateTimeFormatter.ofPattern(DateUtils.dateTimeFormat));
+        return dateTime.format(DateTimeFormatter.ofPattern("yyyy년 M월 d일 (E) HH:mm", Locale.KOREAN));
     }
 
 }
